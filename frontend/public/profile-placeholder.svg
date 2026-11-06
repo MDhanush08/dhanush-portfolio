@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#22D3EE" />
+    </linearGradient>
+    <linearGradient id="accentGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4F46E5" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#0891B2" stop-opacity="0.1" />
+    </linearGradient>
+    <clipPath id="avatarClip">
+      <rect x="0" y="0" width="400" height="400" rx="32" />
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#avatarClip)">
+    <!-- Card Background -->
+    <rect width="400" height="400" fill="url(#bgGrad)" />
+    
+    <!-- Subtle Grid Lines -->
+    <path d="M0 80 H400 M0 160 H400 M0 240 H400 M0 320 H400" stroke="#334155" stroke-width="1" stroke-dasharray="4 6" opacity="0.4" />
+    <path d="M80 0 V400 M160 0 V400 M240 0 V400 M320 0 V400" stroke="#334155" stroke-width="1" stroke-dasharray="4 6" opacity="0.4" />
+    
+    <!-- Aura Glow Circle -->
+    <circle cx="200" cy="180" r="120" fill="url(#accentGlow)" />
+    
+    <!-- Stylized Head Silhouette -->
+    <circle cx="200" cy="150" r="54" fill="#334155" />
+    <!-- Modern Glasses / Visor -->
+    <rect x="165" y="142" width="70" height="16" rx="8" fill="url(#primaryGrad)" />
+    <path d="M185 150 H215" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+    
+    <!-- Stylized Shoulders / Body -->
+    <path d="M110 320 C110 240, 145 220, 200 220 C255 220, 290 240, 290 320 Z" fill="#1E293B" stroke="#475569" stroke-width="2" />
+    
+    <!-- Inner Hoodie / Collar Line -->
+    <path d="M165 224 L200 265 L235 224" fill="none" stroke="url(#primaryGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- Code Bracket Accents -->
+    <text x="50" y="210" font-family="monospace" font-size="32" font-weight="700" fill="#6366F1" opacity="0.5">&lt;/&gt;</text>
+    <text x="310" y="210" font-family="monospace" font-size="32" font-weight="700" fill="#22D3EE" opacity="0.5">{ ; }</text>
+
+    <!-- Bottom Badge -->
+    <rect x="130" y="340" width="140" height="32" rx="16" fill="#0F172A" stroke="#334155" stroke-width="1" />
+    <circle cx="148" cy="356" r="4" fill="#10B981" />
+    <text x="162" y="361" font-family="'Space Grotesk', system-ui, sans-serif" font-size="12" font-weight="600" fill="#E2E8F0" letter-spacing="0.5">DHANUSH M</text>
+  </g>
+</svg>

@@ -1,122 +1,61 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import React, { Suspense, lazy } from 'react';
+import { Navbar } from './components/layout/Navbar';
+import { Footer } from './components/layout/Footer';
+import { Hero } from './components/sections/Hero';
+import { About } from './components/sections/About';
+import { Skills } from './components/sections/Skills';
+import { Experience } from './components/sections/Experience';
+import { Projects } from './components/sections/Projects';
+import { Education } from './components/sections/Education';
+import { Contact } from './components/sections/Contact';
+import { BackToTop } from './components/ui/BackToTop';
 
-function App() {
-  const [count, setCount] = useState(0)
+// Code-split the floating AI Chatbot widget so it does not block the initial critical render path
+const ChatWidget = lazy(() =>
+  import('./components/chatbot/ChatWidget').then((mod) => ({ default: mod.ChatWidget }))
+);
 
+export const App: React.FC = () => {
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="min-h-screen bg-(--color-bg) text-(--color-text) flex flex-col selection:bg-(--color-primary)/20 selection:text-(--color-primary) relative">
+      {/* Accessible Skip Link */}
+      <a href="#main-content" className="skip-link sr-only focus:not-sr-only">
+        Skip to main content
+      </a>
 
-      <div className="ticks"></div>
+      {/* 400px Top Sentinel for IntersectionObserver-based BackToTop button (zero scroll listeners) */}
+      <div
+        id="top-sentinel"
+        className="absolute top-0 left-0 w-full h-[400px] pointer-events-none -z-50"
+        aria-hidden="true"
+      />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      {/* Sticky Header / Navbar */}
+      <Navbar />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
-}
+      {/* Main Content Sections */}
+      <main id="main-content" className="flex-1">
+        <Hero />
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Education />
+        <Contact />
+      </main>
 
-export default App
+      {/* Footer */}
+      <Footer />
+
+      {/* Back To Top Button (sits above the chatbot toggle) */}
+      <BackToTop sentinelId="top-sentinel" />
+
+      {/* Dhanush AI Chatbot Widget (bottom-right floating panel) */}
+      <Suspense fallback={null}>
+        <ChatWidget />
+      </Suspense>
+    </div>
+  );
+};
+
+export default App;
