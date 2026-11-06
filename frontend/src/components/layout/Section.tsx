@@ -5,9 +5,10 @@ import { cn } from '../../lib/utils';
 export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   id: string;
   children: React.ReactNode;
-  containerSize?: 'default' | 'narrow' | 'wide';
+  containerSize?: 'default' | 'narrow' | 'wide' | 'full';
   className?: string;
   containerClassName?: string;
+  background?: React.ReactNode;
 }
 
 export const Section = React.forwardRef<HTMLElement, SectionProps>(
@@ -18,6 +19,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       containerSize = 'default',
       className,
       containerClassName,
+      background,
       ...props
     },
     ref
@@ -26,13 +28,14 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       <section
         ref={ref}
         id={id}
-        // scroll-mt-20 ensures that navigating to #id accounts for the ~64px sticky navbar
+        // scroll-mt-20 accounts for the ~64px fixed navbar; py-[clamp(64px,9vw,144px)] provides fluid vertical rhythm
         className={cn(
-          'relative w-full py-16 sm:py-20 lg:py-28 scroll-mt-20 overflow-hidden',
+          'relative w-full py-[clamp(64px,9vw,144px)] scroll-mt-20 overflow-clip',
           className
         )}
         {...props}
       >
+        {background}
         <Container size={containerSize} className={containerClassName}>
           {children}
         </Container>

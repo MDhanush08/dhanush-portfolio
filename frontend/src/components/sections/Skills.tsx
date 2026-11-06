@@ -147,8 +147,8 @@ export const Skills: React.FC = () => {
         </div>
       </div>
 
-      {/* Grouped Cards Grid - NO counts, group titles only */}
-      <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Grouped Cards Grid - Auto-fit minmax(280px, 1fr) for fluid scaling across wide screens */}
+      <div ref={gridRef} className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
         {portfolioData.skillGroups.map((group, groupIdx) => (
           <Card
             key={groupIdx}

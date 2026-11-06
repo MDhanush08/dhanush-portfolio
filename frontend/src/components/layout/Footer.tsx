@@ -4,9 +4,9 @@ import { portfolioData } from '../../data/portfolio';
 import { Mail } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
-export const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
+const CURRENT_YEAR = new Date().getFullYear();
 
+export const Footer: React.FC = () => {
   return (
     <footer className="w-full border-t border-(--color-border) bg-(--color-surface) py-10 transition-colors duration-200">
       <Container className="space-y-6">
@@ -79,7 +79,7 @@ export const Footer: React.FC = () => {
         {/* Thin Divider & Bottom Metadata */}
         <div className="pt-4 border-t border-(--color-border)/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs font-mono text-(--color-muted)">
           <div>
-            © {currentYear} Dhanush M. All rights reserved.
+            © {CURRENT_YEAR} Dhanush M. All rights reserved.
           </div>
           <div>
             Built with React and GSAP.

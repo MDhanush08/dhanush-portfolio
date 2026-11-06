@@ -4,7 +4,7 @@ import { cn } from '../../lib/utils';
 export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
-  size?: 'default' | 'narrow' | 'wide';
+  size?: 'default' | 'narrow' | 'wide' | 'full';
 }
 
 export const Container: React.FC<ContainerProps> = ({
@@ -15,14 +15,15 @@ export const Container: React.FC<ContainerProps> = ({
 }) => {
   const maxSizes = {
     narrow: 'max-w-4xl',
-    default: 'max-w-[1200px]',
-    wide: 'max-w-7xl',
+    default: 'max-w-[1680px]',
+    wide: 'max-w-[1680px]',
+    full: 'max-w-none',
   };
 
   return (
     <div
       className={cn(
-        'w-full mx-auto px-4 sm:px-6 lg:px-8',
+        'w-full mx-auto px-[clamp(20px,5vw,96px)]',
         maxSizes[size],
         className
       )}

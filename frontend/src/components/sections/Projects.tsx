@@ -120,9 +120,9 @@ export const Projects: React.FC = () => {
                   aria-hidden="true"
                 />
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-9 items-center">
-                  {/* Left Column: Index & Project Details */}
-                  <div className="lg:col-span-7 space-y-4">
+                <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] xl:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-center w-full">
+                  {/* Left Column: Index & Project Details (comfortable text column) */}
+                  <div className="space-y-4 max-w-[65ch]">
                     {/* Index + Badge Row */}
                     <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-(--color-border)">
                       <div className="flex items-center gap-3">
@@ -236,7 +236,7 @@ export const Projects: React.FC = () => {
                   </div>
 
                   {/* Right Column: Visual Panel with Parallax on desktop */}
-                  <div className="lg:col-span-5 flex justify-center">
+                  <div className="flex justify-center w-full">
                     <div className="project-visual-panel w-full transition-transform duration-300">
                       <ProjectPlaceholder
                         type={project.placeholderType}

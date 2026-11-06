@@ -240,37 +240,38 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
     <>
       <Section
         id="hero"
-        className="min-h-[calc(100vh-4rem)] flex flex-col justify-center pt-8 pb-12 sm:pt-12 sm:pb-16 relative"
+        className="min-h-[calc(100svh-4rem)] flex flex-col justify-center py-6 sm:py-10 lg:py-14 relative overflow-clip"
         containerClassName="relative z-10 flex-1 flex flex-col justify-center"
+        background={
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 overflow-clip"
+            aria-hidden="true"
+          >
+            {/* Static soft radial glow backgrounds sized in vw so they scale with screen */}
+            <div
+              className="absolute -top-[15vw] -right-[10vw] w-[45vw] min-w-[360px] max-w-[850px] aspect-square rounded-full opacity-35 dark:opacity-25"
+              style={{
+                background:
+                  'radial-gradient(circle, var(--primary) 0%, rgba(99, 102, 241, 0.08) 55%, transparent 70%)',
+              }}
+            />
+            <div
+              className="absolute -bottom-[10vw] -left-[10vw] w-[40vw] min-w-[320px] max-w-[750px] aspect-square rounded-full opacity-30 dark:opacity-20"
+              style={{
+                background:
+                  'radial-gradient(circle, var(--secondary) 0%, rgba(34, 211, 238, 0.05) 55%, transparent 70%)',
+              }}
+            />
+            <div className="absolute inset-0 bg-grid-pattern opacity-25 dark:opacity-20" />
+          </div>
+        }
       >
-        {/* Static soft radial glow backgrounds */}
-        <div
-          className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-          aria-hidden="true"
-        >
-          <div
-            className="absolute top-[-15%] right-[-10%] w-[550px] h-[550px] rounded-full opacity-35 dark:opacity-25"
-            style={{
-              background:
-                'radial-gradient(circle, var(--primary) 0%, rgba(99, 102, 241, 0.08) 50%, transparent 70%)',
-            }}
-          />
-          <div
-            className="absolute bottom-[-10%] left-[-10%] w-[450px] h-[450px] rounded-full opacity-30 dark:opacity-20"
-            style={{
-              background:
-                'radial-gradient(circle, var(--secondary) 0%, rgba(34, 211, 238, 0.05) 50%, transparent 70%)',
-            }}
-          />
-          <div className="absolute inset-0 bg-grid-pattern opacity-25 dark:opacity-20" />
-        </div>
-
         <div
           ref={heroContainerRef}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center w-full"
+          className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-[clamp(32px,5vw,96px)] items-center w-full"
         >
           {/* Left Column: Typography & CTAs */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left w-full">
+          <div className="flex flex-col items-start text-left w-full">
             {/* Status Pill Badge */}
             <div
               ref={statusBadgeRef}
@@ -292,7 +293,7 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
             <h1
               ref={h1Ref}
               className="font-sans font-bold text-(--color-text) tracking-[-0.03em] leading-[1.05] mb-2.5 break-words max-w-full"
-              style={{ fontSize: 'clamp(2.5rem, 1.8rem + 4.2vw, 5.25rem)' }}
+              style={{ fontSize: 'clamp(2.5rem, 1.8rem + 4.5vw, 5.5rem)' }}
             >
               Dhanush{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-(--color-primary) to-(--color-secondary)">
@@ -303,7 +304,8 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
             {/* Subtitle */}
             <p
               ref={subtitleRef}
-              className="font-sans font-semibold text-xl sm:text-2xl lg:text-3xl text-(--color-text)/90 tracking-tight mb-2"
+              className="font-sans font-semibold text-(--color-text)/90 tracking-tight mb-2"
+              style={{ fontSize: 'clamp(1.25rem, 1rem + 1.2vw, 2.25rem)' }}
             >
               {portfolioData.role}
             </p>
@@ -416,9 +418,9 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
           {/* Right Column: Hero Profile Photo Frame + Floating Badges */}
           <div
             ref={photoContainerRef}
-            className="lg:col-span-5 flex justify-center lg:justify-end w-full relative"
+            className="flex justify-center lg:justify-end w-full relative"
           >
-            <div className="relative w-full max-w-[340px] sm:max-w-[380px]">
+            <div className="relative w-[clamp(280px,34vw,560px)] aspect-[4/5] mx-auto lg:ml-auto">
               {/* Outer Decorative Offset Outline */}
               <div
                 className="absolute -inset-2 rounded-2xl border border-(--color-border) -z-10 opacity-70"
@@ -426,9 +428,9 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
               />
 
               {/* Decorative Gradient Border Container */}
-              <div className="p-1 rounded-2xl bg-gradient-to-tr from-(--color-primary) via-(--color-secondary)/50 to-transparent shadow-2xl">
+              <div className="p-1 h-full w-full rounded-2xl bg-gradient-to-tr from-(--color-primary) via-(--color-secondary)/50 to-transparent shadow-2xl">
                 {/* 4:5 Aspect Ratio Photo Container */}
-                <div className="relative w-full aspect-[4/5] rounded-[14px] overflow-hidden bg-(--color-surface) border border-(--color-border)">
+                <div className="relative w-full h-full rounded-[14px] overflow-hidden bg-(--color-surface) border border-(--color-border)">
                   {/* Mask Overlay for Entrance Animation */}
                   <div
                     ref={photoMaskRef}
@@ -486,8 +488,8 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
                 {/* Badge 1: NestJS (Top Left) */}
                 <div
                   ref={badge1Ref}
-                  className="floating-badge absolute -top-3 -left-3 px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
-                  style={{ animationDuration: '4.8s' }}
+                  className="floating-badge absolute px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
+                  style={{ top: '3%', left: '-5%', animationDuration: '4.8s' }}
                 >
                   <SiNestjs className="w-3.5 h-3.5 text-[#E0234E]" />
                   <span>NestJS</span>
@@ -496,8 +498,8 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
                 {/* Badge 2: React (Top Right) */}
                 <div
                   ref={badge2Ref}
-                  className="floating-badge absolute top-8 -right-3 px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
-                  style={{ animationDuration: '5.6s', animationDelay: '-1.5s' }}
+                  className="floating-badge absolute px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
+                  style={{ top: '10%', right: '-5%', animationDuration: '5.6s', animationDelay: '-1.5s' }}
                 >
                   <SiReact className="w-3.5 h-3.5 text-[#61DAFB]" />
                   <span>React.js</span>
@@ -506,8 +508,8 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
                 {/* Badge 3: Angular (Middle Left) */}
                 <div
                   ref={badge3Ref}
-                  className="floating-badge absolute top-1/2 -left-4 px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
-                  style={{ animationDuration: '6.2s', animationDelay: '-3s' }}
+                  className="floating-badge absolute px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
+                  style={{ top: '48%', left: '-6%', animationDuration: '6.2s', animationDelay: '-3s' }}
                 >
                   <SiAngular className="w-3.5 h-3.5 text-[#DD0031]" />
                   <span>Angular</span>
@@ -515,8 +517,8 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
 
                 {/* Badge 4: PostgreSQL (Bottom Right) */}
                 <div
-                  className="floating-badge absolute bottom-10 -right-3 px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
-                  style={{ animationDuration: '5.2s', animationDelay: '-0.8s' }}
+                  className="floating-badge absolute px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
+                  style={{ bottom: '14%', right: '-5%', animationDuration: '5.2s', animationDelay: '-0.8s' }}
                 >
                   <SiPostgresql className="w-3.5 h-3.5 text-[#4169E1]" />
                   <span>PostgreSQL</span>
@@ -524,8 +526,8 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
 
                 {/* Badge 5: Docker (Bottom Left) */}
                 <div
-                  className="floating-badge absolute -bottom-2 left-6 px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
-                  style={{ animationDuration: '4.4s', animationDelay: '-2.2s' }}
+                  className="floating-badge absolute px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
+                  style={{ bottom: '-3%', left: '8%', animationDuration: '4.4s', animationDelay: '-2.2s' }}
                 >
                   <SiDocker className="w-3.5 h-3.5 text-[#2496ED]" />
                   <span>Docker</span>

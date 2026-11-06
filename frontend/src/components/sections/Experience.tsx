@@ -96,7 +96,7 @@ export const Experience: React.FC = () => {
         description="Delivering multi-role enterprise SaaS platforms, resilient APIs, and client systems."
       />
 
-      <div ref={timelineRef} className="relative max-w-4xl mr-auto">
+      <div ref={timelineRef} className="relative w-full">
         {/* Background Guide Line */}
         <div
           className="absolute left-4 sm:left-6 top-3 bottom-6 w-0.5 bg-(--color-border)"

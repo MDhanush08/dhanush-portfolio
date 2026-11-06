@@ -218,9 +218,9 @@ export const Contact: React.FC = () => {
           </Card>
         </div>
 
-        {/* Right Column: Contact Form */}
+        {/* Right Column: Contact Form (max-w-[640px] left-aligned for comfortable form ergonomics) */}
         <div ref={formCardRef} className="lg:col-span-7">
-          <Card className="p-6 sm:p-7 rounded-2xl">
+          <Card className="p-6 sm:p-7 rounded-2xl max-w-[640px]">
             <div className="pb-3.5 mb-5 border-b border-(--color-border)">
               <h3 className="font-sans font-semibold text-lg sm:text-xl text-(--color-text) mb-1">
                 Send a Message

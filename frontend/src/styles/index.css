@@ -54,6 +54,15 @@
 }
 
 /* Base Styles & Typography */
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 html {
   background-color: var(--bg);
   color: var(--text);
@@ -67,21 +76,18 @@ html {
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 1rem; /* 16px mobile */
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem); /* scales smoothly from 16px to 18px on large screens */
   font-weight: 400;
   line-height: 1.7;
 }
 
-@media (min-width: 768px) {
-  body {
-    font-size: 1.0625rem; /* 17px tablet/desktop */
-  }
+#root {
+  display: flex;
+  flex-direction: column;
 }
 
 p {

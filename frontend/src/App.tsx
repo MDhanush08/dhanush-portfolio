@@ -1,4 +1,5 @@
-import React, { Suspense, lazy, useState } from 'react';
+import React, { Suspense, lazy, useState, useEffect } from 'react';
+import { ScrollTrigger } from './lib/gsap';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { Hero } from './components/sections/Hero';
@@ -24,8 +25,17 @@ export const App: React.FC = () => {
     return !!(seen || prefersReduced);
   });
 
+  // Refresh ScrollTrigger calculations after web fonts and layout dimensions settle
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.fonts.ready.then(() => {
+        ScrollTrigger.refresh();
+      });
+    }
+  }, []);
+
   return (
-    <div className="min-h-screen bg-(--color-bg) text-(--color-text) flex flex-col selection:bg-(--color-primary) selection:text-white relative">
+    <div className="min-h-screen w-full bg-(--color-bg) text-(--color-text) flex flex-col selection:bg-(--color-primary) selection:text-white relative">
       {/* Cinematic Intro (Session-only, skipped under reduced-motion) */}
       <CinematicIntro
         onHeroStart={() => setHeroEntranceStarted(true)}
@@ -48,7 +58,7 @@ export const App: React.FC = () => {
       <Navbar />
 
       {/* Main Content Sections */}
-      <main id="main-content" className="flex-1">
+      <main id="main-content" className="flex-1 w-full">
         <Hero startEntrance={heroEntranceStarted} />
         <About />
         <Skills />
