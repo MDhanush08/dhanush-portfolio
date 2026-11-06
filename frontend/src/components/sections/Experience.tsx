@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { Section } from '../layout/Section';
 import { SplitHeading } from '../ui/SplitHeading';
 import { Card } from '../ui/Card';
-import { Chip } from '../ui/Chip';
 import { portfolioData } from '../../data/portfolio';
 import { Briefcase, Calendar, MapPin, CheckCircle2, FolderGit2 } from 'lucide-react';
 import { useGSAP } from '@gsap/react';

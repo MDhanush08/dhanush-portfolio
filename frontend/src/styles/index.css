@@ -60,6 +60,7 @@ html {
   font-family: var(--font-sans);
   transition: background-color 200ms ease, color 200ms ease;
   scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -196,4 +197,13 @@ p {
   .animate-gentle-float {
     animation: none !important;
   }
+}
+
+/* Hide floating widgets when mobile drawer is open */
+body.drawer-open button[aria-label="Back to top"],
+body.drawer-open button[aria-label="Open AI Assistant Chat"],
+body.drawer-open [role="dialog"][aria-label="Dhanush Portfolio AI Assistant"] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
 }
