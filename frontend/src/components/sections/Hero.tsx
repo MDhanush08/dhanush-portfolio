@@ -1,0 +1,197 @@
+import { useRef, useState, memo } from 'react'
+import { ArrowDownRight, ArrowRight, MapPin, ChevronDown, Code2, ArrowUpRight } from 'lucide-react'
+import { Container } from '../layout/Container'
+import { HeroVisualSvg } from '../ui/HeroVisualSvg'
+import { profile } from '../../data/portfolio'
+import { useGSAP, gsap } from '../../lib/gsap'
+
+export const Hero = memo(function Hero() {
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const [imgError, setImgError] = useState(false)
+
+  // Scoped GSAP entrance animation (one short timeline, no looping, respects reduced motion)
+  useGSAP(
+    () => {
+      if (typeof window === 'undefined') return
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+      const tl = gsap.timeline({
+        defaults: { ease: 'power3.out', duration: 0.65 },
+      })
+
+      // Staggered text elements entrance
+      tl.from('.hero-animate', {
+        y: 18,
+        opacity: 0,
+        stagger: 0.07,
+      }, 0)
+
+      // Signature visual frame entrance
+      tl.from(
+        '.hero-visual-frame',
+        {
+          opacity: 0,
+          scale: 0.98,
+          duration: 0.7,
+        },
+        0.1
+      )
+    },
+    { scope: containerRef }
+  )
+
+  const scrollToWork = () => {
+    document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const scrollToAbout = () => {
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  return (
+    <section
+      ref={containerRef}
+      className="relative w-full min-h-[calc(100svh-72px)] flex flex-col justify-center bg-[var(--bg)] py-12 lg:py-16 overflow-hidden"
+    >
+      <Container className="w-full h-full flex flex-col justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-[clamp(32px,5vw,96px)] items-center">
+          {/* Left Column: Text & Meta */}
+          <div className="flex flex-col items-start text-left z-10">
+            {/* Small label row with lime dot, title, hairline, location */}
+            <div className="hero-animate flex items-center gap-3 text-xs uppercase font-medium tracking-[0.08em] text-[var(--muted)] mb-4">
+              <span className="w-2 h-2 rounded-full bg-[#A8E600] shrink-0" />
+              <span>SOFTWARE DEVELOPER</span>
+              <span className="w-6 h-[1px] bg-[var(--line)]" />
+              <span>TRICHY, INDIA</span>
+            </div>
+
+            {/* Huge Two-line H1 */}
+            <h1 className="hero-animate text-[clamp(3.5rem,11vw,9rem)] font-semibold tracking-[-0.03em] leading-[0.95] mb-4 select-none">
+              <span className="block text-[var(--ink)]">{profile.firstName}</span>
+              <span className="block text-[var(--muted)]">{profile.lastName}</span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="hero-animate text-[clamp(1.25rem,2vw,1.75rem)] font-medium text-[var(--ink)] tracking-tight mb-4">
+              Software Developer{' '}
+              <span className="text-[var(--muted)] font-normal">{profile.roleSpecialization}</span>
+            </p>
+
+            {/* Tagline */}
+            <p className="hero-animate text-base md:text-lg text-[var(--muted)] leading-relaxed max-w-[44ch] mb-8">
+              {profile.tagline}
+            </p>
+
+            {/* Action Buttons */}
+            <div className="hero-animate flex flex-wrap items-center gap-5 sm:gap-6 mb-12">
+              {/* Primary Solid Button */}
+              <button
+                type="button"
+                onClick={scrollToWork}
+                className="group inline-flex items-center gap-2 h-12 px-6 bg-[var(--ink)] text-[var(--bg)] rounded-[2px] font-medium text-sm sm:text-base border border-[var(--ink)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)]"
+              >
+                <span>Explore my work</span>
+                <ArrowDownRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
+              </button>
+
+              {/* Text Link */}
+              <button
+                type="button"
+                onClick={scrollToAbout}
+                className="group inline-flex items-center gap-2 text-sm sm:text-base font-medium text-[var(--ink)] hover:underline hover:decoration-2 hover:underline-offset-6 transition-all cursor-pointer"
+              >
+                <span>A little about me</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </button>
+            </div>
+
+            {/* Meta Row: "02 years building" | "Tiruchirappalli, Tamil Nadu" */}
+            <div className="hero-animate pt-6 border-t border-[var(--line)] w-full flex items-center gap-6 sm:gap-8 text-xs text-[var(--muted)]">
+              <div className="flex items-baseline gap-2">
+                <span className="text-2xl sm:text-3xl font-semibold text-[var(--ink)] tracking-tight">
+                  {profile.yearsExperience}
+                </span>
+                <span className="uppercase tracking-[0.08em] font-medium">{profile.yearsLabel}</span>
+              </div>
+
+              <div className="w-[1px] h-6 bg-[var(--line)]" />
+
+              <div className="flex items-center gap-2 text-[var(--muted)]">
+                <MapPin className="w-4 h-4 text-[#A8E600] shrink-0" />
+                <span className="font-medium">Tiruchirappalli, Tamil Nadu</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Signature Visual Element */}
+          <div className="relative flex justify-center lg:justify-end w-full">
+            <div className="hero-visual-frame relative w-full max-w-[420px] lg:max-w-[560px] aspect-[4/5] p-3 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] shadow-sm">
+              {/* Lime circular sticker at top-left: "BUILD WITH CARE." rotated ~ -8deg */}
+              <div className="absolute -top-6 -left-6 z-20 w-[96px] h-[96px] sm:w-[104px] sm:h-[104px] rounded-full bg-[#A8E600] text-[#14110D] flex flex-col items-center justify-center text-center font-bold tracking-tight rotate-[-8deg] shadow-md select-none border border-[#14110D]/10">
+                <span className="text-[11px] sm:text-xs leading-none">BUILD</span>
+                <span className="text-[11px] sm:text-xs leading-none">WITH</span>
+                <span className="text-[11px] sm:text-xs leading-none">CARE.</span>
+              </div>
+
+              {/* Vertical label at right edge (screens >= 1100px) */}
+              <div className="hidden xl:block absolute -right-8 top-1/2 -translate-y-1/2 [writing-mode:vertical-rl] text-[9px] uppercase tracking-[0.16em] font-medium text-[var(--muted)] select-none">
+                DESIGN / ENGINEERING / DETAIL
+              </div>
+
+              {/* Inner visual container */}
+              <div className="relative w-full h-full overflow-hidden bg-[var(--bg-alt)] rounded-[1px]">
+                {!imgError ? (
+                  <img
+                    src="/hero.webp"
+                    width={800}
+                    height={1000}
+                    alt="Isometric 3D composition with matte stone cubes and lime nodes"
+                    fetchPriority="high"
+                    decoding="async"
+                    onError={() => setImgError(true)}
+                    className="w-full h-full object-cover object-center select-none"
+                  />
+                ) : (
+                  <HeroVisualSvg className="w-full h-full object-cover" />
+                )}
+
+                {/* FIG. 01 caption at bottom-left */}
+                <div className="absolute left-3 bottom-3 text-[10px] uppercase tracking-[0.12em] font-mono text-[var(--muted)] bg-[var(--surface)]/80 px-2 py-0.5 rounded-[2px] select-none">
+                  FIG. 01
+                </div>
+              </div>
+
+              {/* Floating card overlapping bottom-right */}
+              <button
+                type="button"
+                onClick={scrollToAbout}
+                className="group absolute -bottom-6 -right-3 sm:-bottom-8 sm:-right-6 z-20 p-3 sm:p-3.5 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] shadow-lg flex items-center gap-3 text-left transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer"
+              >
+                <div className="w-9 h-9 rounded-[2px] bg-[#A8E600]/20 text-[var(--ink)] flex items-center justify-center shrink-0">
+                  <Code2 className="w-5 h-5 text-[#14110D]" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs sm:text-sm font-semibold text-[var(--ink)]">
+                      Thoughtful by design
+                    </span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[var(--muted)] group-hover:text-[var(--ink)] group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                  <span className="text-[11px] text-[var(--muted)]">
+                    Secure · Scalable · Human
+                  </span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Bottom-Left Static "SCROLL TO EXPLORE" */}
+        <div className="hidden lg:flex items-center gap-2 pt-8 text-[11px] uppercase tracking-[0.1em] font-medium text-[var(--muted)] select-none">
+          <span>SCROLL TO EXPLORE</span>
+          <ChevronDown className="w-3.5 h-3.5 text-[#A8E600]" />
+        </div>
+      </Container>
+    </section>
+  )
+})
