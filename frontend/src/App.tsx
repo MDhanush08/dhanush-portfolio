@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { Hero } from './components/sections/Hero';
@@ -9,6 +9,7 @@ import { Projects } from './components/sections/Projects';
 import { Education } from './components/sections/Education';
 import { Contact } from './components/sections/Contact';
 import { BackToTop } from './components/ui/BackToTop';
+import { CinematicIntro } from './components/ui/CinematicIntro';
 
 // Code-split the floating AI Chatbot widget so it does not block the initial critical render path
 const ChatWidget = lazy(() =>
@@ -16,8 +17,21 @@ const ChatWidget = lazy(() =>
 );
 
 export const App: React.FC = () => {
+  const [heroEntranceStarted, setHeroEntranceStarted] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return true;
+    const seen = sessionStorage.getItem('dhanush_intro_seen');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return !!(seen || prefersReduced);
+  });
+
   return (
-    <div className="min-h-screen bg-(--color-bg) text-(--color-text) flex flex-col selection:bg-(--color-primary)/20 selection:text-(--color-primary) relative">
+    <div className="min-h-screen bg-(--color-bg) text-(--color-text) flex flex-col selection:bg-(--color-primary) selection:text-white relative">
+      {/* Cinematic Intro (Session-only, skipped under reduced-motion) */}
+      <CinematicIntro
+        onHeroStart={() => setHeroEntranceStarted(true)}
+        onIntroComplete={() => setHeroEntranceStarted(true)}
+      />
+
       {/* Accessible Skip Link */}
       <a href="#main-content" className="skip-link sr-only focus:not-sr-only">
         Skip to main content
@@ -30,12 +44,12 @@ export const App: React.FC = () => {
         aria-hidden="true"
       />
 
-      {/* Sticky Header / Navbar */}
+      {/* Sticky Header / Navbar with scroll-hide, active underline, and top progress bar */}
       <Navbar />
 
       {/* Main Content Sections */}
       <main id="main-content" className="flex-1">
-        <Hero />
+        <Hero startEntrance={heroEntranceStarted} />
         <About />
         <Skills />
         <Experience />
@@ -44,10 +58,10 @@ export const App: React.FC = () => {
         <Contact />
       </main>
 
-      {/* Footer */}
+      {/* Footer with Oversized Wordmark */}
       <Footer />
 
-      {/* Back To Top Button (sits above the chatbot toggle) */}
+      {/* Back To Top Button with Circular Progress Ring */}
       <BackToTop sentinelId="top-sentinel" />
 
       {/* Dhanush AI Chatbot Widget (bottom-right floating panel) */}

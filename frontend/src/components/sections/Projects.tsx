@@ -1,130 +1,187 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { Section } from '../layout/Section';
-import { SectionHeading } from '../ui/SectionHeading';
+import { SplitHeading } from '../ui/SplitHeading';
 import { Card } from '../ui/Card';
 import { Chip } from '../ui/Chip';
 import { Button } from '../ui/Button';
-import { Reveal } from '../ui/Reveal';
 import { ProjectPlaceholder } from '../ui/ProjectPlaceholder';
 import { portfolioData } from '../../data/portfolio';
-import type { ProjectCategory, ProjectItem } from '../../types/portfolio';
-import { ExternalLink, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ExternalLink, Sparkles, CheckCircle2, Lock } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
-import { cn } from '../../lib/utils';
-
-const CATEGORIES: ProjectCategory[] = ['All', 'Full Stack', 'Frontend', 'Backend/AI'];
+import { useGSAP } from '@gsap/react';
+import { gsap } from '../../lib/gsap';
 
 export const Projects: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<ProjectCategory>('All');
+  const containerRef = useRef<HTMLElement>(null);
+  const stackCardsRef = useRef<HTMLDivElement>(null);
 
-  const filteredProjects = portfolioData.projects.filter((p) => {
-    if (selectedCategory === 'All') return true;
-    return p.category === selectedCategory;
-  });
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+
+      // Desktop Only (>= 1024px): Sticky Card Stacking and Parallax
+      mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+        if (!stackCardsRef.current) return;
+
+        const cards = stackCardsRef.current.querySelectorAll<HTMLElement>('.project-stack-card');
+
+        cards.forEach((card, i) => {
+          // If not the last card, animate scale and dim as subsequent cards stack on top
+          if (i < cards.length - 1) {
+            const nextCard = cards[i + 1];
+
+            gsap.to(card, {
+              scale: 0.94,
+              opacity: 0.6,
+              transformOrigin: 'top center',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: nextCard,
+                start: 'top 85%',
+                end: 'top 20%',
+                scrub: 0.3,
+              },
+            });
+          }
+
+          // Subtle inner parallax on the card's visual panel
+          const visual = card.querySelector('.project-visual-panel');
+          if (visual) {
+            gsap.fromTo(
+              visual,
+              { y: 12 },
+              {
+                y: -12,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: card,
+                  start: 'top bottom',
+                  end: 'bottom top',
+                  scrub: 0.4,
+                },
+              }
+            );
+          }
+        });
+      });
+
+      // Mobile / Reduced Motion: Reset all transforms
+      mm.add('(max-width: 1023px), (prefers-reduced-motion: reduce)', () => {
+        if (!stackCardsRef.current) return;
+        const cards = stackCardsRef.current.querySelectorAll<HTMLElement>('.project-stack-card');
+        cards.forEach((c) => {
+          c.style.transform = 'none';
+          c.style.opacity = '1';
+        });
+      });
+    },
+    { scope: containerRef }
+  );
 
   return (
-    <Section id="projects">
-      <SectionHeading
-        kicker="Featured Work"
-        title="Production"
-        titleHighlight="Projects &amp; Architectures"
-        description="A selection of enterprise SaaS platforms, client applications, and AI integrations."
+    <Section ref={containerRef} id="projects">
+      <SplitHeading
+        number="04"
+        kicker="Featured Projects"
+        title="Production Systems &amp;"
+        accent="Architectural"
+        titleEnd="Showcase"
+        description="A curation of multi-role SaaS applications, billing software, and intelligent computer vision platforms."
       />
 
-      {/* Lag-free category filter tabs */}
-      <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
-        {CATEGORIES.map((cat) => (
-          <button
-            key={cat}
-            type="button"
-            onClick={() => setSelectedCategory(cat)}
-            className={cn(
-              'px-4 py-2 rounded-[10px] text-xs sm:text-sm font-medium transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-(--color-primary)',
-              selectedCategory === cat
-                ? 'bg-gradient-to-r from-(--color-primary) to-(--color-secondary) text-white font-semibold shadow-sm'
-                : 'bg-(--color-surface-2) text-(--color-muted) hover:text-(--color-text) border border-(--color-border)'
-            )}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      {/* Projects Grid */}
-      <div className="space-y-8">
-        {filteredProjects.map((project: ProjectItem) => {
+      {/* Desktop Sticky Stacking Cards Container */}
+      <div ref={stackCardsRef} className="space-y-8 lg:space-y-12 relative">
+        {portfolioData.projects.map((project, idx) => {
+          const indexFormatted = String(idx + 1).padStart(2, '0');
           const isFeatured = project.isFeatured;
 
-          return (
-            <Reveal key={project.id}>
-              <Card
-                hoverEffect
-                className={cn(
-                  'overflow-hidden transition-all duration-200',
-                  isFeatured && 'border-(--color-primary)/50 bg-gradient-to-br from-(--color-surface) via-(--color-surface) to-(--color-surface-2)/60'
-                )}
-              >
-                <div
-                  className={cn(
-                    'grid grid-cols-1 gap-6 sm:gap-8 items-start',
-                    isFeatured ? 'lg:grid-cols-12' : 'lg:grid-cols-12'
-                  )}
-                >
-                  {/* Visual Preview Placeholder */}
-                  <div className={cn(isFeatured ? 'lg:col-span-5' : 'lg:col-span-4')}>
-                    <ProjectPlaceholder
-                      type={project.placeholderType}
-                      title={project.title}
-                      isPrivate={project.isPrivate}
-                    />
-                  </div>
+          // Compute increasing top offset for desktop sticky cards
+          const stickyTopOffset = 88 + idx * 24;
 
-                  {/* Content Column */}
-                  <div className={cn(isFeatured ? 'lg:col-span-7' : 'lg:col-span-8', 'space-y-4')}>
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        {isFeatured && (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-(--color-primary)/15 text-(--color-primary) text-[11px] font-mono font-bold tracking-wider uppercase">
-                            <Sparkles className="w-3 h-3" />
-                            Featured Flagship
-                          </span>
-                        )}
-                        <span className="text-xs font-mono text-(--color-muted) px-2 py-0.5 rounded bg-(--color-surface-2) border border-(--color-border)">
+          return (
+            <div
+              key={project.id}
+              className="project-stack-card lg:sticky transition-all duration-300"
+              style={{
+                top: `${stickyTopOffset}px`,
+              }}
+            >
+              <Card
+                className={`group relative overflow-hidden p-6 sm:p-8 lg:p-10 rounded-3xl border transition-all duration-300 ${
+                  isFeatured
+                    ? 'border-(--color-primary)/60 bg-gradient-to-br from-(--color-surface) via-(--color-surface) to-(--color-surface-2) shadow-2xl'
+                    : 'border-(--color-border) bg-(--color-surface) shadow-xl'
+                } hover:border-(--color-primary)/70`}
+              >
+                {/* Background Subtle Accent Glow */}
+                <div
+                  className="pointer-events-none absolute -right-24 -top-24 w-80 h-80 rounded-full opacity-15 -z-10"
+                  style={{
+                    background:
+                      idx % 2 === 0
+                        ? 'radial-gradient(circle, var(--primary) 0%, transparent 70%)'
+                        : 'radial-gradient(circle, var(--secondary) 0%, transparent 70%)',
+                  }}
+                  aria-hidden="true"
+                />
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+                  {/* Left Column: Index & Project Details */}
+                  <div className="lg:col-span-7 space-y-4">
+                    {/* Index + Badge Row */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-(--color-border)">
+                      <div className="flex items-center gap-3">
+                        <span className="font-mono text-2xl sm:text-3xl font-extrabold text-(--color-primary)">
+                          {indexFormatted}
+                        </span>
+                        <span className="text-xs font-mono uppercase tracking-wider text-(--color-muted) px-2.5 py-1 rounded-full bg-(--color-surface-2) border border-(--color-border)">
                           {project.category}
                         </span>
+                        {isFeatured && (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-(--color-primary)/15 text-(--color-primary) text-xs font-mono font-semibold">
+                            <Sparkles className="w-3.5 h-3.5" />
+                            Flagship Enterprise
+                          </span>
+                        )}
                       </div>
 
                       {project.isPrivate ? (
-                        <span className="text-[11px] font-mono text-amber-500 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20">
-                          {project.privateBadgeText || 'Private / Client Project'}
+                        <span className="inline-flex items-center gap-1.5 text-xs font-mono text-amber-500 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/25">
+                          <Lock className="w-3 h-3" />
+                          <span>{project.privateBadgeText || 'Private / Client Project'}</span>
                         </span>
                       ) : (
-                        <span className="text-[11px] font-mono text-emerald-500 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+                        <span className="text-xs font-mono text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/25">
                           Open Source
                         </span>
                       )}
                     </div>
 
+                    {/* Title & Tagline */}
                     <div>
-                      <h3 className="font-heading font-bold text-xl sm:text-2xl text-(--color-text) mb-1">
+                      <h3 className="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-(--color-text) tracking-tight mb-1">
                         {project.title}
                       </h3>
-                      <p className="text-xs sm:text-sm font-semibold text-(--color-primary)">
+                      <p className="text-xs sm:text-sm font-mono text-(--color-secondary) font-medium">
                         {project.tagline}
                       </p>
                     </div>
 
-                    <p className="text-sm text-(--color-muted) leading-relaxed">
+                    {/* Description */}
+                    <p className="text-sm sm:text-base text-(--color-muted) leading-relaxed">
                       {project.description}
                     </p>
 
-                    {/* Key Architectural Highlights */}
+                    {/* Architectural Highlights */}
                     {project.highlights && project.highlights.length > 0 && (
                       <div className="pt-1">
-                        <ul className="space-y-1.5">
-                          {project.highlights.slice(0, isFeatured ? 4 : 3).map((hl, hIdx) => (
-                            <li key={hIdx} className="flex items-start gap-2 text-xs sm:text-sm text-(--color-text)">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-(--color-secondary) shrink-0 mt-0.5" />
+                        <ul className="space-y-2">
+                          {project.highlights.slice(0, 3).map((hl, hIdx) => (
+                            <li
+                              key={hIdx}
+                              className="flex items-start gap-2.5 text-xs sm:text-sm text-(--color-text)"
+                            >
+                              <CheckCircle2 className="w-4 h-4 text-(--color-secondary) shrink-0 mt-0.5" />
                               <span>{hl}</span>
                             </li>
                           ))}
@@ -132,24 +189,24 @@ export const Projects: React.FC = () => {
                       </div>
                     )}
 
-                    {/* Tech Stack Chips */}
+                    {/* Tech Chips */}
                     <div className="pt-2">
                       <div className="flex flex-wrap gap-1.5">
-                        {project.techStack.map((tech, idx) => (
-                          <Chip key={idx} size="sm" variant="default">
+                        {project.techStack.map((tech, tIdx) => (
+                          <Chip key={tIdx} size="sm" variant="default">
                             {tech}
                           </Chip>
                         ))}
                       </div>
                     </div>
 
-                    {/* Links & Role Row */}
-                    <div className="pt-3 flex flex-wrap items-center justify-between gap-4 border-t border-(--color-border)/80 text-xs">
-                      <div className="font-mono text-(--color-muted)">
+                    {/* Role & Links Footer */}
+                    <div className="pt-4 flex flex-wrap items-center justify-between gap-4 border-t border-(--color-border)">
+                      <div className="text-xs font-mono text-(--color-muted)">
                         Role: <span className="text-(--color-text) font-medium">{project.role}</span>
                       </div>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-3">
                         {project.githubUrl && (
                           <Button
                             href={project.githubUrl}
@@ -170,7 +227,7 @@ export const Projects: React.FC = () => {
                             rel="noopener noreferrer"
                             variant="primary"
                             size="sm"
-                            icon={<ExternalLink className="w-3.5 h-3.5" />}
+                            icon={<ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />}
                             iconPosition="right"
                           >
                             Live Demo
@@ -179,9 +236,20 @@ export const Projects: React.FC = () => {
                       </div>
                     </div>
                   </div>
+
+                  {/* Right Column: Visual Panel with Parallax */}
+                  <div className="lg:col-span-5 flex justify-center">
+                    <div className="project-visual-panel w-full transition-transform duration-300">
+                      <ProjectPlaceholder
+                        type={project.placeholderType}
+                        title={project.title}
+                        isPrivate={project.isPrivate}
+                      />
+                    </div>
+                  </div>
                 </div>
               </Card>
-            </Reveal>
+            </div>
           );
         })}
       </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, FileDown } from 'lucide-react';
 import { Container } from './Container';
 import { ThemeToggle } from '../ui/ThemeToggle';
@@ -6,6 +6,8 @@ import { Button } from '../ui/Button';
 import { useScrollSpy } from '../../hooks/useScrollSpy';
 import { portfolioData } from '../../data/portfolio';
 import { cn } from '../../lib/utils';
+import { useGSAP } from '@gsap/react';
+import { gsap } from '../../lib/gsap';
 
 interface NavItem {
   label: string;
@@ -27,6 +29,76 @@ const SECTION_IDS = ['hero', ...NAV_ITEMS.map((item) => item.id)];
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const activeSection = useScrollSpy(SECTION_IDS, 'hero');
+
+  const headerRef = useRef<HTMLElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+
+  // Scroll direction auto-hide & top progress bar scrub
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        // Top scroll-progress bar scrub
+        if (progressBarRef.current) {
+          gsap.fromTo(
+            progressBarRef.current,
+            { scaleX: 0, transformOrigin: 'left center' },
+            {
+              scaleX: 1,
+              ease: 'none',
+              scrollTrigger: {
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 0.1,
+              },
+            }
+          );
+        }
+
+        // Auto-hide on scroll down, show on scroll up (translateY only)
+        if (headerRef.current) {
+          let lastScrollY = window.scrollY;
+
+          const scrollTriggerInstance = gsap.timeline({
+            scrollTrigger: {
+              start: 'top top',
+              end: 'max',
+              onUpdate: (self) => {
+                const currentScrollY = self.scroll();
+                // When mobile menu is open, never hide navbar
+                if (mobileMenuOpen) return;
+
+                if (currentScrollY > 120 && currentScrollY > lastScrollY) {
+                  // Scrolling down -> hide navbar
+                  gsap.to(headerRef.current, {
+                    yPercent: -100,
+                    duration: 0.3,
+                    ease: 'power2.out',
+                    overwrite: 'auto',
+                  });
+                } else if (currentScrollY < lastScrollY) {
+                  // Scrolling up -> reveal navbar
+                  gsap.to(headerRef.current, {
+                    yPercent: 0,
+                    duration: 0.3,
+                    ease: 'power2.out',
+                    overwrite: 'auto',
+                  });
+                }
+                lastScrollY = currentScrollY;
+              },
+            },
+          });
+
+          return () => {
+            scrollTriggerInstance.kill();
+          };
+        }
+      });
+    },
+    { scope: headerRef, dependencies: [mobileMenuOpen] }
+  );
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -59,24 +131,33 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 left-0 right-0 z-50 h-16 w-full border-b border-(--color-border)/80 bg-(--color-bg)/85 backdrop-blur-md transition-colors duration-200">
+    <header
+      ref={headerRef}
+      className="sticky top-0 left-0 right-0 z-50 h-16 w-full border-b border-(--color-border)/80 bg-(--color-bg)/85 backdrop-blur-md transition-colors duration-200"
+    >
+      {/* Top Scroll Progress Line (scaleX scrubbed) */}
+      <div
+        ref={progressBarRef}
+        className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-(--color-primary) to-(--color-secondary) origin-left z-50 pointer-events-none"
+      />
+
       <Container className="h-full flex items-center justify-between">
         {/* Logo Mark */}
         <a
           href="#hero"
-          className="group flex items-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-primary) rounded-[6px]"
-          aria-label="Dhanush M - Back to top"
+          className="group flex items-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-primary) rounded-lg"
+          aria-label="Dhanush M - Home"
         >
-          <div className="flex items-center justify-center w-9 h-9 rounded-[8px] bg-gradient-to-br from-(--color-primary) to-(--color-secondary) text-white font-heading font-bold text-base shadow-sm group-hover:scale-105 transition-transform duration-200">
+          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-(--color-primary) to-(--color-secondary) text-white font-display font-bold text-base shadow-sm group-hover:scale-105 transition-transform duration-200">
             DM
           </div>
-          <span className="font-heading font-bold text-lg tracking-tight text-(--color-text) hidden sm:inline-block">
+          <span className="font-display font-bold text-lg tracking-tight text-(--color-text) hidden sm:inline-block">
             Dhanush<span className="text-(--color-primary)">.dev</span>
           </span>
         </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1 lg:gap-2" aria-label="Main navigation">
+        {/* Desktop Navigation with Animated Indicator */}
+        <nav className="hidden md:flex items-center gap-1 lg:gap-1.5" aria-label="Main navigation">
           {NAV_ITEMS.map((item) => {
             const isActive = activeSection === item.id;
             return (
@@ -84,13 +165,17 @@ export const Navbar: React.FC = () => {
                 key={item.id}
                 href={item.href}
                 className={cn(
-                  'px-3 py-1.5 text-sm font-medium rounded-[8px] transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-primary)',
+                  'relative px-3.5 py-1.5 text-xs font-mono tracking-wide uppercase rounded-lg transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-primary)',
                   isActive
-                    ? 'text-(--color-primary) bg-(--color-primary)/10 font-semibold'
+                    ? 'text-(--color-primary) font-semibold'
                     : 'text-(--color-muted) hover:text-(--color-text) hover:bg-(--color-surface-2)'
                 )}
               >
-                {item.label}
+                <span>{item.label}</span>
+                {/* Animated Active Indicator Pill/Underline */}
+                {isActive && (
+                  <span className="absolute bottom-0 left-3.5 right-3.5 h-[2px] bg-gradient-to-r from-(--color-primary) to-(--color-secondary) rounded-full animate-in fade-in duration-200" />
+                )}
               </a>
             );
           })}
@@ -120,7 +205,7 @@ export const Navbar: React.FC = () => {
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            className="inline-flex md:hidden items-center justify-center w-11 h-11 rounded-[10px] text-(--color-muted) hover:text-(--color-text) bg-(--color-surface-2) border border-(--color-border) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-primary)"
+            className="inline-flex md:hidden items-center justify-center w-11 h-11 rounded-xl text-(--color-muted) hover:text-(--color-text) bg-(--color-surface-2) border border-(--color-border) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-primary)"
           >
             {mobileMenuOpen ? (
               <X className="w-5 h-5" aria-hidden="true" />
@@ -141,7 +226,7 @@ export const Navbar: React.FC = () => {
           aria-label="Mobile Navigation Menu"
         >
           <div className="space-y-2">
-            <p className="text-xs font-mono uppercase tracking-wider text-(--color-muted) px-3 mb-2">
+            <p className="text-xs font-mono uppercase tracking-widest text-(--color-muted) px-3 mb-2">
               Navigation
             </p>
             {NAV_ITEMS.map((item) => {
@@ -152,9 +237,9 @@ export const Navbar: React.FC = () => {
                   href={item.href}
                   onClick={handleNavClick}
                   className={cn(
-                    'block px-4 py-3 rounded-[12px] text-base font-medium transition-colors',
+                    'block px-4 py-3 rounded-xl text-base font-display font-medium transition-colors',
                     isActive
-                      ? 'bg-(--color-primary)/10 text-(--color-primary) font-semibold'
+                      ? 'bg-(--color-primary)/10 text-(--color-primary) font-bold'
                       : 'text-(--color-text) hover:bg-(--color-surface-2)'
                   )}
                 >
@@ -176,7 +261,7 @@ export const Navbar: React.FC = () => {
             >
               Download Resume
             </Button>
-            <p className="text-center text-xs text-(--color-muted)">
+            <p className="text-center text-xs font-mono text-(--color-muted)">
               {portfolioData.location}
             </p>
           </div>
