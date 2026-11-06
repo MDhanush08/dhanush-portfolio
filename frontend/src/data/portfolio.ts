@@ -1,4 +1,4 @@
-import type { PortfolioData } from '../types/portfolio';
+import type { PortfolioData, Project } from '../types/portfolio';
 
 export const portfolioData: PortfolioData = {
   name: 'Dhanush M',
@@ -187,11 +187,34 @@ export const portfolioData: PortfolioData = {
   projects: [
     {
       id: 'dental-interface-360',
+      slug: 'dental-interface-360',
+      index: '01',
       title: 'Dental Interface 360',
       tagline: 'Multi-Role Dental SaaS Platform (Admin, Supplier, Practice & Professional)',
-      description:
-        'A comprehensive multi-role dental enterprise SaaS ecosystem empowering Practice clinics, Suppliers, Dental Professionals, and Platform Admins with end-to-end clinical and supply management.',
+      shortDescription:
+        'A comprehensive multi-role dental enterprise SaaS ecosystem empowering Practice clinics, Suppliers, Dental Professionals, and Platform Admins with clinical management and supply ordering.',
+      overview:
+        'Dental Interface 360 is a full-scale multi-role dental enterprise SaaS platform built to unify clinical practice operations and medical supply procurement. It connects Practice clinics, dental suppliers, healthcare professionals, and platform administrators through dedicated role-based portals with secure workflows and real-time processing.',
       category: 'Full Stack',
+      projectType: 'Enterprise SaaS at Nandalala Infotech',
+      statusBadge: 'Private / Client Project',
+      role: 'Full Stack Developer (Nandalala Infotech)',
+      isPrivate: true,
+      privateBadgeText: 'Private / Client Project',
+      features: [
+        'Multi-role access hierarchy with JWT authentication and granular Role-Based Access Control (RBAC)',
+        'Stripe checkout integration for recurring dental practice subscriptions and equipment purchases',
+        'Automated real-time email triggers and notifications through Firebase Cloud Messaging and Auth',
+        'Asynchronous queue management with Redis for heavy background billing cycles and data exports',
+        'High-performance GraphQL APIs engineered using Hasura and microservices with NestJS',
+      ],
+      responsibilities: [
+        'Architected and built full-stack workflows across Angular frontend and NestJS backend microservices',
+        'Designed PostgreSQL database schemas, Hasura GraphQL query/mutation resolvers, and permissions',
+        'Implemented secure JWT auth token rotation and role guards protecting administrative endpoints',
+        'Integrated Stripe billing API for automated subscription renewals and invoicing',
+        'Automated containerized Docker build pipelines and deployment on Contabo servers via GitLab CI/CD',
+      ],
       techStack: [
         'Angular',
         'NestJS',
@@ -205,10 +228,30 @@ export const portfolioData: PortfolioData = {
         'Firebase',
         'JWT',
       ],
-      role: 'Full Stack Developer (Nandalala Infotech)',
-      isFeatured: true,
-      isPrivate: true,
-      privateBadgeText: 'Private / Client Project',
+      groupedTechStack: [
+        {
+          category: 'Frontend',
+          skills: ['Angular', 'TypeScript', 'SCSS', 'RxJS'],
+        },
+        {
+          category: 'Backend & APIs',
+          skills: ['NestJS', 'GraphQL', 'Hasura', 'Node.js', 'JWT Auth', 'RBAC'],
+        },
+        {
+          category: 'Database & Queues',
+          skills: ['PostgreSQL', 'Redis'],
+        },
+        {
+          category: 'DevOps & Deployment',
+          skills: ['Docker', 'GitLab CI/CD', 'Contabo VPS'],
+        },
+        {
+          category: 'Integrations',
+          skills: ['Stripe Payments', 'Firebase Cloud Messaging'],
+        },
+      ],
+      screenshots: [],
+      placeholderType: 'dental',
       highlights: [
         'Multi-role access hierarchy with JWT and RBAC for Admin, Supplier, Practice, and Professional personas',
         'Stripe checkout integration for recurring dental practice subscriptions and equipment purchases',
@@ -216,67 +259,151 @@ export const portfolioData: PortfolioData = {
         'Asynchronous queue management with Redis for heavy background billing cycles and data exports',
         'Automated Docker build pipelines and deployment on Contabo servers via GitLab CI/CD',
       ],
-      placeholderType: 'dental',
     },
     {
       id: 'lala-invoice',
+      slug: 'lala-invoice',
+      index: '02',
       title: 'Lala Invoice',
       tagline: 'Invoice & Billing Management System',
-      description:
-        'A streamlined enterprise invoicing and billing web application designed for fast invoice generation, itemized tax computations, client ledger management, and financial audit history.',
+      shortDescription:
+        'A streamlined enterprise invoicing and billing web application designed for fast invoice creation, dynamic tax calculations, client ledgers, and financial audit compliance.',
+      overview:
+        'Lala Invoice is a streamlined invoice and billing management platform engineered for businesses to track financial transactions, manage client accounts, and automate invoice life-cycle statuses from draft to payment settlement.',
       category: 'Full Stack',
-      techStack: ['React.js', 'Redux', 'Python', 'MongoDB', 'Tailwind CSS'],
+      projectType: 'Client System at Nandalala Infotech',
+      statusBadge: 'Private / Client Project',
       role: 'Full Stack Developer',
-      isFeatured: false,
       isPrivate: true,
       privateBadgeText: 'Private / Client Project',
+      features: [
+        'Full invoice lifecycle CRUD with draft, pending, approved, and paid state transitions',
+        'Role-based permissions separating Administrative finance managers from standard invoicing operators',
+        'State persistence with Redux for dynamic multi-item invoice tables and automated tax computations',
+        'Automated PDF invoice generation and document storage in MongoDB for compliance audit history',
+      ],
+      responsibilities: [
+        'Engineered reactive frontend interface using React.js and Tailwind CSS with state management in Redux',
+        'Developed backend REST services in Python to process itemized billing computations and client ledgers',
+        'Configured MongoDB schemas for persisting invoices, client records, and payment receipts',
+      ],
+      techStack: ['React.js', 'Redux', 'Python', 'MongoDB', 'Tailwind CSS'],
+      groupedTechStack: [
+        {
+          category: 'Frontend',
+          skills: ['React.js', 'Redux', 'Tailwind CSS', 'JavaScript (ES6+)'],
+        },
+        {
+          category: 'Backend',
+          skills: ['Python', 'REST APIs'],
+        },
+        {
+          category: 'Database',
+          skills: ['MongoDB'],
+        },
+      ],
+      screenshots: [],
+      placeholderType: 'invoice',
       highlights: [
         'Full invoice lifecycle CRUD with draft, pending, approved, and paid states',
         'Role-based permissions separating Administrative finance managers from standard invoicing operators',
         'State persistence with Redux for multi-item invoice tables and dynamic tax calculations',
         'Document PDF generation and MongoDB document storage for long-term audit compliance',
       ],
-      placeholderType: 'invoice',
     },
     {
       id: 'personal-portfolio',
+      slug: 'personal-portfolio',
+      index: '03',
       title: 'Developer Portfolio',
       tagline: 'Ultra-Performance React Portfolio & AI Assistant',
-      description:
-        'High-performance personal developer portfolio built with React 19, Vite, Tailwind CSS v4, and GSAP. Features zero-lag native scrolling, dark/light theme tokens, fluid typography, and an interactive AI assistant widget.',
+      shortDescription:
+        'High-performance personal developer portfolio built with React 19, Vite, Tailwind CSS v4, and GSAP. Features zero-lag native scrolling, dark/light themes, and an interactive AI assistant.',
+      overview:
+        'A production-grade developer portfolio engineered for optimal responsiveness, fluid typography, and sub-second performance. It highlights professional work, skills, and interactive project details, paired with an embedded AI assistant widget.',
       category: 'Frontend',
-      techStack: ['React 19', 'TypeScript', 'Tailwind CSS v4', 'GSAP', 'Vite', 'Netlify'],
+      projectType: 'Personal Portfolio Project',
+      statusBadge: 'Open Source',
       role: 'Design & Engineering',
-      isFeatured: false,
       isPrivate: false,
-      githubUrl: 'https://github.com/dhanush-m/portfolio', // Placeholder: replace with repository URL
-      liveUrl: '#',
+      githubUrl: 'https://github.com/dhanush-m/portfolio',
+      liveUrl: 'https://dhanush-m.dev/',
+      features: [
+        'Fluid full-width layout with Poppins typography and zero-lag native scrolling',
+        'CSS-first dark and light theme switching with synchronized system preference',
+        'Accessible interactive AI chatbot panel ready for NestJS backend integration',
+        'Dedicated project routing with smooth browser history and scroll restoration',
+      ],
+      responsibilities: [
+        'Designed and built responsive component system using React 19 and Tailwind CSS v4',
+        'Implemented client-side routing, lazy-loaded detail views, and scroll restoration',
+        'Configured static Netlify deployment with redirect rules and clean accessibility semantics',
+      ],
+      techStack: ['React 19', 'TypeScript', 'Tailwind CSS v4', 'GSAP', 'Vite', 'Netlify'],
+      groupedTechStack: [
+        {
+          category: 'Frontend',
+          skills: ['React 19', 'TypeScript', 'Tailwind CSS v4', 'GSAP'],
+        },
+        {
+          category: 'Tooling & Deployment',
+          skills: ['Vite', 'Netlify', 'PostCSS'],
+        },
+      ],
+      screenshots: [],
+      placeholderType: 'portfolio',
       highlights: [
         'Sub-second first paint with CSS-first dark/light theme switching and zero layout shift',
         'Accessible interactive AI chatbot panel ready for NestJS backend integration',
         'Pure CSS keyframe marquees and transform/opacity GSAP scroll triggers',
         'Mobile-first responsive design with touch targets exceeding 44px',
       ],
-      placeholderType: 'portfolio',
     },
     {
       id: 'face-emotion-detection',
+      slug: 'face-emotion-detection',
+      index: '04',
       title: 'Face Emotion Detection',
       tagline: 'Real-Time Facial Expression Classifier with Arduino Hardware',
-      description:
-        'An intelligent computer vision system that captures live facial video feeds, detects emotional states (happy, neutral, stressed, etc.), and drives external hardware feedback via Arduino microcontrollers.',
+      shortDescription:
+        'An intelligent computer vision system that captures live facial video feeds, detects emotional states, and drives external hardware feedback via Arduino microcontrollers.',
+      overview:
+        'An intelligent computer vision and embedded systems project that captures live webcam video, classifies human facial expressions using deep learning, and communicates detection results to Arduino hardware for physical feedback.',
       category: 'Backend/AI',
-      techStack: ['Python', 'OpenCV', 'TensorFlow', 'Arduino', 'Serial Communication'],
+      projectType: 'College Capstone Project',
+      statusBadge: 'Open Source',
       role: 'System Architect & ML Engineer (College Capstone)',
-      isFeatured: false,
       isPrivate: false,
-      githubUrl: 'https://github.com/dhanush-m/face-emotion-detection', // Placeholder: replace with repository URL
+      githubUrl: 'https://github.com/dhanush-m/face-emotion-detection',
+      features: [
+        'Real-time facial landmark extraction using OpenCV and convolutional neural network models',
+        'Classification of diverse emotional expressions (happy, neutral, stressed, etc.)',
+        'Synchronous hardware state signaling over Arduino serial interface',
+        'Optimized inference pipeline for minimal latency on standard webcam inputs',
+      ],
+      responsibilities: [
+        'Trained and evaluated facial emotion recognition models using TensorFlow and Python',
+        'Programmed Arduino microcontroller firmware to receive serial signals and trigger output actuators',
+        'Engineered the OpenCV video capture and preprocessing pipeline',
+      ],
+      techStack: ['Python', 'OpenCV', 'TensorFlow', 'Arduino', 'Serial Communication'],
+      groupedTechStack: [
+        {
+          category: 'AI & Computer Vision',
+          skills: ['Python', 'OpenCV', 'TensorFlow'],
+        },
+        {
+          category: 'Embedded & Hardware',
+          skills: ['Arduino', 'Serial Communication'],
+        },
+      ],
+      screenshots: [],
+      placeholderType: 'emotion',
       highlights: [
         'Real-time facial landmark extraction using OpenCV and convolutional neural networks',
         'Synchronous hardware state signaling over Arduino serial interface',
         'Trained model weights optimized for minimal inference latency on standard webcams',
       ],
-      placeholderType: 'emotion',
     },
   ],
   education: [
@@ -311,3 +438,8 @@ export const portfolioData: PortfolioData = {
     },
   ],
 };
+
+export function getProjectBySlug(slug: string): Project | undefined {
+  return portfolioData.projects.find((p) => p.slug === slug);
+}
+

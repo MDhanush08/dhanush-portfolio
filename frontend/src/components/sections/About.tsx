@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Section } from '../layout/Section';
 import { SplitHeading } from '../ui/SplitHeading';
 import { Card } from '../ui/Card';
 import { Chip } from '../ui/Chip';
+import { Reveal } from '../ui/Reveal';
 import { portfolioData } from '../../data/portfolio';
 import {
   Sparkles,
@@ -13,57 +14,10 @@ import {
   Cpu,
   GraduationCap,
 } from 'lucide-react';
-import { useGSAP } from '@gsap/react';
-import { gsap } from '../../lib/gsap';
 
 export const About: React.FC = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        if (!contentRef.current) return;
-        const items = contentRef.current.querySelectorAll('.about-reveal');
-
-        // Simple fade-up reveal as one block / clean stagger (once: true)
-        gsap.fromTo(
-          items,
-          { opacity: 0, y: 22 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            stagger: 0.08,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: contentRef.current,
-              start: 'top 85%',
-              once: true,
-            },
-          }
-        );
-      });
-
-      mm.add('(prefers-reduced-motion: reduce)', () => {
-        if (contentRef.current) {
-          const items = contentRef.current.querySelectorAll('.about-reveal');
-          items.forEach((el) => {
-            if (el instanceof HTMLElement) {
-              el.style.opacity = '1';
-              el.style.transform = 'none';
-            }
-          });
-        }
-      });
-    },
-    { scope: sectionRef }
-  );
-
   return (
-    <Section ref={sectionRef} id="about">
+    <Section id="about">
       {/* Clean left-aligned heading with exact requested title */}
       <SplitHeading
         number="01"
@@ -72,10 +26,10 @@ export const About: React.FC = () => {
         description="Focused on high performance, secure architectures, and developer velocity."
       />
 
-      <div ref={contentRef} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: Fully Visible Narrative Paragraph (Simple fade-up as one block) */}
-        <div className="about-reveal lg:col-span-6 flex flex-col gap-6">
-          <Card className="p-6 sm:p-7 rounded-2xl space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Fully Visible Narrative Paragraph */}
+        <Reveal className="lg:col-span-6 flex flex-col gap-6">
+          <Card className="p-6 sm:p-8 lg:p-9 rounded-2xl space-y-4">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-(--color-primary) font-semibold uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-(--color-primary)" />
               <span>Full-Stack Perspective</span>
@@ -97,10 +51,10 @@ export const About: React.FC = () => {
               <Chip icon={<Sparkles className="w-3.5 h-3.5" />}>AI-Assisted Workflow</Chip>
             </div>
           </Card>
-        </div>
+        </Reveal>
 
-        {/* Right Column: Plain Static Text Cards (No animated counters) */}
-        <div className="about-reveal lg:col-span-6 flex flex-col gap-4">
+        {/* Right Column: Static Facts Cards */}
+        <Reveal delayMs={100} className="lg:col-span-6 flex flex-col gap-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Fact 1: 2+ Years Experience */}
             <Card hoverEffect className="p-5 sm:p-6 rounded-2xl flex flex-col justify-between">
@@ -148,61 +102,18 @@ export const About: React.FC = () => {
                   <div className="text-base sm:text-lg font-sans font-semibold text-(--color-text)">
                     B.Tech Information Technology
                   </div>
-                  <div className="text-xs font-mono text-(--color-primary) mt-0.5">
-                    Kongunadu College of Engineering and Technology (2020 – 2024)
+                  <div className="text-xs font-mono text-(--color-muted) mb-1">
+                    Kongunadu College of Engineering and Technology (2020 - 2024)
                   </div>
-                  <p className="text-xs text-(--color-muted) mt-1">
-                    Cisco CCNA certified networking background.
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            {/* Fact 4: Location */}
-            <Card hoverEffect className="p-4 sm:p-5 rounded-2xl sm:col-span-2">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-sm font-sans font-semibold text-(--color-text)">
-                    {portfolioData.location}
+                  <div className="flex items-center gap-1.5 text-xs text-(--color-muted)">
+                    <MapPin className="w-3.5 h-3.5 text-(--color-primary)" />
+                    <span>Trichy / Namakkal, Tamil Nadu</span>
                   </div>
-                  <p className="text-xs text-(--color-muted)">
-                    Available for full-time engineering opportunities (remote, hybrid, or on-site).
-                  </p>
                 </div>
               </div>
             </Card>
           </div>
-
-          {/* AI-Assisted Developer Highlight Card */}
-          <Card
-            hoverEffect
-            className="p-5 sm:p-6 rounded-2xl border-(--color-primary)/40 bg-gradient-to-br from-(--color-surface) via-(--color-surface) to-(--color-surface-2)"
-          >
-            <div className="flex items-center gap-2.5 mb-2.5">
-              <span className="p-1.5 rounded-lg bg-(--color-primary)/10 text-(--color-primary)">
-                <Sparkles className="w-4 h-4 text-(--color-primary)" />
-              </span>
-              <h4 className="font-sans font-semibold text-base text-(--color-text)">
-                {portfolioData.aiAssistedNote.title}
-              </h4>
-            </div>
-
-            <p className="text-xs sm:text-sm text-(--color-muted) leading-relaxed mb-3.5">
-              {portfolioData.aiAssistedNote.description}
-            </p>
-
-            <div className="flex flex-wrap gap-1.5">
-              {portfolioData.aiAssistedNote.tools.map((tool, idx) => (
-                <Chip key={idx} variant="primary" size="sm">
-                  {tool}
-                </Chip>
-              ))}
-            </div>
-          </Card>
-        </div>
+        </Reveal>
       </div>
     </Section>
   );

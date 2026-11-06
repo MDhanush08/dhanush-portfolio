@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Container } from './Container';
 import { portfolioData } from '../../data/portfolio';
 import { Mail } from 'lucide-react';
@@ -13,37 +14,37 @@ export const Footer: React.FC = () => {
         {/* Top Row: 3 columns on desktop, stacked on mobile */}
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
           {/* Column 1: Brand & Role */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-(--color-primary) to-(--color-secondary) text-white font-sans font-bold text-xs shadow-xs">
+          <Link to="/#hero" className="flex items-center gap-3 group">
+            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-(--color-primary) to-(--color-secondary) text-white font-sans font-bold text-xs shadow-xs group-hover:scale-105 transition-transform">
               DM
             </div>
             <div>
-              <div className="font-sans font-semibold text-sm text-(--color-text)">
+              <div className="font-sans font-semibold text-sm text-(--color-text) group-hover:text-(--color-primary) transition-colors">
                 Dhanush M
               </div>
               <div className="text-xs font-mono text-(--color-muted)">
                 Software Developer
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Column 2: Navigation Links */}
           <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono uppercase tracking-wider text-(--color-muted)" aria-label="Footer navigation">
-            <a href="#about" className="hover:text-(--color-primary) transition-colors">
+            <Link to="/#about" className="hover:text-(--color-primary) transition-colors">
               About
-            </a>
-            <a href="#skills" className="hover:text-(--color-primary) transition-colors">
+            </Link>
+            <Link to="/#skills" className="hover:text-(--color-primary) transition-colors">
               Skills
-            </a>
-            <a href="#experience" className="hover:text-(--color-primary) transition-colors">
+            </Link>
+            <Link to="/#experience" className="hover:text-(--color-primary) transition-colors">
               Experience
-            </a>
-            <a href="#projects" className="hover:text-(--color-primary) transition-colors">
+            </Link>
+            <Link to="/#projects" className="hover:text-(--color-primary) transition-colors">
               Projects
-            </a>
-            <a href="#contact" className="hover:text-(--color-primary) transition-colors">
+            </Link>
+            <Link to="/#contact" className="hover:text-(--color-primary) transition-colors">
               Contact
-            </a>
+            </Link>
           </nav>
 
           {/* Column 3: Social Icon Buttons */}

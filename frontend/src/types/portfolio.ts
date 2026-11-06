@@ -42,22 +42,39 @@ export interface FreelanceClientProject {
 
 export type ProjectCategory = 'All' | 'Full Stack' | 'Frontend' | 'Backend/AI';
 
-export interface ProjectItem {
+export interface ProjectGroupedTech {
+  category: string;
+  skills: string[];
+}
+
+export interface Project {
   id: string;
+  slug: string;
+  index: string;
   title: string;
   tagline: string;
-  description: string;
-  category: ProjectCategory;
-  techStack: string[];
+  shortDescription: string;
+  overview: string;
   role: string;
-  isFeatured?: boolean;
+  category: ProjectCategory;
+  projectType: string;
+  statusBadge: string;
   isPrivate: boolean;
   privateBadgeText?: string;
+  features: string[];
+  responsibilities: string[];
+  techStack: string[];
+  groupedTechStack?: ProjectGroupedTech[];
   githubUrl?: string;
   liveUrl?: string;
-  highlights: string[];
+  screenshots?: string[];
   placeholderType: 'dental' | 'invoice' | 'portfolio' | 'emotion';
+  isFeatured?: boolean;
+  highlights?: string[];
+  description?: string;
 }
+
+export type ProjectItem = Project;
 
 export interface EducationItem {
   degree: string;

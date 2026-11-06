@@ -1,83 +1,15 @@
-import React, { useRef } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Section } from '../layout/Section';
 import { SplitHeading } from '../ui/SplitHeading';
-import { Card } from '../ui/Card';
-import { Button } from '../ui/Button';
 import { ProjectPlaceholder } from '../ui/ProjectPlaceholder';
+import { Reveal } from '../ui/Reveal';
 import { portfolioData } from '../../data/portfolio';
-import { ExternalLink, Sparkles, CheckCircle2, Lock } from 'lucide-react';
-import { FaGithub } from 'react-icons/fa';
-import { useGSAP } from '@gsap/react';
-import { gsap } from '../../lib/gsap';
+import { ArrowRight } from 'lucide-react';
 
 export const Projects: React.FC = () => {
-  const containerRef = useRef<HTMLElement>(null);
-  const stackCardsRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-
-      // Desktop Only (>= 1024px): Sticky Card Stacking and Parallax
-      mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
-        if (!stackCardsRef.current) return;
-
-        const cards = stackCardsRef.current.querySelectorAll<HTMLElement>('.project-stack-card');
-
-        cards.forEach((card, i) => {
-          if (i < cards.length - 1) {
-            const nextCard = cards[i + 1];
-
-            gsap.to(card, {
-              scale: 0.94,
-              opacity: 0.6,
-              transformOrigin: 'top center',
-              ease: 'none',
-              scrollTrigger: {
-                trigger: nextCard,
-                start: 'top 85%',
-                end: 'top 20%',
-                scrub: 0.3,
-              },
-            });
-          }
-
-          // Subtle inner parallax on the card's visual panel
-          const visual = card.querySelector('.project-visual-panel');
-          if (visual) {
-            gsap.fromTo(
-              visual,
-              { y: 10 },
-              {
-                y: -10,
-                ease: 'none',
-                scrollTrigger: {
-                  trigger: card,
-                  start: 'top bottom',
-                  end: 'bottom top',
-                  scrub: 0.3,
-                },
-              }
-            );
-          }
-        });
-      });
-
-      // Mobile / Tablet (< 1024px) / Reduced Motion: Reset all transforms
-      mm.add('(max-width: 1023px), (prefers-reduced-motion: reduce)', () => {
-        if (!stackCardsRef.current) return;
-        const cards = stackCardsRef.current.querySelectorAll<HTMLElement>('.project-stack-card');
-        cards.forEach((c) => {
-          c.style.transform = 'none';
-          c.style.opacity = '1';
-        });
-      });
-    },
-    { scope: containerRef }
-  );
-
   return (
-    <Section ref={containerRef} id="projects">
+    <Section id="projects">
       {/* Clean left-aligned heading with exact requested title */}
       <SplitHeading
         number="04"
@@ -86,171 +18,83 @@ export const Projects: React.FC = () => {
         description="A curation of multi-role SaaS applications, billing software, and intelligent computer vision platforms."
       />
 
-      {/* Desktop Sticky Stacking Cards Container */}
-      <div ref={stackCardsRef} className="space-y-8 lg:space-y-12 relative">
-        {portfolioData.projects.map((project, idx) => {
-          const indexFormatted = String(idx + 1).padStart(2, '0');
-          const isFeatured = project.isFeatured;
-          const stickyTopOffset = 84 + idx * 24;
-
-          return (
-            <div
-              key={project.id}
-              className="project-stack-card lg:sticky transition-all duration-300"
-              style={{
-                top: `${stickyTopOffset}px`,
-              }}
-            >
-              <Card
-                className={`group relative overflow-hidden p-6 sm:p-8 rounded-2xl border transition-all duration-300 ${
-                  isFeatured
-                    ? 'border-(--color-primary)/50 bg-gradient-to-br from-(--color-surface) via-(--color-surface) to-(--color-surface-2) shadow-xl'
-                    : 'border-(--color-border) bg-(--color-surface) shadow-lg'
-                } hover:border-(--color-primary)/70`}
-              >
-                {/* Background Subtle Accent Glow */}
-                <div
-                  className="pointer-events-none absolute -right-24 -top-24 w-80 h-80 rounded-full opacity-15 -z-10"
-                  style={{
-                    background:
-                      idx % 2 === 0
-                        ? 'radial-gradient(circle, var(--primary) 0%, transparent 70%)'
-                        : 'radial-gradient(circle, var(--secondary) 0%, transparent 70%)',
-                  }}
-                  aria-hidden="true"
+      {/* Equal 4-Card Grid: 2 columns from 700px up, 1 column below 700px */}
+      <Reveal className="grid grid-cols-1 min-[700px]:grid-cols-2 gap-[clamp(16px,2vw,28px)] w-full">
+        {portfolioData.projects.map((project) => (
+          <Link
+            key={project.id}
+            to={`/projects/${project.slug}`}
+            className="group flex flex-col h-full rounded-2xl bg-(--color-surface) border border-(--color-border) hover:border-(--color-primary)/70 transition-all duration-200 hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-primary) overflow-hidden shadow-xs hover:shadow-lg"
+          >
+            {/* Visual Panel on Top (16:9 Aspect Ratio) */}
+            <div className="relative w-full aspect-video overflow-hidden border-b border-(--color-border) bg-(--color-surface-2)">
+              {project.screenshots && project.screenshots.length > 0 ? (
+                <img
+                  src={project.screenshots[0]}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
+                  loading="lazy"
                 />
-
-                <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] xl:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-center w-full">
-                  {/* Left Column: Index & Project Details (comfortable text column) */}
-                  <div className="space-y-4 max-w-[65ch]">
-                    {/* Index + Badge Row */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-(--color-border)">
-                      <div className="flex items-center gap-3">
-                        <span className="font-mono text-xl sm:text-2xl font-bold text-(--color-primary)">
-                          {indexFormatted}
-                        </span>
-                        <span className="text-xs font-mono uppercase tracking-wider text-(--color-muted) px-2.5 py-0.5 rounded-full bg-(--color-surface-2) border border-(--color-border)">
-                          {project.category}
-                        </span>
-                        {isFeatured && (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-(--color-primary)/15 text-(--color-primary) text-xs font-mono font-semibold">
-                            <Sparkles className="w-3.5 h-3.5" />
-                            Flagship Enterprise
-                          </span>
-                        )}
-                      </div>
-
-                      {project.isPrivate ? (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-mono text-amber-500 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/25">
-                          <Lock className="w-3 h-3" />
-                          <span>{project.privateBadgeText || 'Private / Client Project'}</span>
-                        </span>
-                      ) : (
-                        <span className="text-xs font-mono text-emerald-500 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/25">
-                          Open Source
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Title (Weight 600) & Tagline */}
-                    <div>
-                      <h3 className="font-sans font-semibold text-xl sm:text-2xl lg:text-3xl text-(--color-text) tracking-tight mb-1">
-                        {project.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm font-mono text-(--color-secondary) font-medium">
-                        {project.tagline}
-                      </p>
-                    </div>
-
-                    {/* Description (Weight 400 at full readable contrast) */}
-                    <p className="text-sm sm:text-base font-normal text-(--color-muted) leading-relaxed">
-                      {project.description}
-                    </p>
-
-                    {/* Architectural Highlights with 8-12px spacing */}
-                    {project.highlights && project.highlights.length > 0 && (
-                      <div className="pt-1">
-                        <ul className="space-y-2.5">
-                          {project.highlights.slice(0, 3).map((hl, hIdx) => (
-                            <li
-                              key={hIdx}
-                              className="flex items-start gap-2.5 text-xs sm:text-sm font-normal text-(--color-text) leading-relaxed"
-                            >
-                              <CheckCircle2 className="w-4 h-4 text-(--color-secondary) shrink-0 mt-0.5" />
-                              <span>{hl}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Tech Chips in small Poppins 500 (13px) with enough padding */}
-                    <div className="pt-1.5">
-                      <div className="flex flex-wrap gap-1.5">
-                        {project.techStack.map((tech, tIdx) => (
-                          <span
-                            key={tIdx}
-                            className="inline-flex items-center px-2.5 py-1 rounded-md bg-(--color-surface-2) text-(--color-text) border border-(--color-border) text-[13px] font-sans font-medium"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Role & Links Footer */}
-                    <div className="pt-3.5 flex flex-wrap items-center justify-between gap-4 border-t border-(--color-border)">
-                      <div className="text-xs font-mono text-(--color-muted)">
-                        Role: <span className="text-(--color-text) font-medium">{project.role}</span>
-                      </div>
-
-                      <div className="flex items-center gap-2.5">
-                        {project.githubUrl && (
-                          <Button
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            variant="secondary"
-                            size="sm"
-                            icon={<FaGithub className="w-3.5 h-3.5" />}
-                          >
-                            Repository
-                          </Button>
-                        )}
-
-                        {project.liveUrl && project.liveUrl !== '#' && (
-                          <Button
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            variant="primary"
-                            size="sm"
-                            icon={<ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />}
-                            iconPosition="right"
-                          >
-                            Live Demo
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right Column: Visual Panel with Parallax on desktop */}
-                  <div className="flex justify-center w-full">
-                    <div className="project-visual-panel w-full transition-transform duration-300">
-                      <ProjectPlaceholder
-                        type={project.placeholderType}
-                        title={project.title}
-                        isPrivate={project.isPrivate}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </Card>
+              ) : (
+                <ProjectPlaceholder
+                  type={project.placeholderType}
+                  title={project.title}
+                  isPrivate={project.isPrivate}
+                />
+              )}
             </div>
-          );
-        })}
-      </div>
+
+            {/* Card Content (equal height, balanced padding) */}
+            <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+              <div className="space-y-2.5">
+                {/* Index + Status Badge Row */}
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-xs font-semibold text-(--color-primary)">
+                    {project.index}
+                  </span>
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-mono border bg-(--color-surface-2) border-(--color-border) text-(--color-muted)">
+                    {project.statusBadge}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 className="font-sans font-semibold text-lg sm:text-xl text-(--color-text) group-hover:text-(--color-primary) transition-colors">
+                  {project.title}
+                </h3>
+
+                {/* Short Description (2 Lines Clamp) */}
+                <p className="text-xs sm:text-sm text-(--color-muted) line-clamp-2 leading-relaxed">
+                  {project.shortDescription}
+                </p>
+              </div>
+
+              {/* Bottom Row: Tech Chips (at most 4 + '+N') & View Details Arrow */}
+              <div className="space-y-3.5 pt-3 border-t border-(--color-border)/70">
+                <div className="flex flex-wrap gap-1.5">
+                  {project.techStack.slice(0, 4).map((tech, i) => (
+                    <span
+                      key={i}
+                      className="inline-flex items-center px-2 py-0.5 rounded-md bg-(--color-surface-2) text-(--color-text) border border-(--color-border) text-[11px] font-sans font-medium"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {project.techStack.length > 4 && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-(--color-surface-2) text-(--color-primary) border border-(--color-border) text-[11px] font-mono font-medium">
+                      +{project.techStack.length - 4}
+                    </span>
+                  )}
+                </div>
+
+                <div className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-(--color-primary) group-hover:translate-x-1 transition-transform">
+                  <span>View details</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </div>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </Reveal>
     </Section>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { FileDown } from 'lucide-react';
 import { Container } from './Container';
 import { ThemeToggle } from '../ui/ThemeToggle';
@@ -6,8 +7,6 @@ import { Button } from '../ui/Button';
 import { useScrollSpy } from '../../hooks/useScrollSpy';
 import { portfolioData } from '../../data/portfolio';
 import { cn } from '../../lib/utils';
-import { useGSAP } from '@gsap/react';
-import { gsap } from '../../lib/gsap';
 import { MobileDrawer } from './MobileDrawer';
 
 interface NavItem {
@@ -18,11 +17,11 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { number: '01', label: 'About', href: '#about', id: 'about' },
-  { number: '02', label: 'Skills', href: '#skills', id: 'skills' },
-  { number: '03', label: 'Experience', href: '#experience', id: 'experience' },
-  { number: '04', label: 'Projects', href: '#projects', id: 'projects' },
-  { number: '05', label: 'Contact', href: '#contact', id: 'contact' },
+  { number: '01', label: 'About', href: '/#about', id: 'about' },
+  { number: '02', label: 'Skills', href: '/#skills', id: 'skills' },
+  { number: '03', label: 'Experience', href: '/#experience', id: 'experience' },
+  { number: '04', label: 'Projects', href: '/#projects', id: 'projects' },
+  { number: '05', label: 'Contact', href: '/#contact', id: 'contact' },
 ];
 
 const SECTION_IDS = ['hero', ...NAV_ITEMS.map((item) => item.id)];
@@ -30,11 +29,20 @@ const SECTION_IDS = ['hero', ...NAV_ITEMS.map((item) => item.id)];
 export const Navbar: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const activeSection = useScrollSpy(SECTION_IDS, 'hero');
+  const location = useLocation();
+
+  const isHome = location.pathname === '/';
+  const scrollSpySection = useScrollSpy(SECTION_IDS, 'hero');
+
+  // On home page, activeSection follows scroll-spy; on project detail page, only 'projects' is active
+  const activeSection = isHome
+    ? scrollSpySection
+    : location.pathname.startsWith('/projects')
+    ? 'projects'
+    : '';
 
   const headerRef = useRef<HTMLElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
-  const progressBarRef = useRef<HTMLDivElement>(null);
   const hamburgerBtnRef = useRef<HTMLButtonElement>(null);
 
   // Soft shadow toggle via 8px top IntersectionObserver sentinel (zero scroll listeners)
@@ -53,31 +61,16 @@ export const Navbar: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Top scroll-progress bar scrub (scaleX) via GSAP ScrollTrigger - Navbar NEVER hides
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        if (progressBarRef.current) {
-          gsap.fromTo(
-            progressBarRef.current,
-            { scaleX: 0, transformOrigin: 'left center' },
-            {
-              scaleX: 1,
-              ease: 'none',
-              scrollTrigger: {
-                start: 'top top',
-                end: 'bottom bottom',
-                scrub: 0.1,
-              },
-            }
-          );
-        }
-      });
-    },
-    { scope: headerRef }
-  );
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
+    if (isHome) {
+      e.preventDefault();
+      const target = document.getElementById(item.id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+        window.history.pushState(null, '', item.href);
+      }
+    }
+  };
 
   return (
     <>
@@ -100,8 +93,15 @@ export const Navbar: React.FC = () => {
       >
         <Container className="h-full flex items-center justify-between">
           {/* Logo Mark */}
-          <a
-            href="#hero"
+          <Link
+            to="/#hero"
+            onClick={(e) => {
+              if (isHome) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.history.pushState(null, '', '/');
+              }
+            }}
             className="group flex items-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-primary) rounded-lg"
             aria-label="Dhanush M - Home"
           >
@@ -111,16 +111,17 @@ export const Navbar: React.FC = () => {
             <span className="font-sans font-semibold text-base sm:text-lg tracking-tight text-(--color-text)">
               Dhanush<span className="text-(--color-primary)">.dev</span>
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation (1024px and above) */}
           <nav className="hidden lg:flex items-center gap-1.5" aria-label="Main navigation">
             {NAV_ITEMS.map((item) => {
               const isActive = activeSection === item.id;
               return (
-                <a
+                <Link
                   key={item.id}
-                  href={item.href}
+                  to={item.href}
+                  onClick={(e) => handleNavClick(e, item)}
                   className={cn(
                     'relative px-3.5 py-1.5 text-xs font-mono uppercase tracking-wider rounded-lg transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-primary)',
                     isActive
@@ -132,7 +133,7 @@ export const Navbar: React.FC = () => {
                   {isActive && (
                     <span className="absolute bottom-0 left-3.5 right-3.5 h-[2px] bg-gradient-to-r from-(--color-primary) to-(--color-secondary) rounded-full" />
                   )}
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -186,12 +187,6 @@ export const Navbar: React.FC = () => {
             </button>
           </div>
         </Container>
-
-        {/* Scroll Progress Line under Navbar (scaleX scrubbed) */}
-        <div
-          ref={progressBarRef}
-          className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-(--color-primary) to-(--color-secondary) origin-left z-50 pointer-events-none"
-        />
       </header>
 
       {/* 64px Spacer to prevent page content from being hidden behind fixed navbar */}

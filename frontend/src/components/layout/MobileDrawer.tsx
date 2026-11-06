@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { X, FileDown, Mail } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { ThemeToggle } from '../ui/ThemeToggle';
@@ -29,6 +30,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
   activeSection,
   returnFocusRef,
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [mounted] = useState(() => typeof document !== 'undefined');
   const [prevOpen, setPrevOpen] = useState(isOpen);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -148,17 +151,26 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
     e.preventDefault();
     onClose();
 
-    const id = href.replace('#', '');
-    const target = document.getElementById(id);
-    if (target) {
-      const prefersReduced =
-        typeof window !== 'undefined' &&
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (location.pathname === '/') {
+      const id = href.replace('/#', '').replace('#', '');
+      const target = document.getElementById(id);
+      if (target) {
+        const prefersReduced =
+          typeof window !== 'undefined' &&
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      target.scrollIntoView({
-        behavior: prefersReduced ? 'auto' : 'smooth',
-      });
-      window.history.pushState(null, '', href);
+        setTimeout(() => {
+          target.scrollIntoView({
+            behavior: prefersReduced ? 'auto' : 'smooth',
+            block: 'start',
+          });
+          window.history.pushState(null, '', href);
+        }, 50);
+      }
+    } else {
+      setTimeout(() => {
+        navigate(href);
+      }, 50);
     }
   };
 

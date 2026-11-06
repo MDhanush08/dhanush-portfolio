@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Section } from '../layout/Section';
 import { SplitHeading } from '../ui/SplitHeading';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
+import { Reveal } from '../ui/Reveal';
 import { portfolioData } from '../../data/portfolio';
 import type { ContactFormData } from '../../types/api';
 import { submitContact } from '../../services/api';
@@ -16,13 +17,8 @@ import {
   ArrowUpRight,
 } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { useGSAP } from '@gsap/react';
-import { gsap } from '../../lib/gsap';
 
 export const Contact: React.FC = () => {
-  const containerRef = useRef<HTMLElement>(null);
-  const formCardRef = useRef<HTMLDivElement>(null);
-
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
@@ -34,37 +30,6 @@ export const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
-
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        if (formCardRef.current) {
-          gsap.fromTo(
-            formCardRef.current,
-            { opacity: 0, y: 22 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: formCardRef.current,
-                start: 'top 85%',
-                once: true,
-              },
-            }
-          );
-        }
-      });
-
-      mm.add('(prefers-reduced-motion: reduce)', () => {
-        if (formCardRef.current) formCardRef.current.style.opacity = '1';
-      });
-    },
-    { scope: containerRef }
-  );
 
   const validate = (): boolean => {
     const newErrors: Partial<Record<keyof ContactFormData, string>> = {};
@@ -132,7 +97,7 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <Section ref={containerRef} id="contact">
+    <Section id="contact">
       {/* Clean left-aligned heading with exact requested title */}
       <SplitHeading
         number="06"
@@ -143,7 +108,7 @@ export const Contact: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
         {/* Left Column: Direct Details */}
-        <div className="lg:col-span-5 space-y-6">
+        <Reveal className="lg:col-span-5 space-y-6">
           <Card className="p-6 sm:p-7 rounded-2xl space-y-6">
             <div>
               <p className="text-xs font-mono uppercase tracking-widest text-(--color-muted) mb-2">
@@ -216,10 +181,10 @@ export const Contact: React.FC = () => {
               </div>
             </div>
           </Card>
-        </div>
+        </Reveal>
 
         {/* Right Column: Contact Form (max-w-[640px] left-aligned for comfortable form ergonomics) */}
-        <div ref={formCardRef} className="lg:col-span-7">
+        <Reveal delayMs={100} className="lg:col-span-7">
           <Card className="p-6 sm:p-7 rounded-2xl max-w-[640px]">
             <div className="pb-3.5 mb-5 border-b border-(--color-border)">
               <h3 className="font-sans font-semibold text-lg sm:text-xl text-(--color-text) mb-1">
@@ -386,7 +351,7 @@ export const Contact: React.FC = () => {
               </form>
             )}
           </Card>
-        </div>
+        </Reveal>
       </div>
     </Section>
   );

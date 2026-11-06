@@ -1,14 +1,13 @@
-import React, { useRef } from 'react';
-import { useGSAP } from '@gsap/react';
-import { gsap } from '../../lib/gsap';
+import React from 'react';
+import { Reveal } from './Reveal';
 import { cn } from '../../lib/utils';
 
 export interface SplitHeadingProps {
   number?: string;
   kicker?: string;
   title: string;
-  accent?: string; // Optional backwards compatibility if passed
-  titleEnd?: string; // Optional backwards compatibility if passed
+  accent?: string;
+  titleEnd?: string;
   description?: string;
   className?: string;
 }
@@ -22,55 +21,12 @@ export const SplitHeading: React.FC<SplitHeadingProps> = ({
   description,
   className,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // The whole heading block fades up as one unit (opacity 0 to 1, y 24 to 0, 0.6s, power3.out, once: true)
-  useGSAP(
-    () => {
-      if (!containerRef.current) return;
-
-      const mm = gsap.matchMedia();
-
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.fromTo(
-          containerRef.current,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: 'top 85%',
-              once: true,
-            },
-          }
-        );
-      });
-
-      mm.add('(prefers-reduced-motion: reduce)', () => {
-        if (containerRef.current) {
-          containerRef.current.style.opacity = '1';
-          containerRef.current.style.transform = 'none';
-        }
-      });
-    },
-    { scope: containerRef, dependencies: [title, description] }
-  );
-
   const fullTitle = accent
     ? `${title} ${accent}${titleEnd ? ` ${titleEnd}` : ''}`
     : title;
 
   return (
-    <div
-      ref={containerRef}
-      className={cn(
-        'mb-10 sm:mb-14 text-left w-full',
-        className
-      )}
-    >
+    <Reveal className={cn('mb-10 sm:mb-14 text-left w-full', className)}>
       {/* Small mono label above: left-aligned */}
       {(number || kicker) && (
         <div className="flex items-center gap-2 mb-2.5 text-xs font-mono text-(--color-primary) tracking-wider uppercase">
@@ -98,6 +54,6 @@ export const SplitHeading: React.FC<SplitHeadingProps> = ({
           {description}
         </p>
       )}
-    </div>
+    </Reveal>
   );
 };
