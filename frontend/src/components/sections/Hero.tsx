@@ -78,7 +78,6 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        // Name SplitText reveal
         let split: SplitText | null = null;
         if (h1Ref.current) {
           split = new SplitText(h1Ref.current, {
@@ -88,20 +87,25 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
           });
         }
 
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        const tl = gsap.timeline({
+          defaults: { ease: 'power3.out' },
+          onComplete: () => {
+            // Revert SplitText so DOM returns to normal text for responsive wrapping
+            split?.revert();
+          },
+        });
 
         // 1. Text elements stagger
         tl.fromTo(
           statusBadgeRef.current,
           { opacity: 0, y: 14 },
           { opacity: 1, y: 0, duration: 0.5 }
-        )
-          .fromTo(
-            greetingRef.current,
-            { opacity: 0, y: 12 },
-            { opacity: 1, y: 0, duration: 0.4 },
-            '-=0.3'
-          );
+        ).fromTo(
+          greetingRef.current,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.4 },
+          '-=0.3'
+        );
 
         if (split && split.chars.length > 0) {
           tl.fromTo(
@@ -194,7 +198,6 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
           const normX = (clientX - centerX) / centerX;
           const normY = (clientY - centerY) / centerY;
 
-          // Maximum 12px parallax movement as required
           xQuick1(normX * 10);
           yQuick1(normY * 10);
           xQuick2(normX * -12);
@@ -237,10 +240,10 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
     <>
       <Section
         id="hero"
-        className="min-h-[calc(100vh-4rem)] flex flex-col justify-center pt-6 pb-12 sm:pt-10 sm:pb-16 relative"
+        className="min-h-[calc(100vh-4rem)] flex flex-col justify-center pt-8 pb-12 sm:pt-12 sm:pb-16 relative"
         containerClassName="relative z-10 flex-1 flex flex-col justify-center"
       >
-        {/* Static soft radial glow backgrounds (pure CSS, no blur filter on large elements) */}
+        {/* Static soft radial glow backgrounds */}
         <div
           className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
           aria-hidden="true"
@@ -267,7 +270,7 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
           className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center w-full"
         >
           {/* Left Column: Typography & CTAs */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
+          <div className="lg:col-span-7 flex flex-col items-start text-left w-full">
             {/* Status Pill Badge */}
             <div
               ref={statusBadgeRef}
@@ -285,14 +288,14 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
               Hi, I'm
             </p>
 
-            {/* Massive Display H1 */}
+            {/* Fluid H1: Poppins 700, tracking -0.03em, line-height 1.05, wraps cleanly at 360px */}
             <h1
               ref={h1Ref}
-              className="font-display font-extrabold text-5xl sm:text-7xl lg:text-8xl text-(--color-text) tracking-tight leading-[0.98] mb-3"
-              style={{ fontSize: 'clamp(3rem, 8.5vw, 6.75rem)' }}
+              className="font-sans font-bold text-(--color-text) tracking-[-0.03em] leading-[1.05] mb-2.5 break-words max-w-full"
+              style={{ fontSize: 'clamp(2.5rem, 1.8rem + 4.2vw, 5.25rem)' }}
             >
               Dhanush{' '}
-              <span className="font-editorial text-transparent bg-clip-text bg-gradient-to-r from-(--color-primary) to-(--color-secondary) font-normal italic">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-(--color-primary) to-(--color-secondary)">
                 M
               </span>
             </h1>
@@ -300,19 +303,19 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
             {/* Subtitle */}
             <p
               ref={subtitleRef}
-              className="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-(--color-text)/90 tracking-tight mb-2"
+              className="font-sans font-semibold text-xl sm:text-2xl lg:text-3xl text-(--color-text)/90 tracking-tight mb-2"
             >
               {portfolioData.role}
             </p>
 
-            {/* Cycling Role Line */}
+            {/* Cycling Role Line with reserved height */}
             <div
               ref={cyclerRef}
               className="h-8 sm:h-9 flex items-center mb-4 overflow-hidden"
               aria-live="polite"
             >
               <span
-                className={`font-mono text-base sm:text-lg text-(--color-primary) font-semibold transition-all duration-200 ${
+                className={`font-mono text-sm sm:text-base text-(--color-primary) font-semibold transition-all duration-200 ${
                   fadeState === 'in'
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 -translate-y-2'
@@ -325,7 +328,7 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
             {/* Tagline */}
             <p
               ref={taglineRef}
-              className="text-base sm:text-lg text-(--color-muted) max-w-xl leading-relaxed mb-8"
+              className="text-sm sm:text-base text-(--color-muted) max-w-xl leading-relaxed mb-7"
             >
               {portfolioData.tagline}
             </p>
@@ -333,7 +336,7 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
             {/* CTAs & Socials */}
             <div
               ref={ctasRef}
-              className="flex flex-wrap items-center gap-3 sm:gap-4 mb-9 w-full"
+              className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8 w-full"
             >
               <Button
                 href="#projects"
@@ -356,7 +359,7 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
                 size="md"
                 icon={<Download className="w-4 h-4" />}
               >
-                Download Resume
+                Resume
               </Button>
 
               {/* Social Buttons */}
@@ -366,7 +369,7 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Dhanush M on GitHub"
-                  className="w-11 h-11 flex items-center justify-center rounded-[10px] text-(--color-muted) hover:text-(--color-text) bg-(--color-surface-2) border border-(--color-border) hover:border-(--color-primary) transition-colors"
+                  className="w-11 h-11 flex items-center justify-center rounded-xl text-(--color-muted) hover:text-(--color-text) bg-(--color-surface-2) border border-(--color-border) hover:border-(--color-primary) transition-colors"
                 >
                   <FaGithub className="w-4 h-4" />
                 </a>
@@ -375,14 +378,14 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Dhanush M on LinkedIn"
-                  className="w-11 h-11 flex items-center justify-center rounded-[10px] text-(--color-muted) hover:text-(--color-text) bg-(--color-surface-2) border border-(--color-border) hover:border-(--color-primary) transition-colors"
+                  className="w-11 h-11 flex items-center justify-center rounded-xl text-(--color-muted) hover:text-(--color-text) bg-(--color-surface-2) border border-(--color-border) hover:border-(--color-primary) transition-colors"
                 >
                   <FaLinkedin className="w-4 h-4" />
                 </a>
                 <a
                   href={`mailto:${portfolioData.contact.email}`}
                   aria-label="Send Email to Dhanush M"
-                  className="w-11 h-11 flex items-center justify-center rounded-[10px] text-(--color-muted) hover:text-(--color-text) bg-(--color-surface-2) border border-(--color-border) hover:border-(--color-primary) transition-colors"
+                  className="w-11 h-11 flex items-center justify-center rounded-xl text-(--color-muted) hover:text-(--color-text) bg-(--color-surface-2) border border-(--color-border) hover:border-(--color-primary) transition-colors"
                 >
                   <Mail className="w-4 h-4" />
                 </a>
@@ -392,17 +395,17 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
             {/* Quick-Facts Strip */}
             <div
               ref={factsRef}
-              className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-xl pt-6 border-t border-(--color-border)"
+              className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-xl pt-5 border-t border-(--color-border)"
             >
               {portfolioData.quickFacts.map((fact, i) => (
                 <div
                   key={i}
-                  className="px-3.5 py-2.5 rounded-[12px] bg-(--color-surface-2)/70 border border-(--color-border)"
+                  className="px-3.5 py-2.5 rounded-xl bg-(--color-surface-2)/70 border border-(--color-border)"
                 >
-                  <div className="font-display font-bold text-base sm:text-lg text-(--color-text)">
+                  <div className="font-sans font-semibold text-sm sm:text-base text-(--color-text)">
                     {fact.value}
                   </div>
-                  <div className="text-xs text-(--color-muted) font-medium">
+                  <div className="text-xs text-(--color-muted) font-medium mt-0.5">
                     {fact.label}
                   </div>
                 </div>
@@ -415,17 +418,17 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
             ref={photoContainerRef}
             className="lg:col-span-5 flex justify-center lg:justify-end w-full relative"
           >
-            <div className="relative w-full max-w-[380px] sm:max-w-[400px]">
+            <div className="relative w-full max-w-[340px] sm:max-w-[380px]">
               {/* Outer Decorative Offset Outline */}
               <div
-                className="absolute -inset-2.5 rounded-[28px] border border-(--color-border) -z-10 opacity-70"
+                className="absolute -inset-2 rounded-2xl border border-(--color-border) -z-10 opacity-70"
                 aria-hidden="true"
               />
 
               {/* Decorative Gradient Border Container */}
-              <div className="p-1 rounded-[26px] bg-gradient-to-tr from-(--color-primary) via-(--color-secondary)/50 to-transparent shadow-2xl">
+              <div className="p-1 rounded-2xl bg-gradient-to-tr from-(--color-primary) via-(--color-secondary)/50 to-transparent shadow-2xl">
                 {/* 4:5 Aspect Ratio Photo Container */}
-                <div className="relative w-full aspect-[4/5] rounded-[22px] overflow-hidden bg-(--color-surface) border border-(--color-border)">
+                <div className="relative w-full aspect-[4/5] rounded-[14px] overflow-hidden bg-(--color-surface) border border-(--color-border)">
                   {/* Mask Overlay for Entrance Animation */}
                   <div
                     ref={photoMaskRef}
@@ -448,10 +451,10 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
                   ) : (
                     /* Fallback Monogram "DM" Card */
                     <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-(--color-surface) via-(--color-surface-2) to-(--color-surface) p-6 text-center">
-                      <div className="w-24 h-24 rounded-2xl bg-gradient-to-tr from-(--color-primary) to-(--color-secondary) text-white flex items-center justify-center font-display font-bold text-4xl shadow-lg mb-4">
+                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-(--color-primary) to-(--color-secondary) text-white flex items-center justify-center font-sans font-bold text-3xl shadow-lg mb-3">
                         DM
                       </div>
-                      <div className="font-display font-bold text-xl text-(--color-text)">
+                      <div className="font-sans font-bold text-lg text-(--color-text)">
                         Dhanush M
                       </div>
                       <div className="font-mono text-xs text-(--color-primary) mt-1">
@@ -461,10 +464,10 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
                   )}
 
                   {/* Bottom Inner Gradient Vignette */}
-                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-(--color-surface)/90 to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-(--color-surface)/90 to-transparent pointer-events-none" />
 
-                  {/* Monogram Overlay Badge */}
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between px-3.5 py-2 rounded-xl bg-(--color-surface)/80 border border-(--color-border) backdrop-blur-xs">
+                  {/* Location Badge */}
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between px-3 py-1.5 rounded-lg bg-(--color-surface)/85 border border-(--color-border)">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-emerald-500" />
                       <span className="text-xs font-mono font-medium text-(--color-text)">
@@ -478,64 +481,54 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
                 </div>
               </div>
 
-              {/* Floating Tech Badges (Transform-only floating loops at varied durations) */}
-              <div ref={badgesRef} className="pointer-events-none">
+              {/* Floating Tech Badges (Hidden on mobile <600px to avoid text overlap; visible 600px+) */}
+              <div ref={badgesRef} className="pointer-events-none hidden sm:block">
                 {/* Badge 1: NestJS (Top Left) */}
                 <div
                   ref={badge1Ref}
-                  className="floating-badge absolute -top-4 -left-4 sm:-left-6 px-3 py-2 rounded-xl bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-2 animate-gentle-float"
+                  className="floating-badge absolute -top-3 -left-3 px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
                   style={{ animationDuration: '4.8s' }}
                 >
-                  <SiNestjs className="w-4 h-4 text-[#E0234E]" />
-                  <span className="text-xs font-mono font-semibold text-(--color-text)">
-                    NestJS
-                  </span>
+                  <SiNestjs className="w-3.5 h-3.5 text-[#E0234E]" />
+                  <span>NestJS</span>
                 </div>
 
                 {/* Badge 2: React (Top Right) */}
                 <div
                   ref={badge2Ref}
-                  className="floating-badge absolute top-10 -right-4 sm:-right-6 px-3 py-2 rounded-xl bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-2 animate-gentle-float"
+                  className="floating-badge absolute top-8 -right-3 px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
                   style={{ animationDuration: '5.6s', animationDelay: '-1.5s' }}
                 >
-                  <SiReact className="w-4 h-4 text-[#61DAFB]" />
-                  <span className="text-xs font-mono font-semibold text-(--color-text)">
-                    React.js
-                  </span>
+                  <SiReact className="w-3.5 h-3.5 text-[#61DAFB]" />
+                  <span>React.js</span>
                 </div>
 
                 {/* Badge 3: Angular (Middle Left) */}
                 <div
                   ref={badge3Ref}
-                  className="floating-badge absolute top-1/2 -left-6 sm:-left-8 px-3 py-2 rounded-xl bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-2 animate-gentle-float"
+                  className="floating-badge absolute top-1/2 -left-4 px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
                   style={{ animationDuration: '6.2s', animationDelay: '-3s' }}
                 >
-                  <SiAngular className="w-4 h-4 text-[#DD0031]" />
-                  <span className="text-xs font-mono font-semibold text-(--color-text)">
-                    Angular
-                  </span>
+                  <SiAngular className="w-3.5 h-3.5 text-[#DD0031]" />
+                  <span>Angular</span>
                 </div>
 
                 {/* Badge 4: PostgreSQL (Bottom Right) */}
                 <div
-                  className="floating-badge absolute bottom-12 -right-4 sm:-right-6 px-3 py-2 rounded-xl bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-2 animate-gentle-float"
+                  className="floating-badge absolute bottom-10 -right-3 px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
                   style={{ animationDuration: '5.2s', animationDelay: '-0.8s' }}
                 >
-                  <SiPostgresql className="w-4 h-4 text-[#4169E1]" />
-                  <span className="text-xs font-mono font-semibold text-(--color-text)">
-                    PostgreSQL
-                  </span>
+                  <SiPostgresql className="w-3.5 h-3.5 text-[#4169E1]" />
+                  <span>PostgreSQL</span>
                 </div>
 
                 {/* Badge 5: Docker (Bottom Left) */}
                 <div
-                  className="floating-badge absolute -bottom-3 left-8 px-3 py-1.5 rounded-xl bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-2 animate-gentle-float"
+                  className="floating-badge absolute -bottom-2 left-6 px-2.5 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) shadow-xl flex items-center gap-1.5 animate-gentle-float text-xs font-mono font-medium text-(--color-text)"
                   style={{ animationDuration: '4.4s', animationDelay: '-2.2s' }}
                 >
                   <SiDocker className="w-3.5 h-3.5 text-[#2496ED]" />
-                  <span className="text-xs font-mono font-semibold text-(--color-text)">
-                    Docker
-                  </span>
+                  <span>Docker</span>
                 </div>
               </div>
             </div>
@@ -545,49 +538,69 @@ export const Hero: React.FC<HeroProps> = ({ startEntrance = true }) => {
         {/* Scroll Indicator at bottom */}
         <div
           ref={scrollIndicatorRef}
-          className="mt-12 sm:mt-8 flex flex-col items-center justify-center text-center opacity-70 hover:opacity-100 transition-opacity"
+          className="mt-10 sm:mt-8 flex flex-col items-center justify-center text-center opacity-70 hover:opacity-100 transition-opacity"
         >
           <a
             href="#about"
             aria-label="Scroll to About section"
-            className="flex flex-col items-center gap-1.5 text-(--color-muted) hover:text-(--color-primary) transition-colors text-xs font-mono uppercase tracking-widest"
+            className="flex flex-col items-center gap-1 text-(--color-muted) hover:text-(--color-primary) transition-colors text-xs font-mono uppercase tracking-widest"
           >
-            <span>Scroll Down</span>
-            <ChevronDown className="w-4 h-4 animate-bounce" />
+            <span>Scroll</span>
+            <ChevronDown className="w-3.5 h-3.5 animate-bounce" />
           </a>
         </div>
       </Section>
 
-      {/* Under-the-hero Fold: Large Scrolling Text Marquee (Outlined and Filled Words) */}
-      <div className="w-full overflow-hidden border-y border-(--color-border) bg-(--color-surface-2)/60 py-4 select-none">
-        <div className="flex w-max shrink-0 gap-8 animate-marquee-slide hover:[animation-play-state:paused]">
-          <div className="flex shrink-0 items-center gap-8 text-2xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight">
+      {/* Under-the-hero Fold: Scrolling Text Marquee */}
+      <div className="w-full overflow-hidden border-y border-(--color-border) bg-(--color-surface-2)/60 py-3.5 select-none">
+        <div className="flex w-max shrink-0 gap-6 animate-marquee-slide hover:[animation-play-state:paused]">
+          <div className="flex shrink-0 items-center gap-6 text-xl sm:text-2xl lg:text-3xl font-sans font-bold tracking-tight">
             <span className="text-(--color-text)">ANGULAR</span>
-            <span className="text-transparent font-editorial italic" style={{ WebkitTextStroke: '1px var(--color-muted)' }}>• REACT •</span>
-            <span className="text-(--color-primary)">NESTJS</span>
-            <span className="text-transparent font-editorial italic" style={{ WebkitTextStroke: '1px var(--color-muted)' }}>• GRAPHQL •</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-primary)">REACT</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-text)">NESTJS</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-secondary)">GRAPHQL</span>
+            <span className="text-(--color-muted)/60">•</span>
             <span className="text-(--color-text)">POSTGRESQL</span>
-            <span className="text-transparent font-editorial italic" style={{ WebkitTextStroke: '1px var(--color-muted)' }}>• HASURA •</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-primary)">HASURA</span>
+            <span className="text-(--color-muted)/60">•</span>
             <span className="text-(--color-secondary)">REDIS</span>
-            <span className="text-transparent font-editorial italic" style={{ WebkitTextStroke: '1px var(--color-muted)' }}>• DOCKER •</span>
-            <span className="text-(--color-text)">GITLAB CI/CD</span>
-            <span className="text-transparent font-editorial italic" style={{ WebkitTextStroke: '1px var(--color-muted)' }}>• GEMINI API •</span>
-            <span className="text-(--color-primary)">ANTIGRAVITY</span>
-            <span className="text-transparent font-editorial italic" style={{ WebkitTextStroke: '1px var(--color-muted)' }}>• STRIPE •</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-text)">DOCKER</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-primary)">GITLAB CI/CD</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-secondary)">STRIPE</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-text)">ANTIGRAVITY</span>
+            <span className="text-(--color-muted)/60">•</span>
           </div>
-          <div className="flex shrink-0 items-center gap-8 text-2xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight" aria-hidden="true">
+          <div className="flex shrink-0 items-center gap-6 text-xl sm:text-2xl lg:text-3xl font-sans font-bold tracking-tight" aria-hidden="true">
             <span className="text-(--color-text)">ANGULAR</span>
-            <span className="text-transparent font-editorial italic" style={{ WebkitTextStroke: '1px var(--color-muted)' }}>• REACT •</span>
-            <span className="text-(--color-primary)">NESTJS</span>
-            <span className="text-transparent font-editorial italic" style={{ WebkitTextStroke: '1px var(--color-muted)' }}>• GRAPHQL •</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-primary)">REACT</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-text)">NESTJS</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-secondary)">GRAPHQL</span>
+            <span className="text-(--color-muted)/60">•</span>
             <span className="text-(--color-text)">POSTGRESQL</span>
-            <span className="text-transparent font-editorial italic" style={{ WebkitTextStroke: '1px var(--color-muted)' }}>• HASURA •</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-primary)">HASURA</span>
+            <span className="text-(--color-muted)/60">•</span>
             <span className="text-(--color-secondary)">REDIS</span>
-            <span className="text-transparent font-editorial italic" style={{ WebkitTextStroke: '1px var(--color-muted)' }}>• DOCKER •</span>
-            <span className="text-(--color-text)">GITLAB CI/CD</span>
-            <span className="text-transparent font-editorial italic" style={{ WebkitTextStroke: '1px var(--color-muted)' }}>• GEMINI API •</span>
-            <span className="text-(--color-primary)">ANTIGRAVITY</span>
-            <span className="text-transparent font-editorial italic" style={{ WebkitTextStroke: '1px var(--color-muted)' }}>• STRIPE •</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-text)">DOCKER</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-primary)">GITLAB CI/CD</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-secondary)">STRIPE</span>
+            <span className="text-(--color-muted)/60">•</span>
+            <span className="text-(--color-text)">ANTIGRAVITY</span>
+            <span className="text-(--color-muted)/60">•</span>
           </div>
         </div>
       </div>

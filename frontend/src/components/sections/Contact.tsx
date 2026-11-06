@@ -21,7 +21,6 @@ import { gsap } from '../../lib/gsap';
 
 export const Contact: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
-  const emailLineRef = useRef<HTMLDivElement>(null);
   const formCardRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState<ContactFormData>({
@@ -41,33 +40,14 @@ export const Contact: React.FC = () => {
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        // Animate email underline scaleX
-        if (emailLineRef.current) {
-          gsap.fromTo(
-            emailLineRef.current,
-            { scaleX: 0, transformOrigin: 'left center' },
-            {
-              scaleX: 1,
-              duration: 0.8,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: emailLineRef.current,
-                start: 'top 85%',
-                once: true,
-              },
-            }
-          );
-        }
-
-        // Form card reveal
         if (formCardRef.current) {
           gsap.fromTo(
             formCardRef.current,
-            { opacity: 0, y: 24 },
+            { opacity: 0, y: 22 },
             {
               opacity: 1,
               y: 0,
-              duration: 0.65,
+              duration: 0.6,
               ease: 'power3.out',
               scrollTrigger: {
                 trigger: formCardRef.current,
@@ -80,7 +60,6 @@ export const Contact: React.FC = () => {
       });
 
       mm.add('(prefers-reduced-motion: reduce)', () => {
-        if (emailLineRef.current) emailLineRef.current.style.transform = 'scaleX(1)';
         if (formCardRef.current) formCardRef.current.style.opacity = '1';
       });
     },
@@ -154,40 +133,32 @@ export const Contact: React.FC = () => {
 
   return (
     <Section ref={containerRef} id="contact">
+      {/* Clean left-aligned heading with exact requested title */}
       <SplitHeading
         number="06"
-        kicker="Initiate Conversation"
-        title="Let's build something"
-        accent="extraordinary"
-        titleEnd="together"
-        description="Whether you have an enterprise engineering opening, architecture consultation, or SaaS collaboration in mind."
+        kicker="Contact"
+        title="Let's work together"
+        description="Whether you have an engineering role, architecture question, or SaaS project in mind."
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-        {/* Left Column: Giant Underlined Email & Direct Details */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+        {/* Left Column: Direct Details */}
         <div className="lg:col-span-5 space-y-6">
-          <Card className="p-6 sm:p-8 rounded-2xl space-y-6">
+          <Card className="p-6 sm:p-7 rounded-2xl space-y-6">
             <div>
               <p className="text-xs font-mono uppercase tracking-widest text-(--color-muted) mb-2">
-                Direct Contact Line
+                Direct Contact
               </p>
-              {/* Giant Email Link with Animated Underline */}
-              <div className="relative inline-block group">
-                <a
-                  href={`mailto:${portfolioData.contact.email}`}
-                  className="font-display font-bold text-xl sm:text-2xl lg:text-3xl text-(--color-text) hover:text-(--color-primary) transition-colors flex items-center gap-2 break-all"
-                >
-                  <span>{portfolioData.contact.email}</span>
-                  <ArrowUpRight className="w-5 h-5 shrink-0 text-(--color-primary) group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </a>
-                <div
-                  ref={emailLineRef}
-                  className="h-[2px] w-full bg-gradient-to-r from-(--color-primary) to-(--color-secondary) mt-1"
-                />
-              </div>
+              <a
+                href={`mailto:${portfolioData.contact.email}`}
+                className="font-sans font-semibold text-lg sm:text-xl text-(--color-text) hover:text-(--color-primary) transition-colors flex items-center gap-2 break-all group"
+              >
+                <span>{portfolioData.contact.email}</span>
+                <ArrowUpRight className="w-4 h-4 shrink-0 text-(--color-primary) group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
             </div>
 
-            <div className="space-y-4 pt-2">
+            <div className="space-y-3.5">
               <a
                 href={`tel:${portfolioData.contact.phone}`}
                 className="flex items-center gap-3.5 p-3.5 rounded-xl bg-(--color-surface-2) border border-(--color-border) hover:border-(--color-primary) transition-colors"
@@ -197,7 +168,7 @@ export const Contact: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-xs font-mono text-(--color-muted)">Telephone</div>
-                  <div className="font-semibold text-sm text-(--color-text)">
+                  <div className="font-sans font-medium text-sm text-(--color-text)">
                     {portfolioData.contact.phone}
                   </div>
                 </div>
@@ -209,7 +180,7 @@ export const Contact: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-xs font-mono text-(--color-muted)">Location</div>
-                  <div className="font-semibold text-sm text-(--color-text)">
+                  <div className="font-sans font-medium text-sm text-(--color-text)">
                     {portfolioData.location}
                   </div>
                 </div>
@@ -217,9 +188,9 @@ export const Contact: React.FC = () => {
             </div>
 
             {/* Social Links */}
-            <div className="pt-4 border-t border-(--color-border)">
+            <div className="pt-3.5 border-t border-(--color-border)">
               <div className="text-xs font-mono uppercase tracking-wider text-(--color-muted) mb-3">
-                Social Profiles
+                Professional Profiles
               </div>
               <div className="flex items-center gap-3">
                 <Button
@@ -249,21 +220,21 @@ export const Contact: React.FC = () => {
 
         {/* Right Column: Contact Form */}
         <div ref={formCardRef} className="lg:col-span-7">
-          <Card className="p-6 sm:p-8 rounded-2xl">
-            <div className="pb-4 mb-6 border-b border-(--color-border)">
-              <h3 className="font-display font-bold text-xl sm:text-2xl text-(--color-text) mb-1">
-                Send a Direct Dispatch
+          <Card className="p-6 sm:p-7 rounded-2xl">
+            <div className="pb-3.5 mb-5 border-b border-(--color-border)">
+              <h3 className="font-sans font-semibold text-lg sm:text-xl text-(--color-text) mb-1">
+                Send a Message
               </h3>
               <p className="text-xs sm:text-sm text-(--color-muted)">
-                Expect a response within 24 hours.
+                Leave a message below and I will get back to you shortly.
               </p>
             </div>
 
             {submitSuccess ? (
               <div className="p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-500 space-y-3">
-                <div className="flex items-center gap-2 text-base font-display font-bold">
+                <div className="flex items-center gap-2 text-base font-sans font-semibold">
                   <CheckCircle2 className="w-5 h-5 shrink-0" />
-                  <span>Dispatch Received Successfully!</span>
+                  <span>Message Sent Successfully!</span>
                 </div>
                 <p className="text-sm text-(--color-text)">{submitSuccess}</p>
                 <Button
@@ -353,7 +324,7 @@ export const Contact: React.FC = () => {
                     type="text"
                     value={formData.subject}
                     onChange={handleChange}
-                    placeholder="Full Stack Engineering Role / Architecture Consultation"
+                    placeholder="Full Stack Engineering Role / Project Inquiry"
                     disabled={isSubmitting}
                     className="w-full px-4 py-2.5 rounded-xl bg-(--color-surface-2) border border-(--color-border) text-sm text-(--color-text) placeholder:text-(--color-muted) focus:outline-none focus:border-(--color-primary) focus:ring-1 focus:ring-(--color-primary) transition-all"
                     aria-invalid={!!errors.subject}
@@ -380,7 +351,7 @@ export const Contact: React.FC = () => {
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Describe your project, team requirements, or role scope..."
+                    placeholder="Describe your project, timeline, or role..."
                     disabled={isSubmitting}
                     className="w-full px-4 py-2.5 rounded-xl bg-(--color-surface-2) border border-(--color-border) text-sm text-(--color-text) placeholder:text-(--color-muted) focus:outline-none focus:border-(--color-primary) focus:ring-1 focus:ring-(--color-primary) transition-all resize-y"
                     aria-invalid={!!errors.message}
@@ -409,7 +380,7 @@ export const Contact: React.FC = () => {
                     }
                     iconPosition="right"
                   >
-                    {isSubmitting ? 'Transmitting Dispatch...' : 'Send Message'}
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
                 </div>
               </form>

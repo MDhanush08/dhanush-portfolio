@@ -53,6 +53,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({
 
       const tl = gsap.timeline({
         onComplete: () => {
+          split.revert();
           document.body.style.overflow = '';
           sessionStorage.setItem('dhanush_intro_seen', 'true');
           setShouldRender(false);
@@ -201,7 +202,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({
         <div className="overflow-hidden py-1">
           <h1
             ref={nameRef}
-            className="font-display font-extrabold text-4xl sm:text-6xl text-[#E5E7EB] tracking-tight leading-none"
+            className="font-sans font-bold text-4xl sm:text-6xl text-[#E5E7EB] tracking-tight leading-none"
           >
             Dhanush <span className="text-[#6366F1]">M</span>
           </h1>

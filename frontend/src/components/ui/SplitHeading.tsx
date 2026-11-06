@@ -1,16 +1,15 @@
 import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
-import { gsap, SplitText } from '../../lib/gsap';
+import { gsap } from '../../lib/gsap';
 import { cn } from '../../lib/utils';
 
 export interface SplitHeadingProps {
   number?: string;
   kicker?: string;
   title: string;
-  accent?: string;
-  titleEnd?: string;
+  accent?: string; // Optional backwards compatibility if passed
+  titleEnd?: string; // Optional backwards compatibility if passed
   description?: string;
-  align?: 'left' | 'center';
   className?: string;
 }
 
@@ -21,130 +20,81 @@ export const SplitHeading: React.FC<SplitHeadingProps> = ({
   accent,
   titleEnd,
   description,
-  align = 'center',
   className,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const metaRef = useRef<HTMLDivElement>(null);
-  const descRef = useRef<HTMLParagraphElement>(null);
 
+  // The whole heading block fades up as one unit (opacity 0 to 1, y 24 to 0, 0.6s, power3.out, once: true)
   useGSAP(
     () => {
-      if (!headingRef.current) return;
+      if (!containerRef.current) return;
 
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        const split = new SplitText(headingRef.current, {
-          type: 'lines,words',
-          linesClass: 'overflow-hidden leading-tight',
-        });
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top 85%',
-            once: true,
-          },
-        });
-
-        // Animate section number/kicker
-        if (metaRef.current) {
-          tl.fromTo(
-            metaRef.current,
-            { opacity: 0, y: 12 },
-            { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }
-          );
-        }
-
-        // Animate split words/lines from mask
-        tl.fromTo(
-          split.words,
-          { yPercent: 110, opacity: 0 },
+        gsap.fromTo(
+          containerRef.current,
+          { opacity: 0, y: 24 },
           {
-            yPercent: 0,
             opacity: 1,
-            duration: 0.75,
-            stagger: 0.03,
+            y: 0,
+            duration: 0.6,
             ease: 'power3.out',
-          },
-          metaRef.current ? '-=0.3' : 0
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top 85%',
+              once: true,
+            },
+          }
         );
-
-        // Animate optional description
-        if (descRef.current) {
-          tl.fromTo(
-            descRef.current,
-            { opacity: 0, y: 14 },
-            { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
-            '-=0.4'
-          );
-        }
-
-        return () => {
-          split.revert();
-        };
       });
 
       mm.add('(prefers-reduced-motion: reduce)', () => {
-        if (headingRef.current) headingRef.current.style.opacity = '1';
-        if (metaRef.current) metaRef.current.style.opacity = '1';
-        if (descRef.current) descRef.current.style.opacity = '1';
+        if (containerRef.current) {
+          containerRef.current.style.opacity = '1';
+          containerRef.current.style.transform = 'none';
+        }
       });
     },
-    { scope: containerRef, dependencies: [title, accent, titleEnd, description] }
+    { scope: containerRef, dependencies: [title, description] }
   );
+
+  const fullTitle = accent
+    ? `${title} ${accent}${titleEnd ? ` ${titleEnd}` : ''}`
+    : title;
 
   return (
     <div
       ref={containerRef}
       className={cn(
-        'mb-12 sm:mb-16',
-        align === 'center' ? 'text-center mx-auto' : 'text-left',
-        'max-w-3xl',
+        'mb-10 sm:mb-14 text-left w-full',
         className
       )}
     >
-      {/* Section Meta Pill / Index */}
+      {/* Small mono label above: left-aligned */}
       {(number || kicker) && (
-        <div
-          ref={metaRef}
-          className={cn(
-            'inline-flex items-center gap-2 mb-3.5 px-3 py-1 rounded-full bg-(--color-surface-2) border border-(--color-border) text-xs mono-tag text-(--color-muted)',
-            align === 'center' ? 'mx-auto' : ''
-          )}
-        >
-          {number && (
-            <span className="font-semibold text-(--color-primary)">
-              {number}
-            </span>
-          )}
-          {number && kicker && <span className="opacity-40">/</span>}
-          {kicker && <span>{kicker}</span>}
+        <div className="flex items-center gap-2 mb-2.5 text-xs font-mono text-(--color-primary) tracking-wider uppercase">
+          {number && <span className="font-semibold">{number}</span>}
+          {number && kicker && <span className="text-(--color-muted)/60">/</span>}
+          {kicker && <span className="text-(--color-muted) font-medium">{kicker}</span>}
         </div>
       )}
 
-      {/* Main Fluid Display Heading with Accent */}
+      {/* Main H2: Left-aligned on every screen, Poppins 600, text-wrap: balance, max-width ~24ch */}
       <h2
-        ref={headingRef}
-        className="font-display font-bold text-3xl sm:text-5xl lg:text-6xl text-(--color-text) tracking-tight leading-[1.08]"
+        className="font-sans font-semibold text-(--color-text) tracking-[-0.02em] leading-[1.2]"
+        style={{
+          fontSize: 'clamp(1.75rem, 1.2rem + 2.4vw, 3rem)',
+          maxWidth: '24ch',
+          textWrap: 'balance',
+        }}
       >
-        <span>{title} </span>
-        {accent && (
-          <span className="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal text-transparent bg-clip-text bg-gradient-to-r from-(--color-primary) to-(--color-secondary) px-1 inline-block">
-            {accent}
-          </span>
-        )}
-        {titleEnd && <span> {titleEnd}</span>}
+        {fullTitle}
       </h2>
 
-      {/* Description */}
+      {/* Optional intro paragraph: left-aligned, max-width ~60ch */}
       {description && (
-        <p
-          ref={descRef}
-          className="mt-4 sm:mt-5 text-base sm:text-lg text-(--color-muted) leading-relaxed max-w-2xl mx-auto"
-        >
+        <p className="mt-3 sm:mt-3.5 text-sm sm:text-base text-(--color-muted) leading-relaxed max-w-[60ch]">
           {description}
         </p>
       )}
