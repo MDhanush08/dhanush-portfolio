@@ -39,7 +39,9 @@ export interface ExperienceSubEntry {
   key: string
   title: string
   slug?: string
-  roleSubtitle: string
+  category?: string
+  roleSubtitle?: string
+  description?: string
   bullets: string[]
   chips: string[]
 }

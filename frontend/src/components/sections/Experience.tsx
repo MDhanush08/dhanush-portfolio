@@ -5,6 +5,7 @@ import { Section } from '../layout/Section'
 import { SectionHeading } from '../layout/SectionHeading'
 import { Reveal } from '../ui/Reveal'
 import { experienceData } from '../../data/portfolio'
+import { cn } from '../../lib/cn'
 
 export const Experience = memo(function Experience() {
   const scrollToWork = () => {
@@ -19,7 +20,7 @@ export const Experience = memo(function Experience() {
           label="EXPERIENCE"
           line1="Making ideas"
           line2="work harder."
-          intro="Product-minded engineering across SaaS, billing and client applications."
+          intro="Product-focused development across SaaS platforms, billing applications, and client projects."
         />
       </Reveal>
 
@@ -31,8 +32,8 @@ export const Experience = memo(function Experience() {
             delayMs={idx * 100}
             className="py-10 md:py-14 border-b border-[var(--line)] grid grid-cols-1 md:grid-cols-[200px_1fr] lg:grid-cols-[260px_1fr] gap-6 md:gap-10 text-left items-start"
           >
-            {/* Dates column */}
-            <div className="flex flex-col gap-1">
+            {/* Left Column: Dates & Employment Type */}
+            <div className="flex flex-col gap-1.5">
               <span className="text-xs font-mono uppercase tracking-[0.08em] font-semibold text-[var(--muted)]">
                 {item.dates}
               </span>
@@ -41,18 +42,23 @@ export const Experience = memo(function Experience() {
               </span>
             </div>
 
-            {/* Content column */}
+            {/* Right Column: Experience Details */}
             <div className="flex flex-col gap-6">
-              {/* Header row with Title, Company & Projects Button */}
+              {/* Header row with Job Title, Company Name & Work Shortcut Button */}
               <div className="flex items-start justify-between gap-4">
                 <div className="flex flex-col gap-1">
                   <h3 className="text-2xl md:text-3xl font-semibold text-[var(--ink)] tracking-tight">
                     {item.title}
                   </h3>
                   {item.company && (
-                    <span className="text-base font-medium text-[var(--muted)]">
-                      {item.company}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-base md:text-lg font-semibold text-[var(--ink)]">
+                        {item.company}
+                      </span>
+                      <span className="text-xs font-mono text-[var(--muted)] px-2 py-0.5 rounded-[2px] bg-[var(--surface)] border border-[var(--line)]">
+                        Previous Employment
+                      </span>
+                    </div>
                   )}
                 </div>
 
@@ -68,15 +74,26 @@ export const Experience = memo(function Experience() {
                 )}
               </div>
 
-              {/* Sub-entries (for full-time work with specific products) */}
+              {/* Sub-entries: Dental Interface 360 and Lala Invoice */}
               {item.subEntries && (
-                <div className="flex flex-col border-t border-[var(--line)] mt-2">
-                  {item.subEntries.map((sub) => (
+                <div className="flex flex-col gap-8 border-t border-[var(--line)] pt-6">
+                  {item.subEntries.map((sub, sIdx) => (
                     <div
                       key={sub.key}
-                      className="py-6 border-b border-[var(--line)] last:border-b-0 flex flex-col gap-3"
+                      className={cn(
+                        "flex flex-col gap-3.5 pb-8 border-b border-[var(--line)] last:border-b-0 last:pb-0",
+                        sIdx > 0 && "pt-2"
+                      )}
                     >
-                      <div className="flex flex-col gap-1">
+                      <div className="flex flex-col gap-1.5">
+                        {/* Category Label */}
+                        {sub.category && (
+                          <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-[var(--muted)]">
+                            {sub.category}
+                          </span>
+                        )}
+
+                        {/* Title with link */}
                         {sub.slug ? (
                           <Link
                             to={`/projects/${sub.slug}`}
@@ -86,27 +103,40 @@ export const Experience = memo(function Experience() {
                               {sub.title}
                               <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[var(--ink)] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-200" />
                             </span>
-                            <ArrowUpRight className="w-4 h-4 text-[var(--muted)] group-hover:text-[var(--ink)] group-hover:rotate-45 transition-transform" />
+                            <ArrowUpRight className="w-4 h-4 text-[var(--muted)] group-hover:text-[var(--ink)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                           </Link>
                         ) : (
                           <h4 className="text-lg md:text-xl font-semibold text-[var(--ink)]">
                             {sub.title}
                           </h4>
                         )}
-                        <span className="text-xs text-[var(--muted)] font-medium">
-                          {sub.roleSubtitle}
-                        </span>
+
+                        {/* Description */}
+                        {sub.description && (
+                          <p className="text-sm md:text-[15px] text-[var(--muted)] leading-relaxed max-w-[64ch] pt-0.5">
+                            {sub.description}
+                          </p>
+                        )}
                       </div>
 
                       {/* Bullets */}
-                      <ul className="flex flex-col gap-2 my-1 pl-4 list-disc text-sm md:text-base text-[var(--muted)] leading-relaxed">
-                        {sub.bullets.map((bullet, bIdx) => (
-                          <li key={bIdx}>{bullet}</li>
-                        ))}
-                      </ul>
+                      {sub.bullets && sub.bullets.length > 0 && (
+                        <div className="flex flex-col gap-1.5 pt-1">
+                          <span className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+                            My Contributions:
+                          </span>
+                          <ul className="flex flex-col gap-2 pl-4 list-disc text-sm md:text-[15px] text-[var(--muted)] leading-relaxed max-w-[66ch]">
+                            {sub.bullets.map((bullet, bIdx) => (
+                              <li key={bIdx} className="text-[var(--muted)]">
+                                {bullet}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
 
-                      {/* Chips */}
-                      <div className="flex flex-wrap gap-1.5 pt-1">
+                      {/* Technology Chips */}
+                      <div className="flex flex-wrap gap-1.5 pt-1.5">
                         {sub.chips.map((chip) => (
                           <span
                             key={chip}
@@ -121,9 +151,9 @@ export const Experience = memo(function Experience() {
                 </div>
               )}
 
-              {/* Description and Chips for Freelance / standard entries */}
+              {/* Description and Chips for Freelance Experience */}
               {item.description && (
-                <p className="text-base text-[var(--muted)] leading-relaxed">
+                <p className="text-base text-[var(--muted)] leading-relaxed max-w-[66ch]">
                   {item.description}
                 </p>
               )}

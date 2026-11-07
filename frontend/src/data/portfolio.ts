@@ -317,40 +317,49 @@ export const experienceData: ExperienceEntry[] = [
     label: 'FULL-TIME · TIRUCHIRAPPALLI',
     title: 'Software Developer',
     company: 'Nandalala Infotech',
-    dates: 'SEP 2024 — PRESENT',
+    dates: 'SEP 2024 – NOV 2026',
     subEntries: [
       {
         key: 'dental-360',
-        title: 'A. Dental Interface 360',
+        title: 'Dental Interface 360',
         slug: 'dental-interface-360',
-        roleSubtitle: 'Multi-role SaaS · Admin / Supplier / Practice / Professional',
+        category: 'MULTI-ROLE SAAS PLATFORM',
+        roleSubtitle: 'Multi-role SaaS platform',
+        description:
+          'A multi-role dental SaaS platform for Admin, Supplier, Practice, and Professional users, supporting secure access, billing, and background workflows.',
         bullets: [
-          'Built a multi-role platform and developed NestJS services with GraphQL APIs using Hasura.',
-          'Implemented JWT authentication and role-based access; integrated Stripe payments and Firebase email notifications.',
-          'Used Redis for background jobs, Docker for containers and GitLab CI/CD to deploy on Contabo.',
+          'Contributed to a multi-role dental SaaS platform for Admin, Supplier, Practice, and Professional users.',
+          'Developed Angular UI components and NestJS backend services, including GraphQL APIs using Hasura.',
+          'Implemented JWT authentication and role-based access control.',
+          'Integrated Stripe payments and Firebase email notifications.',
+          'Worked with Redis background jobs, Docker containers, and GitLab CI/CD deployment workflows.',
         ],
         chips: ['Angular', 'NestJS', 'GraphQL', 'Hasura', 'PostgreSQL', 'Redis', 'Docker'],
       },
       {
         key: 'lala-invoice',
-        title: 'B. Lala Invoice',
+        title: 'Lala Invoice',
         slug: 'lala-invoice',
+        category: 'INVOICE AND BILLING APPLICATION',
         roleSubtitle: 'Invoice and billing application',
+        description:
+          'A full-stack invoice management application with CRUD workflows and role-based access for Admin and User accounts.',
         bullets: [
-          'Built invoice CRUD workflows and role-based access for Admin and User accounts.',
+          'Developed invoice CRUD workflows for Admin and User accounts.',
+          'Implemented role-based access for invoice management features.',
         ],
         chips: ['React.js', 'Redux', 'Python', 'MongoDB'],
       },
     ],
   },
   {
-    label: 'INDEPENDENT PRACTICE',
+    label: 'PART-TIME – FREELANCE',
     title: 'Freelance Full Stack Developer',
-    dates: 'PART-TIME — FREELANCE',
+    dates: 'PART-TIME – FREELANCE',
     isFreelance: true,
     description:
-      'Delivered client web applications using React, Angular, Node.js and MongoDB, including API integration and deployment.',
-    chips: ['React', 'Angular', 'Node.js', 'MongoDB', 'API integration', 'Deployment'],
+      'Developed web applications for client requirements using React, Angular, and Node.js. Worked on frontend implementation, backend API integration, database connectivity, and application deployment.',
+    chips: ['React.js', 'Angular', 'Node.js', 'MongoDB', 'API Integration', 'Deployment'],
   },
 ]
 
