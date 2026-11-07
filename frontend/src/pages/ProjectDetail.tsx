@@ -15,6 +15,7 @@ export default function ProjectDetail() {
   const project = projects[currentIndex]
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
     if (project) {
       document.title = `${project.title} | ${profile.name}`
       const metaDesc = document.querySelector('meta[name="description"]')
@@ -22,7 +23,7 @@ export default function ProjectDetail() {
         metaDesc.setAttribute('content', project.shortDescription)
       }
     }
-  }, [project])
+  }, [project, slug])
 
   if (!project) {
     return <NotFound />
@@ -56,8 +57,8 @@ export default function ProjectDetail() {
             <span>{project.category}</span>
           </div>
 
-          {/* Huge H1 Title */}
-          <h1 className="text-[clamp(2.5rem,7vw,6rem)] font-semibold tracking-[-0.03em] leading-[1.02] text-[var(--ink)] [text-wrap:balance]">
+          {/* Large H1 Title */}
+          <h1 className="text-[clamp(2.25rem,6.5vw,5.5rem)] font-semibold tracking-[-0.03em] leading-[1.02] text-[var(--ink)] [text-wrap:balance]">
             {project.title}
           </h1>
 
@@ -69,7 +70,7 @@ export default function ProjectDetail() {
           </div>
 
           {/* Short description in larger muted size */}
-          <p className="text-lg md:text-xl text-[var(--muted)] leading-relaxed max-w-[54ch] pt-2">
+          <p className="text-lg md:text-xl text-[var(--muted)] leading-relaxed max-w-[56ch] pt-2">
             {project.shortDescription}
           </p>
         </div>
@@ -101,7 +102,7 @@ export default function ProjectDetail() {
             <span className="text-[11px] uppercase tracking-[0.08em] font-medium text-[var(--muted)]">
               Source
             </span>
-            {project.links?.github ? (
+            {project.links?.github && project.links.github !== '[url]' ? (
               <a
                 href={project.links.github}
                 target="_blank"
@@ -118,28 +119,52 @@ export default function ProjectDetail() {
             )}
           </div>
 
-          {/* Stack preview (first 3 techs) */}
+          {/* Primary Stack */}
           <div className="flex flex-col gap-1">
             <span className="text-[11px] uppercase tracking-[0.08em] font-medium text-[var(--muted)]">
               Primary Stack
             </span>
             <span className="text-sm md:text-base font-semibold text-[var(--ink)]">
-              {project.cardChips.slice(0, 3).join(', ')}
+              {project.cardChips.join(', ')}
             </span>
           </div>
         </div>
 
-        {/* Large Visual Panel */}
-        <div className="relative w-full aspect-[16/10] border border-[var(--line)] bg-[var(--surface)] overflow-hidden rounded-[2px] mb-16 shadow-sm">
+        {/* Main Project Preview: 16:10 aspect ratio with clean frame */}
+        <div className="relative w-full aspect-[16/10] border border-[var(--line)] bg-[var(--surface)] overflow-hidden rounded-[2px] mb-12 shadow-sm">
           <ProjectVisual
             type={project.visual}
             screenshot={project.screenshots?.[0]}
-            alt={project.title}
+            alt={`${project.title} main screenshot`}
           />
         </div>
 
+        {/* Supporting Screenshots Gallery (Rendered only if additional screenshots are available) */}
+        {project.screenshots && project.screenshots.length > 1 && (
+          <div className="mb-16">
+            <div className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--muted)] mb-4 text-left">
+              Supporting Views
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {project.screenshots.slice(1).map((shot, sIdx) => (
+                <div
+                  key={sIdx}
+                  className="aspect-[16/10] border border-[var(--line)] bg-[var(--surface)] rounded-[2px] overflow-hidden shadow-sm"
+                >
+                  <img
+                    src={shot}
+                    alt={`${project.title} supporting screenshot ${sIdx + 1}`}
+                    className="w-full h-full object-cover object-top"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Editorial Sections (Two-column row: label left, content right, separated by hairlines) */}
-        <div className="flex flex-col border-t border-[var(--line)] mb-20 text-left">
+        <div className="flex flex-col border-t border-[var(--line)] mb-16 text-left">
           {/* 1. Overview */}
           <div className="py-10 border-b border-[var(--line)] grid grid-cols-1 md:grid-cols-[220px_1fr] gap-6 md:gap-12 items-start">
             <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--muted)] pt-1">
@@ -150,40 +175,75 @@ export default function ProjectDetail() {
             </div>
           </div>
 
-          {/* 2. Key Features */}
+          {/* 2. Key Features (Grouped into logical categories) */}
           <div className="py-10 border-b border-[var(--line)] grid grid-cols-1 md:grid-cols-[220px_1fr] gap-6 md:gap-12 items-start">
             <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--muted)] pt-1">
               Key Features
             </span>
-            <div className="flex flex-col border-t border-[var(--line)] w-full">
-              {project.features.map((feature, idx) => (
-                <div
-                  key={idx}
-                  className="py-4 border-b border-[var(--line)] flex items-start gap-4"
-                >
-                  <span className="text-xs font-mono text-[var(--muted)] pt-0.5 select-none">
-                    0{idx + 1}
-                  </span>
-                  <span className="text-base font-medium text-[var(--ink)]">
-                    {feature}
-                  </span>
-                </div>
-              ))}
-            </div>
+            {project.featureGroups && project.featureGroups.length > 0 ? (
+              <div className="flex flex-col gap-8 w-full">
+                {project.featureGroups.map((group, gIdx) => (
+                  <div key={gIdx} className="flex flex-col gap-2">
+                    <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--muted)] pb-1.5 border-b border-[var(--line)]/60">
+                      {group.category}
+                    </span>
+                    <div className="flex flex-col">
+                      {group.items.map((item, iIdx) => (
+                        <div
+                          key={iIdx}
+                          className="py-3 border-b border-[var(--line)] flex items-start gap-4"
+                        >
+                          <span className="text-xs font-mono text-[var(--muted)] pt-0.5 select-none shrink-0">
+                            0{iIdx + 1}
+                          </span>
+                          <span className="text-base font-medium text-[var(--ink)] leading-relaxed">
+                            {item}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col border-t border-[var(--line)] w-full">
+                {project.features.map((feature, idx) => (
+                  <div
+                    key={idx}
+                    className="py-4 border-b border-[var(--line)] flex items-start gap-4"
+                  >
+                    <span className="text-xs font-mono text-[var(--muted)] pt-0.5 select-none shrink-0">
+                      0{idx + 1}
+                    </span>
+                    <span className="text-base font-medium text-[var(--ink)]">
+                      {feature}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* 3. My Contributions */}
+          {/* 3. My Contributions (Verified implementation details for technical recruiters) */}
           <div className="py-10 border-b border-[var(--line)] grid grid-cols-1 md:grid-cols-[220px_1fr] gap-6 md:gap-12 items-start">
             <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--muted)] pt-1">
               My Contributions
             </span>
-            <ul className="flex flex-col gap-3 pl-4 list-disc text-base text-[var(--muted)] leading-relaxed">
+            <div className="flex flex-col border-t border-[var(--line)] w-full">
               {project.responsibilities.map((resp, idx) => (
-                <li key={idx} className="text-[var(--ink)]">
-                  {resp}
-                </li>
+                <div
+                  key={idx}
+                  className="py-3.5 border-b border-[var(--line)] flex items-start gap-4"
+                >
+                  <span className="text-xs font-mono text-[var(--muted)] pt-0.5 select-none shrink-0">
+                    {idx < 9 ? `0${idx + 1}` : idx + 1}
+                  </span>
+                  <span className="text-base font-medium text-[var(--ink)] leading-relaxed">
+                    {resp}
+                  </span>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
 
           {/* 4. Tech Stack (Grouped by Category) */}
@@ -194,7 +254,7 @@ export default function ProjectDetail() {
             <div className="flex flex-col gap-6 w-full">
               {Object.entries(project.techGroups).map(([groupTitle, techs]) => (
                 <div key={groupTitle} className="flex flex-col gap-2">
-                  <span className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-[var(--muted)] uppercase tracking-wider">
                     {groupTitle}
                   </span>
                   <div className="flex flex-wrap gap-2">
@@ -214,17 +274,17 @@ export default function ProjectDetail() {
         </div>
 
         {/* Previous / Next Project Navigation Links */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-b border-[var(--line)] py-10 mb-16 text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 border-t border-b border-[var(--line)] py-10 mb-16 text-left">
           {/* Previous Project */}
           <Link
             to={`/projects/${prevProject.slug}`}
-            className="group flex flex-col gap-2 p-6 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] transition-colors hover:border-[var(--ink)]"
+            className="group flex flex-col justify-between gap-3 p-5 sm:p-6 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] transition-all duration-200 hover:border-[var(--ink)] hover:bg-[var(--bg-alt)]/40 min-h-[110px]"
           >
             <div className="flex items-center gap-2 text-xs font-mono text-[var(--muted)] uppercase">
               <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-x-1" />
               <span>Previous project</span>
             </div>
-            <h4 className="text-xl font-semibold text-[var(--ink)] tracking-tight group-hover:underline">
+            <h4 className="text-lg sm:text-xl font-semibold text-[var(--ink)] tracking-tight group-hover:underline">
               {prevProject.title}
             </h4>
           </Link>
@@ -232,13 +292,13 @@ export default function ProjectDetail() {
           {/* Next Project */}
           <Link
             to={`/projects/${nextProject.slug}`}
-            className="group flex flex-col gap-2 p-6 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] sm:text-right transition-colors hover:border-[var(--ink)]"
+            className="group flex flex-col justify-between gap-3 p-5 sm:p-6 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] sm:text-right transition-all duration-200 hover:border-[var(--ink)] hover:bg-[var(--bg-alt)]/40 min-h-[110px]"
           >
             <div className="flex items-center sm:justify-end gap-2 text-xs font-mono text-[var(--muted)] uppercase">
               <span>Next project</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
             </div>
-            <h4 className="text-xl font-semibold text-[var(--ink)] tracking-tight group-hover:underline">
+            <h4 className="text-lg sm:text-xl font-semibold text-[var(--ink)] tracking-tight group-hover:underline">
               {nextProject.title}
             </h4>
           </Link>

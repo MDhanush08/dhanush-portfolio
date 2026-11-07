@@ -9,6 +9,11 @@ export interface ProjectTechGroups {
   [category: string]: string[]
 }
 
+export interface FeatureGroup {
+  category: string
+  items: string[]
+}
+
 export interface Project {
   slug: string
   index: string
@@ -22,9 +27,11 @@ export interface Project {
   techGroups: ProjectTechGroups
   cardChips: string[]
   features: string[]
+  featureGroups?: FeatureGroup[]
   responsibilities: string[]
   links?: ProjectLinks
   screenshots?: string[]
+  image?: string
   visual: VisualType
 }
 

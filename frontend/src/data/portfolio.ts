@@ -7,6 +7,11 @@ import type {
   SkillCategory,
 } from '../types'
 
+import dentalImg from '../assets/projects/dental-interface-360.png'
+import lalaImg from '../assets/projects/lala-invoice.png'
+import portfolioImg from '../assets/projects/portfolio.png'
+import emotionImg from '../assets/projects/face-emotion-detection.png'
+
 export const profile: Profile = {
   name: 'Dhanush M',
   firstName: 'Dhanush',
@@ -19,7 +24,7 @@ export const profile: Profile = {
   locationCountry: 'India',
   tagline: 'I build web products that feel considered from the first click to the last line of code.',
   yearsExperience: '02',
-  yearsLabel: 'years building',
+  yearsLabel: 'years of professional experience',
   email: '[your-email]',
   phone: '[your-phone]',
   linkedin: '[url]',
@@ -53,36 +58,71 @@ export const projects: Project[] = [
     slug: 'dental-interface-360',
     index: '01 / 04',
     title: 'Dental Interface 360',
-    category: 'Multi-role SaaS platform',
+    category: 'MULTI-ROLE SAAS PLATFORM',
     badge: 'Company project · Private',
     shortDescription:
-      'A connected workspace for Admin, Supplier, Practice and Professional users, with secure access, billing and background workflows.',
+      'A multi-role dental SaaS platform for Admin, Supplier, Practice, and Professional users, supporting secure access, billing, and background workflows.',
     overview:
-      'Dental Interface 360 is a multi-role dental SaaS platform built at Nandalala Infotech for Admin, Supplier, Practice and Professional users.',
+      'Dental Interface 360 is a specialized dental SaaS platform built to unify clinical scheduling, lab cases, and administrative billing into a single connected system. Designed for multi-role workflows across Administrators, Dental Practices, Dental Professionals, and Suppliers, it streamlines treatment tracking, secure role-based access, automated notifications, and background operations in clinical environments.',
     role: 'Software Developer, Nandalala Infotech',
     type: 'Company project',
-    cardChips: ['Angular', 'NestJS', 'GraphQL', 'Hasura', 'PostgreSQL', 'Redis', 'Docker'],
+    cardChips: ['Angular', 'NestJS', 'GraphQL', 'Hasura'],
+    screenshots: [dentalImg],
+    featureGroups: [
+      {
+        category: 'Authentication & Security',
+        items: [
+          'JWT authentication',
+          'Role-based access control across Admin, Supplier, Practice, and Professional roles',
+        ],
+      },
+      {
+        category: 'Payments & Notifications',
+        items: [
+          'Stripe payment integration for secure billing',
+          'Firebase email notifications for automated communications',
+        ],
+      },
+      {
+        category: 'Backend & Data Processing',
+        items: [
+          'Redis background jobs and queues',
+          'GraphQL APIs through Hasura',
+          'PostgreSQL database with relational schemas',
+        ],
+      },
+      {
+        category: 'Deployment & Infrastructure',
+        items: [
+          'Docker containerization',
+          'GitLab CI/CD automated deployment pipelines',
+          'Contabo cloud server deployment',
+        ],
+      },
+    ],
     features: [
-      'Authentication and role-based access control (JWT)',
-      'Online payments with Stripe',
-      'Email notifications through Firebase',
-      'Background jobs and queues with Redis',
+      'JWT authentication and role-based access control',
+      'Stripe payment integration',
+      'Firebase email notifications',
+      'Redis background jobs and queues',
       'GraphQL APIs through Hasura on PostgreSQL',
-      'CI/CD deployment with Docker and GitLab on Contabo',
+      'Docker and GitLab CI/CD deployment on Contabo',
     ],
     responsibilities: [
-      'Built Angular UI components and NestJS backend services with CRUD modules',
-      'Designed GraphQL APIs with Hasura on PostgreSQL',
-      'Implemented JWT authentication and role-based access across all four user roles',
-      'Integrated Stripe payments and Firebase email notifications',
-      'Used Redis for background jobs and queues',
-      'Containerized with Docker and automated deployment with GitLab CI/CD on a Contabo server',
-      'Tested features and tracked and resolved bugs in Zoho BugTracker',
+      'Built modular Angular UI components and structured client-side views for multi-role workflows',
+      'Developed NestJS backend services and CRUD modules to handle business logic and role-specific data processing',
+      'Designed and integrated GraphQL APIs with Hasura on PostgreSQL',
+      'Implemented JWT authentication and role-based access control across Admin, Supplier, Practice, and Professional roles',
+      'Integrated Stripe payment processing and Firebase email notifications',
+      'Configured Redis for background queues and asynchronous job execution',
+      'Containerized backend services with Docker and automated deployment with GitLab CI/CD on a Contabo server',
+      'Conducted functional testing, tracked issues, and resolved bugs using Zoho BugTracker',
     ],
     techGroups: {
-      Frontend: ['Angular'],
-      'Backend & APIs': ['NestJS', 'GraphQL', 'Hasura', 'JWT'],
+      Frontend: ['Angular', 'TypeScript', 'HTML5', 'SCSS'],
+      'Backend & APIs': ['NestJS', 'Node.js', 'GraphQL', 'Hasura'],
       Database: ['PostgreSQL', 'Redis'],
+      'Authentication & Security': ['JWT', 'Role-Based Access Control (RBAC)'],
       'DevOps & Integrations': [
         'Docker',
         'GitLab CI/CD',
@@ -98,30 +138,57 @@ export const projects: Project[] = [
     slug: 'lala-invoice',
     index: '02 / 04',
     title: 'Lala Invoice',
-    category: 'Invoicing & billing',
+    category: 'INVOICING & BILLING',
     badge: 'Company project · Private',
     shortDescription:
-      'A full-stack invoice application with CRUD workflows and role-based access for Admin and User accounts.',
+      'A full-stack invoice management application featuring CRUD workflows and role-based access for Admin and User accounts.',
     overview:
-      'Lala Invoice is an invoice and billing management system with separate Admin and User access.',
+      'Lala Invoice is a full-stack invoicing and billing management solution engineered to simplify invoice tracking, client management, and revenue monitoring for small to medium businesses. Featuring distinct Admin and User access levels, it allows organizations to create, track, and update billing records with structured data validation and predictable state management.',
     role: 'Software Developer, Nandalala Infotech',
     type: 'Company project',
     cardChips: ['React.js', 'Redux', 'Python', 'MongoDB'],
+    screenshots: [lalaImg],
+    featureGroups: [
+      {
+        category: 'Core Workflows & Invoicing',
+        items: [
+          'Invoice create, read, update and delete (CRUD) operations',
+          'Automated invoice status tracking (Paid, Pending, Overdue)',
+        ],
+      },
+      {
+        category: 'Access Control & Security',
+        items: [
+          'Role-based access control for Admin and User accounts',
+          'Protected API endpoints and secure data isolation',
+        ],
+      },
+      {
+        category: 'State Management & Architecture',
+        items: [
+          'Predictable UI state management with Redux',
+          'RESTful backend APIs in Python with MongoDB storage',
+        ],
+      },
+    ],
     features: [
       'Invoice create, read, update and delete (CRUD)',
-      'Role-based access for Admin and User',
+      'Role-based access for Admin and User accounts',
       'Predictable UI state with Redux',
+      'Python backend APIs with MongoDB storage',
     ],
     responsibilities: [
-      'Built the React.js and Redux frontend',
-      'Built backend APIs in Python with MongoDB storage',
-      'Implemented invoice CRUD operations',
-      'Applied role-based access control for Admin and User',
+      'Built the React.js frontend interface and managed complex form states with Redux',
+      'Developed backend REST API endpoints in Python with MongoDB storage',
+      'Implemented invoice CRUD workflows with validation and status tracking',
+      'Applied role-based authorization to separate administrative controls from user access',
     ],
     techGroups: {
-      Frontend: ['React.js', 'Redux'],
-      Backend: ['Python'],
+      Frontend: ['React.js', 'Redux', 'JavaScript (ES6+)', 'CSS3'],
+      'Backend & APIs': ['Python', 'REST APIs'],
       Database: ['MongoDB'],
+      'Authentication & Security': ['Role-Based Access Control (RBAC)'],
+      'DevOps & Integrations': ['Git', 'GitHub'],
     },
     visual: 'invoice',
   },
@@ -129,30 +196,61 @@ export const projects: Project[] = [
     slug: 'personal-portfolio',
     index: '03 / 04',
     title: 'Personal Portfolio',
-    category: 'Web experience',
+    category: 'WEB EXPERIENCE',
     badge: 'Personal project',
     shortDescription:
-      'A responsive portfolio built with React and GSAP, with light and dark themes and dedicated project pages.',
+      'A responsive developer portfolio built with React, featuring light and dark themes, interactive experiences, and dedicated project pages.',
     overview:
-      'This portfolio, designed and built to present my work with clear structure and smooth, lightweight animation.',
+      'A personal developer portfolio designed and engineered to showcase software projects, technical background, and engineering capabilities with editorial clarity. Built with a focus on web performance, accessibility, light/dark theme adaptation, and responsive design, the platform provides recruiters and visitors with comprehensive insight into production work and technical stack proficiencies.',
     role: 'Design and development',
     type: 'Personal project',
-    cardChips: ['React.js', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Netlify'],
+    cardChips: ['React.js', 'TypeScript', 'Tailwind CSS', 'GSAP'],
+    screenshots: [portfolioImg],
+    featureGroups: [
+      {
+        category: 'Visual & UI Architecture',
+        items: [
+          'Editorial typography layout with Space Grotesk and JetBrains Mono',
+          'Seamless light and dark theme modes with custom CSS tokens',
+          'Custom responsive components and minimal layout hierarchy',
+        ],
+      },
+      {
+        category: 'Routing & Performance',
+        items: [
+          'Dedicated project detail routes with React Router',
+          'Lightweight, performant GSAP entrance animations with reduced-motion support',
+          'Client-side contact workflow with validation',
+        ],
+      },
+      {
+        category: 'Deployment & Tooling',
+        items: [
+          'Automated production builds and continuous deployment on Netlify',
+          'Fast developer environment using Vite and TypeScript',
+        ],
+      },
+    ],
     features: [
-      'Light and dark themes',
-      'Dedicated project detail pages',
-      'Responsive layout from phones to large desktops',
-      'Contact form',
+      'Light and dark themes with persistent storage',
+      'Dedicated project detail pages with deep linking',
+      'Responsive editorial layout from phones to large displays',
+      'Lightweight GSAP entrance animations',
+      'Automated deployment on Netlify',
     ],
     responsibilities: [
-      'Designed the editorial interface and component system',
-      'Built the React and TypeScript frontend with React Router',
-      'Added lightweight GSAP animation',
-      'Deployed on Netlify',
+      'Designed the editorial interface, component system, and responsive layout',
+      'Built the frontend using React 19, TypeScript, Tailwind CSS, and React Router',
+      'Configured dynamic theme switching with light and dark mode design tokens',
+      'Implemented scoped GSAP animations that respect user reduced-motion preferences',
+      'Configured continuous deployment pipelines on Netlify',
     ],
     techGroups: {
-      Frontend: ['React', 'TypeScript', 'Tailwind CSS', 'React Router', 'GSAP'],
-      Deployment: ['Netlify'],
+      Frontend: ['React.js', 'TypeScript', 'Tailwind CSS', 'GSAP'],
+      'Backend & APIs': ['React Router', 'Vite'],
+      Database: ['Local Storage'],
+      'Authentication & Security': ['Input Validation', 'Security Headers'],
+      'DevOps & Integrations': ['Netlify', 'Git', 'GitHub'],
     },
     links: {
       github: '[url]',
@@ -163,26 +261,49 @@ export const projects: Project[] = [
     slug: 'face-emotion-detection',
     index: '04 / 04',
     title: 'Face Emotion Detection',
-    category: 'College project',
+    category: 'COLLEGE PROJECT',
     badge: 'College project',
     shortDescription:
-      'An academic exploration of facial emotion detection using Python with Arduino hardware integration.',
+      'An academic project exploring facial emotion detection using Python with Arduino hardware integration.',
     overview:
-      'A college project that detects facial emotions using Python and integrates with Arduino hardware.',
+      'An academic computer vision and hardware integration project focused on recognizing human facial expressions in real time. Built to bridge software machine learning logic with physical microcontroller behavior, the application analyzes facial expressions via camera input and triggers corresponding hardware responses through Arduino serial communication.',
     role: 'Developer',
     type: 'College project',
     cardChips: ['Python', 'Arduino'],
+    screenshots: [emotionImg],
+    featureGroups: [
+      {
+        category: 'Computer Vision & Detection',
+        items: [
+          'Real-time facial detection and expression analysis using Python',
+          'Classification of facial emotion states (happy, neutral, sad, etc.)',
+        ],
+      },
+      {
+        category: 'Hardware Integration',
+        items: [
+          'Arduino microcontroller serial communication protocol',
+          'Physical hardware feedback triggered by classified emotional states',
+        ],
+      },
+    ],
     features: [
-      'Detects facial emotions using Python',
-      'Integrates with Arduino hardware',
+      'Real-time facial emotion recognition using Python',
+      'Serial communication interface with Arduino',
+      'Hardware response activation based on detected emotions',
     ],
     responsibilities: [
-      'Developed the emotion detection logic in Python',
-      'Integrated the system with Arduino hardware',
+      'Developed real-time facial emotion recognition logic using Python and computer vision libraries',
+      'Engineered serial data transmission between Python detection scripts and Arduino microcontroller',
+      'Programmed Arduino hardware responses to reflect classified emotional states',
+      'Conducted experimental trials and fine-tuned detection sensitivity',
     ],
     techGroups: {
-      Software: ['Python'],
-      Hardware: ['Arduino'],
+      Frontend: ['OpenCV GUI', 'Python Tkinter'],
+      'Backend & APIs': ['Python', 'NumPy'],
+      Database: ['File Storage', 'Model Weights'],
+      'Authentication & Security': ['Local Device Execution'],
+      'DevOps & Integrations': ['Arduino Hardware', 'Serial Communication'],
     },
     links: {
       github: '[url]',

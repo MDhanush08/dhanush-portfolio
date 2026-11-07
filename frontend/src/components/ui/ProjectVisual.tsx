@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import type { VisualType } from '../../types'
 import { cn } from '../../lib/cn'
 
@@ -15,13 +15,16 @@ export const ProjectVisual = memo(function ProjectVisual({
   screenshot,
   alt = 'Project visual',
 }: ProjectVisualProps) {
-  if (screenshot) {
+  const [imgError, setImgError] = useState(false)
+
+  if (screenshot && !imgError) {
     return (
       <div className={cn('relative w-full h-full overflow-hidden bg-[var(--bg-alt)]', className)}>
         <img
           src={screenshot}
           alt={alt}
-          className="w-full h-full object-cover object-top"
+          onError={() => setImgError(true)}
+          className="w-full h-full object-cover object-top select-none"
           loading="lazy"
         />
       </div>
