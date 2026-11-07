@@ -30,25 +30,25 @@ export const profile: Profile = {
   linkedin: '[url]',
   github: '[url]',
   resumeUrl: '/Dhanush_M_Resume.pdf',
-  aboutStatement: "I'm a software developer with 2 years of experience building secure, scalable web applications.",
+  aboutStatement: "I'm a Full Stack Software Developer with 2 years of professional experience building web applications and backend services.",
   aboutHighlight: '2 years of experience',
   aboutBio:
-    'At Nandalala Infotech, I work across product surfaces, APIs and infrastructure, bringing together Angular, React, Node.js, NestJS and PostgreSQL. I also deliver part-time freelance applications from idea through deployment. I use AI tools to support thoughtful development and have working knowledge of LLM integration and RAG.',
+    'At Nandalala Infotech, I work across frontend development, backend services, APIs, and database integrations. My primary technologies include Angular, React, TypeScript, Node.js, NestJS, PostgreSQL, and MongoDB. I focus on building maintainable applications, developing reliable features, and creating practical solutions to real-world problems.',
   aboutHighlights: [
     {
       number: '01',
-      title: 'Frontend to database',
-      detail: 'Comfortable moving between UI, APIs and data layers.',
+      title: 'Full Stack Development',
+      detail: 'Building frontend interfaces, backend services, and database integrations.',
     },
     {
       number: '02',
       title: 'Security-minded',
-      detail: 'JWT authentication and role-based access control.',
+      detail: 'Working with JWT authentication and role-based access control.',
     },
     {
       number: '03',
       title: 'Delivery focused',
-      detail: 'Docker, GitLab CI/CD and production deployment.',
+      detail: 'Working with APIs, Docker, GitLab CI/CD, and deployment workflows.',
     },
   ],
 }
@@ -438,7 +438,7 @@ export const skillCategories: SkillCategory[] = [
       'Git',
       'GitHub',
       'GitLab',
-      'Tortoise Git',
+      'TortoiseGit',
       'Contabo',
       'Render',
       'Netlify',

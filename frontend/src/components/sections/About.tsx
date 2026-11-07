@@ -41,28 +41,28 @@ export const About = memo(function About() {
         />
       </Reveal>
 
-      {/* Two columns from 900px */}
-      <div className="grid grid-cols-1 min-[900px]:grid-cols-2 gap-12 lg:gap-20 items-start mb-20 lg:mb-28">
-        {/* Left column */}
-        <Reveal className="flex flex-col gap-6">
+      {/* Two columns from 900px: Left intro & links, Right principles & location */}
+      <div className="grid grid-cols-1 min-[900px]:grid-cols-2 gap-10 lg:gap-16 items-start mb-16 lg:mb-24">
+        {/* Left column: Main highlighted introduction & supporting text */}
+        <Reveal className="flex flex-col gap-6 text-left">
           <p className="text-[clamp(1.375rem,1rem+1.4vw,2rem)] font-medium text-[var(--ink)] leading-[1.35] tracking-tight">
-            I'm a software developer with{' '}
+            I'm a Full Stack Software Developer with{' '}
             <span className="bg-[#A8E600] text-[#14110D] px-2 py-0.5 rounded-[2px] [box-decoration-break:clone] font-semibold">
-              {profile.aboutHighlight}
+              2 years of experience
             </span>{' '}
-            building secure, scalable web applications.
+            building web applications and backend services.
           </p>
 
-          <p className="text-base md:text-[17px] text-[var(--muted)] leading-[1.7]">
-            {profile.aboutBio}
+          <p className="text-base md:text-[17px] text-[var(--muted)] leading-[1.7] max-w-[58ch]">
+            At Nandalala Infotech, I work across frontend development, backend services, APIs, and database integrations. My primary technologies include Angular, React, TypeScript, Node.js, NestJS, PostgreSQL, and MongoDB. I focus on building maintainable applications, developing reliable features, and creating practical solutions to real-world problems.
           </p>
 
           {/* Action Links */}
-          <div className="flex flex-wrap items-center gap-6 pt-2">
+          <div className="flex flex-wrap items-center gap-6 pt-3">
             <button
               type="button"
               onClick={scrollToContact}
-              className="group inline-flex items-center gap-2 text-base font-medium text-[var(--ink)] hover:underline hover:decoration-2 hover:underline-offset-4 cursor-pointer"
+              className="group inline-flex items-center gap-2 text-base font-medium text-[var(--ink)] hover:underline hover:decoration-2 hover:underline-offset-4 cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)]"
             >
               <span>Start a conversation</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -71,7 +71,7 @@ export const About = memo(function About() {
             <a
               href={profile.resumeUrl}
               download="Dhanush_M_Resume.pdf"
-              className="group inline-flex items-center gap-2 text-base font-medium text-[var(--ink)] hover:underline hover:decoration-2 hover:underline-offset-4 cursor-pointer"
+              className="group inline-flex items-center gap-2 text-base font-medium text-[var(--ink)] hover:underline hover:decoration-2 hover:underline-offset-4 cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)]"
             >
               <span>Download résumé</span>
               <FileDown className="w-4 h-4 text-[#A8E600] transition-transform duration-200 group-hover:translate-y-0.5" />
@@ -79,21 +79,21 @@ export const About = memo(function About() {
           </div>
         </Reveal>
 
-        {/* Right column: 3 numbered rows + location row */}
+        {/* Right column: 3 Development Principles + Location row */}
         <Reveal delayMs={100} className="flex flex-col border-t border-[var(--line)]">
           {profile.aboutHighlights.map((item) => (
             <div
               key={item.number}
               className="py-5 border-b border-[var(--line)] flex items-start gap-4 text-left"
             >
-              <span className="text-xs font-mono text-[var(--muted)] pt-1 select-none">
+              <span className="text-xs font-mono text-[var(--muted)] pt-1 select-none shrink-0">
                 {item.number}
               </span>
               <div className="flex flex-col gap-1">
                 <h4 className="text-base md:text-lg font-semibold text-[var(--ink)]">
                   {item.title}
                 </h4>
-                <p className="text-sm text-[var(--muted)]">{item.detail}</p>
+                <p className="text-sm text-[var(--muted)] leading-relaxed">{item.detail}</p>
               </div>
             </div>
           ))}
@@ -106,39 +106,49 @@ export const About = memo(function About() {
         </Reveal>
       </div>
 
-      {/* TOOLS OF THE TRADE Section */}
+      {/* TECHNICAL SKILLS SECTION */}
       <Reveal>
-        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-4 border-b border-[var(--line)] mb-6">
-          <span className="text-xs font-medium uppercase tracking-[0.08em] text-[var(--muted)]">
-            TOOLS OF THE TRADE
-          </span>
+        {/* Technical Skills Header */}
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-4 border-b border-[var(--line)] mb-6 text-left">
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--muted)]">
+              TECHNICAL SKILLS
+            </span>
+            <span className="w-6 h-[1px] bg-[var(--line)]" />
+            <span className="text-xs font-mono text-[var(--muted)]">06 CATEGORIES</span>
+          </div>
           <span className="text-xs text-[var(--muted)]">
-            A broad toolkit, used with purpose.
+            Complete toolkit across frontend, backend, data, and deployment
           </span>
         </div>
 
-        {/* 6 Category Cells Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 min-[900px]:grid-cols-3 border-t border-l border-[var(--line)]">
+        {/* 6 Category Balanced Two-Column Grid on Desktop & Tablet, Single Column on Mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
           {skillCategories.map((cat) => {
             const IconComponent = ICON_MAP[cat.iconName] || Layout
 
             return (
               <div
                 key={cat.title}
-                className="p-6 md:p-7 border-r border-b border-[var(--line)] bg-[var(--surface)] flex flex-col gap-4 text-left"
+                className="p-6 md:p-7 border border-[var(--line)] bg-[var(--surface)] rounded-[2px] shadow-xs flex flex-col gap-4 text-left"
               >
-                {/* Header with Icon and Title */}
-                <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-[2px] bg-[var(--bg-alt)] border border-[var(--line)] flex items-center justify-center text-[var(--ink)]">
-                    <IconComponent className="w-3.5 h-3.5" />
+                {/* Category Header with Icon, Title, and Item Count */}
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-[2px] bg-[var(--bg-alt)] border border-[var(--line)] flex items-center justify-center text-[var(--ink)] shrink-0">
+                      <IconComponent className="w-3.5 h-3.5" />
+                    </div>
+                    <h4 className="text-sm font-semibold tracking-tight text-[var(--ink)] uppercase">
+                      {cat.title}
+                    </h4>
                   </div>
-                  <h4 className="text-sm font-semibold tracking-tight text-[var(--ink)]">
-                    {cat.title}
-                  </h4>
+                  <span className="text-[11px] font-mono text-[var(--muted)] bg-[var(--bg-alt)] px-2 py-0.5 rounded-[2px] border border-[var(--line)]/50 select-none">
+                    {cat.skills.length}
+                  </span>
                 </div>
 
-                {/* Skill Chips */}
-                <div className="flex flex-wrap gap-2">
+                {/* Skill Badges (Wrap naturally, consistent height and styling) */}
+                <div className="flex flex-wrap gap-2 pt-1">
                   {cat.skills.map((skill) => (
                     <span
                       key={skill}
