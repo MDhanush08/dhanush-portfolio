@@ -5,6 +5,9 @@ import { HeroVisualSvg } from '../ui/HeroVisualSvg'
 import { profile } from '../../data/portfolio'
 import { useGSAP, gsap } from '../../lib/gsap'
 
+// Portrait image path - easily replaceable with your custom photo in public/portrait.jpg
+const HERO_PORTRAIT_SRC = '/portrait.jpg'
+
 export const Hero = memo(function Hero() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [imgError, setImgError] = useState(false)
@@ -20,11 +23,15 @@ export const Hero = memo(function Hero() {
       })
 
       // Staggered text elements entrance
-      tl.from('.hero-animate', {
-        y: 18,
-        opacity: 0,
-        stagger: 0.07,
-      }, 0)
+      tl.from(
+        '.hero-animate',
+        {
+          y: 18,
+          opacity: 0,
+          stagger: 0.07,
+        },
+        0
+      )
 
       // Signature visual frame entrance
       tl.from(
@@ -60,9 +67,9 @@ export const Hero = memo(function Hero() {
             {/* Small label row with lime dot, title, hairline, location */}
             <div className="hero-animate flex items-center gap-3 text-xs uppercase font-medium tracking-[0.08em] text-[var(--muted)] mb-4">
               <span className="w-2 h-2 rounded-full bg-[#A8E600] shrink-0" />
-              <span>SOFTWARE DEVELOPER</span>
+              <span>Full Stack Software Developer</span>
               <span className="w-6 h-[1px] bg-[var(--line)]" />
-              <span>TRICHY, INDIA</span>
+              <span>Trichy, India</span>
             </div>
 
             {/* Huge Two-line H1 */}
@@ -71,15 +78,14 @@ export const Hero = memo(function Hero() {
               <span className="block text-[var(--muted)]">{profile.lastName}</span>
             </h1>
 
-            {/* Subtitle */}
+            {/* Professional Title */}
             <p className="hero-animate text-[clamp(1.25rem,2vw,1.75rem)] font-medium text-[var(--ink)] tracking-tight mb-4">
-              Software Developer{' '}
-              <span className="text-[var(--muted)] font-normal">{profile.roleSpecialization}</span>
+              Full Stack Software Developer
             </p>
 
-            {/* Tagline */}
-            <p className="hero-animate text-base md:text-lg text-[var(--muted)] leading-relaxed max-w-[44ch] mb-8">
-              {profile.tagline}
+            {/* Introduction */}
+            <p className="hero-animate text-base md:text-lg text-[var(--muted)] leading-relaxed max-w-[52ch] mb-8">
+              I'm a Full Stack Software Developer with 2 years of professional experience building web applications and backend services. I work with Angular, React, TypeScript, Node.js and NestJS, using SQL, PostgreSQL and MongoDB to build reliable and scalable solutions.
             </p>
 
             {/* Action Buttons */}
@@ -90,7 +96,7 @@ export const Hero = memo(function Hero() {
                 onClick={scrollToWork}
                 className="group inline-flex items-center gap-2 h-12 px-6 bg-[var(--ink)] text-[var(--bg)] rounded-[2px] font-medium text-sm sm:text-base border border-[var(--ink)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)]"
               >
-                <span>Explore my work</span>
+                <span>View Projects</span>
                 <ArrowDownRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
               </button>
 
@@ -100,25 +106,27 @@ export const Hero = memo(function Hero() {
                 onClick={scrollToAbout}
                 className="group inline-flex items-center gap-2 text-sm sm:text-base font-medium text-[var(--ink)] hover:underline hover:decoration-2 hover:underline-offset-6 transition-all cursor-pointer"
               >
-                <span>A little about me</span>
+                <span>About Me</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </div>
 
-            {/* Meta Row: "02 years building" | "Tiruchirappalli, Tamil Nadu" */}
-            <div className="hero-animate pt-6 border-t border-[var(--line)] w-full flex items-center gap-6 sm:gap-8 text-xs text-[var(--muted)]">
+            {/* Meta Row: "02 YEARS OF PROFESSIONAL EXPERIENCE" | "Trichy, Tamil Nadu, India" */}
+            <div className="hero-animate pt-6 border-t border-[var(--line)] w-full flex flex-wrap sm:flex-nowrap items-center gap-5 sm:gap-8 text-xs text-[var(--muted)]">
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl sm:text-3xl font-semibold text-[var(--ink)] tracking-tight">
-                  {profile.yearsExperience}
+                  02
                 </span>
-                <span className="uppercase tracking-[0.08em] font-medium">{profile.yearsLabel}</span>
+                <span className="uppercase tracking-[0.08em] font-medium">
+                  YEARS OF PROFESSIONAL EXPERIENCE
+                </span>
               </div>
 
-              <div className="w-[1px] h-6 bg-[var(--line)]" />
+              <div className="hidden sm:block w-[1px] h-6 bg-[var(--line)] shrink-0" />
 
               <div className="flex items-center gap-2 text-[var(--muted)]">
                 <MapPin className="w-4 h-4 text-[#A8E600] shrink-0" />
-                <span className="font-medium">Tiruchirappalli, Tamil Nadu</span>
+                <span className="font-medium">Trichy, Tamil Nadu, India</span>
               </div>
             </div>
           </div>
@@ -142,14 +150,14 @@ export const Hero = memo(function Hero() {
               <div className="relative w-full h-full overflow-hidden bg-[var(--bg-alt)] rounded-[1px]">
                 {!imgError ? (
                   <img
-                    src="/hero.webp"
-                    width={800}
-                    height={1000}
-                    alt="Isometric 3D composition with matte stone cubes and lime nodes"
+                    src={HERO_PORTRAIT_SRC}
+                    width={896}
+                    height={1200}
+                    alt="Professional developer portrait of Dhanush M., Full Stack Software Developer"
                     fetchPriority="high"
                     decoding="async"
                     onError={() => setImgError(true)}
-                    className="w-full h-full object-cover object-center select-none"
+                    className="w-full h-full object-cover object-top select-none"
                   />
                 ) : (
                   <HeroVisualSvg className="w-full h-full object-cover" />
