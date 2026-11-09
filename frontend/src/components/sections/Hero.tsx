@@ -6,7 +6,8 @@ import { profile } from '../../data/portfolio'
 import { useGSAP, gsap } from '../../lib/gsap'
 
 // Portrait image path - easily replaceable with your custom photo in public/portrait.jpg
-const HERO_PORTRAIT_SRC = '/portrait.jpg'
+// const HERO_PORTRAIT_SRC = '/portrait.jpg'
+const HERO_PORTRAIT_SRC = '/dhanush-img.png'
 
 export const Hero = memo(function Hero() {
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -79,17 +80,17 @@ export const Hero = memo(function Hero() {
             </h1>
 
             {/* Professional Title */}
-            <p className="hero-animate text-[clamp(1.25rem,2vw,1.75rem)] font-medium text-[var(--ink)] tracking-tight mb-4">
+            <p className="hero-animate text-[clamp(1.25rem,2vw,1.75rem)] font-medium text-[var(--ink)] tracking-tight">
               Full Stack Software Developer
             </p>
 
             {/* Introduction */}
-            <p className="hero-animate text-base md:text-lg text-[var(--muted)] leading-relaxed max-w-[52ch] mb-8">
+            <p className="hero-animate text-base md:text-lg text-[var(--muted)] leading-[1.7] max-w-[62ch] mt-[clamp(14px,1.6vw,20px)]">
               I'm a Full Stack Software Developer with 2 years of professional experience building web applications and backend services. I work with Angular, React, TypeScript, Node.js and NestJS, using SQL, PostgreSQL and MongoDB to build reliable and scalable solutions.
             </p>
 
             {/* Action Buttons */}
-            <div className="hero-animate flex flex-wrap items-center gap-5 sm:gap-6 mb-12">
+            <div className="hero-animate flex flex-wrap items-center gap-3 sm:gap-6 mt-[clamp(28px,3.5vw,44px)]">
               {/* Primary Solid Button */}
               <button
                 type="button"
@@ -112,7 +113,7 @@ export const Hero = memo(function Hero() {
             </div>
 
             {/* Meta Row: "02 YEARS OF PROFESSIONAL EXPERIENCE" | "Trichy, Tamil Nadu, India" */}
-            <div className="hero-animate pt-6 border-t border-[var(--line)] w-full flex flex-wrap sm:flex-nowrap items-center gap-5 sm:gap-8 text-xs text-[var(--muted)]">
+            <div className="hero-animate pt-6 border-t border-[var(--line)] w-full flex flex-wrap sm:flex-nowrap items-center gap-5 sm:gap-8 text-xs text-[var(--muted)] mt-[clamp(36px,4.5vw,56px)]">
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl sm:text-3xl font-semibold text-[var(--ink)] tracking-tight">
                   02
