@@ -13,7 +13,6 @@ export const Work = memo(function Work() {
     <Section id="work" bg="paper-alt" borderTop>
       <Reveal>
         <SectionHeading
-          index="01"
           label="SELECTED WORK"
           line1="Built for the"
           line2="real world."
@@ -42,11 +41,6 @@ export const Work = memo(function Work() {
               >
                 {/* Visual Panel: 16/10 aspect ratio, clean border, subtle shadow, 200-300ms hover */}
                 <div className="relative w-full aspect-[16/10] border border-[var(--line)] bg-[var(--surface)] overflow-hidden rounded-[2px] mb-4 shadow-xs transition-colors duration-250 group-hover:border-[var(--ink)]/40">
-                  {/* Top-left index */}
-                  <div className="absolute top-3.5 left-3.5 z-20 text-[11px] font-mono tracking-wider font-semibold text-[var(--ink)] bg-[var(--surface)]/95 px-2 py-0.5 border border-[var(--line)] rounded-[2px] select-none shadow-xs">
-                    {project.index}
-                  </div>
-
                   {/* Top-right circular arrow button */}
                   <div className="absolute top-3.5 right-3.5 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[var(--line)] bg-[var(--surface)] text-[var(--ink)] flex items-center justify-center transition-all duration-250 group-hover:bg-[#A8E600] group-hover:text-[#14110D] group-hover:border-[#A8E600] shadow-xs">
                     <ArrowUpRight className="w-4 h-4 transition-transform duration-250 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />

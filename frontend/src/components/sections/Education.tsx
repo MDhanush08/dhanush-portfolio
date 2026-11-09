@@ -32,7 +32,6 @@ export const Education = memo(function Education() {
     <Section id="education" bg="paper" borderTop>
       <Reveal>
         <SectionHeading
-          index="04"
           label="EDUCATION"
           line1="The path that"
           line2="brought me here."
@@ -47,7 +46,6 @@ export const Education = memo(function Education() {
           {/* Formal Academics Header */}
           <div className="pt-3 pb-2 px-4 md:px-5 border-b border-[var(--line)] flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-[var(--muted)] font-semibold bg-[var(--surface)]/40 select-none">
             <span>Formal Education</span>
-            <span>01 — 03</span>
           </div>
 
           {formalEducation.map((item) => {
@@ -66,21 +64,16 @@ export const Education = memo(function Education() {
                     : 'bg-transparent hover:bg-[var(--bg-alt)]/50'
                 )}
               >
-                <div className="flex items-start gap-4">
-                  <span className="text-xs font-mono font-semibold text-[var(--muted)] pt-1 select-none shrink-0">
-                    {item.number}
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--muted)]">
+                    {item.category}
                   </span>
-                  <div className="flex flex-col gap-0.5">
-                    <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--muted)]">
-                      {item.category}
-                    </span>
-                    <span className="text-base md:text-lg font-semibold text-[var(--ink)] tracking-tight">
-                      {item.title}
-                    </span>
-                    <span className="text-xs text-[var(--muted)]">
-                      {item.institution}
-                    </span>
-                  </div>
+                  <span className="text-base md:text-lg font-semibold text-[var(--ink)] tracking-tight">
+                    {item.title}
+                  </span>
+                  <span className="text-xs text-[var(--muted)]">
+                    {item.institution}
+                  </span>
                 </div>
 
                 <div className="shrink-0 pl-2">
@@ -100,7 +93,6 @@ export const Education = memo(function Education() {
           {/* Certifications & Courses Header */}
           <div className="pt-4 pb-2 px-4 md:px-5 border-b border-[var(--line)] flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-[var(--muted)] font-semibold bg-[var(--surface)]/40 select-none">
             <span>Certifications & Courses</span>
-            <span>04 — 05</span>
           </div>
 
           {certifications.map((item) => {
@@ -119,21 +111,16 @@ export const Education = memo(function Education() {
                     : 'bg-transparent hover:bg-[var(--bg-alt)]/50'
                 )}
               >
-                <div className="flex items-start gap-4">
-                  <span className="text-xs font-mono font-semibold text-[var(--muted)] pt-1 select-none shrink-0">
-                    {item.number}
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--muted)]">
+                    {item.category}
                   </span>
-                  <div className="flex flex-col gap-0.5">
-                    <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--muted)]">
-                      {item.category}
-                    </span>
-                    <span className="text-base md:text-lg font-semibold text-[var(--ink)] tracking-tight">
-                      {item.title}
-                    </span>
-                    <span className="text-xs text-[var(--muted)]">
-                      {item.institution}
-                    </span>
-                  </div>
+                  <span className="text-base md:text-lg font-semibold text-[var(--ink)] tracking-tight">
+                    {item.title}
+                  </span>
+                  <span className="text-xs text-[var(--muted)]">
+                    {item.institution}
+                  </span>
                 </div>
 
                 <div className="shrink-0 pl-2">
@@ -154,11 +141,6 @@ export const Education = memo(function Education() {
         {/* Right: Detail Card with Cross-Fade */}
         <Reveal delayMs={100} className="w-full">
           <div className="relative w-full min-h-[340px] p-8 md:p-10 bg-[var(--bg-alt)] border border-[var(--line)] rounded-[2px] overflow-hidden flex flex-col justify-between shadow-xs">
-            {/* Ghost Number in bottom-right corner in very low-contrast color */}
-            <span className="absolute -bottom-6 -right-4 text-[clamp(7rem,14vw,11rem)] font-bold text-[var(--line)]/50 select-none pointer-events-none leading-none font-mono">
-              {activeItem.number}
-            </span>
-
             {/* Dynamic card content */}
             <div
               key={activeItem.id}

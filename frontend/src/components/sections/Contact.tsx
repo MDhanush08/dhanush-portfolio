@@ -92,7 +92,6 @@ export const Contact = memo(function Contact() {
     <Section id="contact" bg="paper-alt" borderTop>
       <Reveal>
         <SectionHeading
-          index="05"
           label="GET IN TOUCH"
           line1="Have something"
           line2="good in mind?"

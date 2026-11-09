@@ -16,7 +16,6 @@ export const Experience = memo(function Experience() {
     <Section id="experience" bg="paper-alt" borderTop>
       <Reveal>
         <SectionHeading
-          index="03"
           label="EXPERIENCE"
           line1="Making ideas"
           line2="work harder."

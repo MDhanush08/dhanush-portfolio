@@ -33,7 +33,6 @@ export const About = memo(function About() {
     <Section id="about" bg="paper" borderTop>
       <Reveal>
         <SectionHeading
-          index="02"
           label="A BIT ABOUT ME"
           line1="Good software"
           line2="starts with curiosity."
@@ -110,13 +109,9 @@ export const About = memo(function About() {
       <Reveal>
         {/* Technical Skills Header */}
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-4 border-b border-[var(--line)] mb-6 text-left">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--muted)]">
-              TECHNICAL SKILLS
-            </span>
-            <span className="w-6 h-[1px] bg-[var(--line)]" />
-            <span className="text-xs font-mono text-[var(--muted)]">06 CATEGORIES</span>
-          </div>
+          <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--muted)]">
+            TECHNICAL SKILLS
+          </span>
           <span className="text-xs text-[var(--muted)]">
             Complete toolkit across frontend, backend, data, and deployment
           </span>
@@ -132,19 +127,14 @@ export const About = memo(function About() {
                 key={cat.title}
                 className="p-6 md:p-7 border border-[var(--line)] bg-[var(--surface)] rounded-[2px] shadow-xs flex flex-col gap-4 text-left"
               >
-                {/* Category Header with Icon, Title, and Item Count */}
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-[2px] bg-[var(--bg-alt)] border border-[var(--line)] flex items-center justify-center text-[var(--ink)] shrink-0">
-                      <IconComponent className="w-3.5 h-3.5" />
-                    </div>
-                    <h4 className="text-sm font-semibold tracking-tight text-[var(--ink)] uppercase">
-                      {cat.title}
-                    </h4>
+                {/* Category Header with Icon and Title */}
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-[2px] bg-[var(--bg-alt)] border border-[var(--line)] flex items-center justify-center text-[var(--ink)] shrink-0">
+                    <IconComponent className="w-3.5 h-3.5" />
                   </div>
-                  <span className="text-[11px] font-mono text-[var(--muted)] bg-[var(--bg-alt)] px-2 py-0.5 rounded-[2px] border border-[var(--line)]/50 select-none">
-                    {cat.skills.length}
-                  </span>
+                  <h4 className="text-sm font-semibold tracking-tight text-[var(--ink)] uppercase">
+                    {cat.title}
+                  </h4>
                 </div>
 
                 {/* Skill Badges (Wrap naturally, consistent height and styling) */}

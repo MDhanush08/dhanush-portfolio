@@ -50,10 +50,8 @@ export default function ProjectDetail() {
 
         {/* Header Block */}
         <div className="flex flex-col gap-4 mb-12 text-left">
-          {/* Label row with Index and Category */}
-          <div className="flex items-center gap-4 text-xs font-mono uppercase tracking-[0.08em] text-[var(--muted)]">
-            <span>{project.index}</span>
-            <span className="w-4 h-[1px] bg-[var(--line)]" />
+          {/* Label row with Category */}
+          <div className="text-xs font-mono uppercase tracking-[0.08em] text-[var(--muted)]">
             <span>{project.category}</span>
           </div>
 
