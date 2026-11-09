@@ -1,5 +1,5 @@
 import { useState, memo } from 'react'
-import { GraduationCap, Award, BookOpen, ArrowRight } from 'lucide-react'
+import { GraduationCap, Award, BookOpen, School, ArrowRight } from 'lucide-react'
 import { Section } from '../layout/Section'
 import { SectionHeading } from '../layout/SectionHeading'
 import { Reveal } from '../ui/Reveal'
@@ -13,7 +13,10 @@ export const Education = memo(function Education() {
   const getIcon = (id: string) => {
     switch (id) {
       case 'btech':
+      case 'hsc':
         return <GraduationCap className="w-5 h-5 text-[#14110D]" />
+      case 'sslc':
+        return <School className="w-5 h-5 text-[#14110D]" />
       case 'ccna':
         return <Award className="w-5 h-5 text-[#14110D]" />
       case 'udemy':
@@ -21,6 +24,9 @@ export const Education = memo(function Education() {
         return <BookOpen className="w-5 h-5 text-[#14110D]" />
     }
   }
+
+  const formalEducation = educationData.filter((e) => e.section === 'formal')
+  const certifications = educationData.filter((e) => e.section === 'certification')
 
   return (
     <Section id="education" bg="paper" borderTop>
@@ -36,9 +42,15 @@ export const Education = memo(function Education() {
 
       {/* Two columns from 900px */}
       <div className="grid grid-cols-1 min-[900px]:grid-cols-2 gap-10 lg:gap-16 items-start mb-16">
-        {/* Left: 3 interactive rows */}
+        {/* Left: 5 interactive rows organized into Formal Academics and Certifications */}
         <Reveal className="flex flex-col border-t border-[var(--line)]">
-          {educationData.map((item) => {
+          {/* Formal Academics Header */}
+          <div className="pt-3 pb-2 px-4 md:px-5 border-b border-[var(--line)] flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-[var(--muted)] font-semibold bg-[var(--surface)]/40 select-none">
+            <span>Formal Education</span>
+            <span>01 — 03</span>
+          </div>
+
+          {formalEducation.map((item) => {
             const isActive = activeId === item.id
             return (
               <button
@@ -48,25 +60,25 @@ export const Education = memo(function Education() {
                 onMouseEnter={() => setActiveId(item.id)}
                 aria-pressed={isActive}
                 className={cn(
-                  'w-full text-left py-6 px-4 md:px-5 border-b border-[var(--line)] flex items-center justify-between gap-4 transition-colors duration-200 cursor-pointer rounded-[2px]',
+                  'w-full text-left py-5 px-4 md:px-5 border-b border-[var(--line)] flex items-center justify-between gap-4 transition-colors duration-200 cursor-pointer rounded-[2px]',
                   isActive
                     ? 'bg-[var(--accent-soft)]'
                     : 'bg-transparent hover:bg-[var(--bg-alt)]/50'
                 )}
               >
                 <div className="flex items-start gap-4">
-                  <span className="text-xs font-mono font-semibold text-[var(--muted)] pt-1 select-none">
+                  <span className="text-xs font-mono font-semibold text-[var(--muted)] pt-1 select-none shrink-0">
                     {item.number}
                   </span>
-                  <div className="flex flex-col gap-1">
+                  <div className="flex flex-col gap-0.5">
                     <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--muted)]">
                       {item.category}
                     </span>
-                    <span className="text-lg md:text-xl font-semibold text-[var(--ink)] tracking-tight">
+                    <span className="text-base md:text-lg font-semibold text-[var(--ink)] tracking-tight">
                       {item.title}
                     </span>
                     <span className="text-xs text-[var(--muted)]">
-                      {item.periodOrProvider}
+                      {item.institution}
                     </span>
                   </div>
                 </div>
@@ -74,7 +86,60 @@ export const Education = memo(function Education() {
                 <div className="shrink-0 pl-2">
                   <ArrowRight
                     className={cn(
-                      'w-5 h-5 transition-transform duration-200',
+                      'w-4 h-4 transition-transform duration-200',
+                      isActive
+                        ? 'translate-x-1 text-[var(--ink)]'
+                        : 'text-[var(--muted)]/40'
+                    )}
+                  />
+                </div>
+              </button>
+            )
+          })}
+
+          {/* Certifications & Courses Header */}
+          <div className="pt-4 pb-2 px-4 md:px-5 border-b border-[var(--line)] flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-[var(--muted)] font-semibold bg-[var(--surface)]/40 select-none">
+            <span>Certifications & Courses</span>
+            <span>04 — 05</span>
+          </div>
+
+          {certifications.map((item) => {
+            const isActive = activeId === item.id
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setActiveId(item.id)}
+                onMouseEnter={() => setActiveId(item.id)}
+                aria-pressed={isActive}
+                className={cn(
+                  'w-full text-left py-5 px-4 md:px-5 border-b border-[var(--line)] flex items-center justify-between gap-4 transition-colors duration-200 cursor-pointer rounded-[2px]',
+                  isActive
+                    ? 'bg-[var(--accent-soft)]'
+                    : 'bg-transparent hover:bg-[var(--bg-alt)]/50'
+                )}
+              >
+                <div className="flex items-start gap-4">
+                  <span className="text-xs font-mono font-semibold text-[var(--muted)] pt-1 select-none shrink-0">
+                    {item.number}
+                  </span>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--muted)]">
+                      {item.category}
+                    </span>
+                    <span className="text-base md:text-lg font-semibold text-[var(--ink)] tracking-tight">
+                      {item.title}
+                    </span>
+                    <span className="text-xs text-[var(--muted)]">
+                      {item.institution}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="shrink-0 pl-2">
+                  <ArrowRight
+                    className={cn(
+                      'w-4 h-4 transition-transform duration-200',
                       isActive
                         ? 'translate-x-1 text-[var(--ink)]'
                         : 'text-[var(--muted)]/40'
@@ -86,10 +151,10 @@ export const Education = memo(function Education() {
           })}
         </Reveal>
 
-        {/* Right: Detail Card with Cross-Fade (opacity only 200ms) */}
+        {/* Right: Detail Card with Cross-Fade */}
         <Reveal delayMs={100} className="w-full">
-          <div className="relative w-full min-h-[300px] p-8 md:p-10 bg-[var(--bg-alt)] border border-[var(--line)] rounded-[2px] overflow-hidden flex flex-col justify-between">
-            {/* Huge Ghost Number in bottom-right corner in very low-contrast color */}
+          <div className="relative w-full min-h-[340px] p-8 md:p-10 bg-[var(--bg-alt)] border border-[var(--line)] rounded-[2px] overflow-hidden flex flex-col justify-between shadow-xs">
+            {/* Ghost Number in bottom-right corner in very low-contrast color */}
             <span className="absolute -bottom-6 -right-4 text-[clamp(7rem,14vw,11rem)] font-bold text-[var(--line)]/50 select-none pointer-events-none leading-none font-mono">
               {activeItem.number}
             </span>
@@ -97,18 +162,20 @@ export const Education = memo(function Education() {
             {/* Dynamic card content */}
             <div
               key={activeItem.id}
-              className="relative z-10 flex flex-col gap-6 transition-opacity duration-200 ease-out"
+              className="relative z-10 flex flex-col gap-6 transition-opacity duration-200 ease-out text-left"
             >
               <div className="flex items-center justify-between">
                 {/* Lime square with icon */}
-                <div className="w-12 h-12 rounded-[2px] bg-[#A8E600] flex items-center justify-center">
+                <div className="w-12 h-12 rounded-[2px] bg-[#A8E600] flex items-center justify-center shrink-0 shadow-xs">
                   {getIcon(activeItem.id)}
                 </div>
 
                 {/* Bordered chip */}
-                <span className="px-3 py-1 text-xs font-mono font-medium border border-[var(--line)] bg-[var(--surface)] text-[var(--ink)] rounded-[2px]">
-                  {activeItem.periodOrProvider}
-                </span>
+                {activeItem.periodOrProvider && (
+                  <span className="px-3 py-1 text-xs font-mono font-medium border border-[var(--line)] bg-[var(--surface)] text-[var(--ink)] rounded-[2px]">
+                    {activeItem.periodOrProvider}
+                  </span>
+                )}
               </div>
 
               <div className="flex flex-col gap-2">
@@ -118,10 +185,10 @@ export const Education = memo(function Education() {
                 <h3 className="text-2xl md:text-3xl font-semibold text-[var(--ink)] tracking-tight">
                   {activeItem.title}
                 </h3>
-                <p className="text-base text-[var(--ink)] font-medium">
+                <p className="text-base text-[var(--ink)] font-semibold">
                   {activeItem.institution}
                 </p>
-                <p className="text-sm text-[var(--muted)]">
+                <p className="text-sm text-[var(--muted)] leading-relaxed">
                   {activeItem.context}
                 </p>
               </div>
@@ -133,7 +200,7 @@ export const Education = memo(function Education() {
       {/* LANGUAGES Strip */}
       <Reveal>
         <div className="w-full border-t border-[var(--line)] pt-8 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-12 text-left">
-          <span className="text-xs font-medium uppercase tracking-[0.08em] text-[var(--muted)]">
+          <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--muted)]">
             LANGUAGES
           </span>
 

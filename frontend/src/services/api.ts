@@ -3,8 +3,9 @@ import { profile, projects, skillCategories } from '../data/portfolio'
 
 /**
  * Submit contact form payload.
- * Currently a simulated mock call with a network delay.
- * TODO: Connect to NestJS backend on Render via import.meta.env.VITE_API_URL
+ * Connects to NestJS/Express backend if VITE_API_URL is configured.
+ * If VITE_API_URL is not set, throws an explicit configuration requirement error
+ * rather than displaying a false success message.
  */
 export async function submitContact(data: ContactFormData): Promise<{ success: boolean; message: string }> {
   const apiUrl = import.meta.env.VITE_API_URL
@@ -19,32 +20,34 @@ export async function submitContact(data: ContactFormData): Promise<{ success: b
         body: JSON.stringify(data),
       })
       if (!response.ok) {
-        throw new Error(`Failed to send message: ${response.statusText}`)
+        throw new Error(`Failed to send message (${response.status}: ${response.statusText}). Please check your server or email configuration.`)
       }
-      return { success: true, message: 'Message sent successfully.' }
-    } catch (err) {
-      // Fall through to mock or return error
-      console.warn('Backend API request failed, falling back to simulated response:', err)
+      const result = await response.json().catch(() => ({}))
+      return {
+        success: true,
+        message: result.message || 'Thank you! Your message has been sent successfully.',
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) throw err
+      throw new Error('Failed to connect to contact server.')
     }
   }
 
-  // Simulated mock response with 650ms delay
-  await new Promise((resolve) => setTimeout(resolve, 650))
+  // Simulate network delay before informing that backend integration endpoint is required
+  await new Promise((resolve) => setTimeout(resolve, 600))
 
   if (!data.name.trim() || !data.email.trim() || !data.message.trim()) {
     throw new Error('Please fill in all required fields.')
   }
 
-  return {
-    success: true,
-    message: 'Thank you! Your message has been received.',
-  }
+  throw new Error(
+    `Contact backend endpoint is not configured (VITE_API_URL is not set). Please reach out directly to ${profile.email}.`
+  )
 }
 
 /**
  * Send a chat message to the assistant.
- * Currently answers from local portfolio data using keyword matching.
- * TODO: Replace with backend NestJS/LLM endpoint via import.meta.env.VITE_API_URL
+ * Answers from local portfolio data using keyword matching.
  */
 export async function sendChatMessage(query: string): Promise<string> {
   const apiUrl = import.meta.env.VITE_API_URL
@@ -70,7 +73,7 @@ export async function sendChatMessage(query: string): Promise<string> {
   const q = query.toLowerCase()
 
   if (q.includes('experience') || q.includes('background') || q.includes('work experience') || q.includes('job')) {
-    return `Dhanush has ${profile.yearsExperience} years of experience as a Software Developer. Currently at Nandalala Infotech in Trichy (since Sep 2024), working with Angular, React, NestJS, GraphQL/Hasura, and PostgreSQL. He also does part-time freelance full-stack development.`
+    return `Dhanush has ${profile.yearsExperience} years of experience as a Full Stack Software Developer, previously working at Nandalala Infotech in Trichy (Sep 2024 – Nov 2026) across Angular, React, NestJS, GraphQL/Hasura, and PostgreSQL, along with part-time freelance development.`
   }
 
   if (q.includes('project') || q.includes('built') || q.includes('portfolio') || q.includes('work')) {
@@ -84,12 +87,12 @@ export async function sendChatMessage(query: string): Promise<string> {
   }
 
   if (q.includes('education') || q.includes('college') || q.includes('degree')) {
-    return 'Dhanush holds a B.Tech in Information Technology from Kongunadu College of Engineering and Technology (2020–2024), plus Cisco CCNA certification and web development certifications.'
+    return 'Dhanush holds a B.Tech in Information Technology from Kongunadu College of Engineering and Technology (2020–2024), along with Higher Secondary (Computer Science) & SSLC from Zamindar Higher Secondary School, Cisco CCNA, and web development certifications.'
   }
 
   if (q.includes('contact') || q.includes('hire') || q.includes('email') || q.includes('reach')) {
-    return `You can reach Dhanush via the contact form on this site, or connect on LinkedIn and GitHub. He is based in Tiruchirappalli, Tamil Nadu, India.`
+    return `You can reach Dhanush via the contact form on this site, or directly at ${profile.email}. He is based in Tiruchirappalli, Tamil Nadu, India.`
   }
 
-  return `Dhanush is a full-stack software developer with 2 years of experience specializing in Angular, React, NestJS, and PostgreSQL. Feel free to ask about his experience, projects, or technical skills!`
+  return `Dhanush is a full stack software developer with 2 years of experience specializing in Angular, React, NestJS, and PostgreSQL. Feel free to ask about his experience, projects, or technical skills!`
 }

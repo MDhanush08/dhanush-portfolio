@@ -65,6 +65,7 @@ export interface EducationEntry {
   institution: string
   periodOrProvider: string
   context: string
+  section?: 'formal' | 'certification'
 }
 
 export interface LanguageEntry {
@@ -109,6 +110,7 @@ export interface Profile {
 export interface ContactFormData {
   name: string
   email: string
+  subject?: string
   message: string
 }
 

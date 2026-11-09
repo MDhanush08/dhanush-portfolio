@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   AlertCircle,
   Loader2,
+  ExternalLink,
 } from 'lucide-react'
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa6'
 import { Section } from '../layout/Section'
@@ -27,12 +28,17 @@ export const Contact = memo(function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: '',
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [statusMessage, setStatusMessage] = useState('')
+
+  const hasPhone = Boolean(profile.phone && !profile.phone.includes('[') && profile.phone.trim() !== '')
+  const hasLinkedIn = Boolean(profile.linkedin && !profile.linkedin.includes('[') && profile.linkedin.trim() !== '')
+  const hasGitHub = Boolean(profile.github && !profile.github.includes('[') && profile.github.trim() !== '')
 
   const validate = (): boolean => {
     const errs: FormErrors = {}
@@ -63,7 +69,7 @@ export const Contact = memo(function Contact() {
       const res = await submitContact(formData)
       setStatus('success')
       setStatusMessage(res.message)
-      setFormData({ name: '', email: '', message: '' })
+      setFormData({ name: '', email: '', subject: '', message: '' })
       setErrors({})
     } catch (err: unknown) {
       setStatus('error')
@@ -74,6 +80,13 @@ export const Contact = memo(function Contact() {
       setIsSubmitting(false)
     }
   }
+
+  // Pre-filled mailto fallback link for seamless communication
+  const fallbackMailto = `mailto:${profile.email}?subject=${encodeURIComponent(
+    formData.subject || `Inquiry from ${formData.name || 'Portfolio Visitor'}`
+  )}&body=${encodeURIComponent(
+    `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+  )}`
 
   return (
     <Section id="contact" bg="paper-alt" borderTop>
@@ -92,7 +105,7 @@ export const Contact = memo(function Contact() {
         {/* Left Column: Direct Info & Socials */}
         <Reveal className="flex flex-col gap-8 text-left">
           {/* Circular outlined icon with lime dot on circle edge */}
-          <div className="relative w-16 h-16 rounded-full border border-[var(--line)] bg-[var(--surface)] flex items-center justify-center">
+          <div className="relative w-16 h-16 rounded-full border border-[var(--line)] bg-[var(--surface)] flex items-center justify-center shadow-xs">
             <MessageSquare className="w-7 h-7 text-[var(--ink)]" />
             <span className="absolute top-0 right-1 w-3.5 h-3.5 rounded-full bg-[#A8E600] border-2 border-[var(--surface)]" />
           </div>
@@ -105,76 +118,88 @@ export const Contact = memo(function Contact() {
             {/* Location */}
             <div className="flex items-center gap-3">
               <MapPin className="w-5 h-5 text-[#A8E600] shrink-0" />
-              <span>{profile.locationCity}, {profile.locationRegion}, {profile.locationCountry}</span>
+              <span className="font-medium text-[var(--ink)]">Tiruchirappalli, Tamil Nadu, India</span>
             </div>
 
-            {/* Email */}
-            <div className="flex items-center gap-3">
-              <Mail className="w-5 h-5 text-[#A8E600] shrink-0" />
-              <a
-                href={`mailto:${profile.email}`}
-                className="hover:text-[var(--ink)] hover:underline underline-offset-4 transition-colors"
-              >
-                {profile.email}
-              </a>
-            </div>
+            {/* Email (Always displayed with mailto) */}
+            {profile.email && !profile.email.includes('[') && (
+              <div className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-[#A8E600] shrink-0" />
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="font-medium text-[var(--ink)] hover:underline underline-offset-4 transition-colors"
+                >
+                  {profile.email}
+                </a>
+              </div>
+            )}
 
-            {/* Phone */}
-            <div className="flex items-center gap-3">
-              <Phone className="w-5 h-5 text-[#A8E600] shrink-0" />
-              <a
-                href={`tel:${profile.phone}`}
-                className="hover:text-[var(--ink)] hover:underline underline-offset-4 transition-colors"
-              >
-                {profile.phone}
-              </a>
-            </div>
+            {/* Phone (Only displayed if actual phone number is configured) */}
+            {hasPhone && (
+              <div className="flex items-center gap-3">
+                <Phone className="w-5 h-5 text-[#A8E600] shrink-0" />
+                <a
+                  href={`tel:${profile.phone}`}
+                  className="font-medium text-[var(--ink)] hover:underline underline-offset-4 transition-colors"
+                >
+                  {profile.phone}
+                </a>
+              </div>
+            )}
           </div>
 
           {/* Social Icon Buttons */}
           <div className="flex items-center gap-3 pt-2">
-            <a
-              href={profile.github}
-              aria-label="GitHub profile"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-11 h-11 rounded-full border border-[var(--line)] bg-[var(--surface)] flex items-center justify-center text-[var(--ink)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors"
-            >
-              <FaGithub className="w-5 h-5" />
-            </a>
-            <a
-              href={profile.linkedin}
-              aria-label="LinkedIn profile"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-11 h-11 rounded-full border border-[var(--line)] bg-[var(--surface)] flex items-center justify-center text-[var(--ink)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors"
-            >
-              <FaLinkedinIn className="w-5 h-5" />
-            </a>
-            <a
-              href={`mailto:${profile.email}`}
-              aria-label="Send direct email"
-              className="w-11 h-11 rounded-full border border-[var(--line)] bg-[var(--surface)] flex items-center justify-center text-[var(--ink)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors"
-            >
-              <Mail className="w-5 h-5" />
-            </a>
+            {hasGitHub && (
+              <a
+                href={profile.github}
+                aria-label="GitHub profile"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 rounded-full border border-[var(--line)] bg-[var(--surface)] flex items-center justify-center text-[var(--ink)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors shadow-xs"
+              >
+                <FaGithub className="w-5 h-5" />
+              </a>
+            )}
+
+            {hasLinkedIn && (
+              <a
+                href={profile.linkedin}
+                aria-label="LinkedIn profile"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 rounded-full border border-[var(--line)] bg-[var(--surface)] flex items-center justify-center text-[var(--ink)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors shadow-xs"
+              >
+                <FaLinkedinIn className="w-5 h-5" />
+              </a>
+            )}
+
+            {profile.email && !profile.email.includes('[') && (
+              <a
+                href={`mailto:${profile.email}`}
+                aria-label="Send direct email"
+                className="w-11 h-11 rounded-full border border-[var(--line)] bg-[var(--surface)] flex items-center justify-center text-[var(--ink)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors shadow-xs"
+              >
+                <Mail className="w-5 h-5" />
+              </a>
+            )}
           </div>
         </Reveal>
 
-        {/* Right Column: Underline-Only Form */}
+        {/* Right Column: Contact Form */}
         <Reveal delayMs={100}>
           <form
             onSubmit={handleSubmit}
             noValidate
-            className="w-full p-8 md:p-10 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] flex flex-col gap-8 text-left shadow-sm"
+            className="w-full p-8 md:p-10 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] flex flex-col gap-6 text-left shadow-sm"
           >
-            {/* Field 1: Name */}
+            {/* Field 01: YOUR NAME */}
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="contact-name"
                 className="text-xs uppercase tracking-[0.08em] font-semibold text-[var(--ink)]"
               >
-                Your name
+                YOUR NAME <span className="text-red-500">*</span>
               </label>
               <input
                 id="contact-name"
@@ -184,11 +209,11 @@ export const Contact = memo(function Contact() {
                   setFormData((prev) => ({ ...prev, name: e.target.value }))
                   if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }))
                 }}
-                placeholder="How should I address you?"
+                placeholder="Enter your full name"
                 aria-invalid={!!errors.name}
                 aria-describedby={errors.name ? 'contact-name-error' : undefined}
                 className={cn(
-                  'w-full bg-transparent border-0 border-b-2 py-2 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none transition-colors duration-200',
+                  'w-full bg-transparent border-0 border-b-2 py-2.5 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none transition-colors duration-200',
                   errors.name
                     ? 'border-red-500'
                     : 'border-[var(--line)] focus:border-[var(--ink)]'
@@ -201,13 +226,13 @@ export const Contact = memo(function Contact() {
               </div>
             </div>
 
-            {/* Field 2: Email */}
+            {/* Field 02: YOUR EMAIL */}
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="contact-email"
                 className="text-xs uppercase tracking-[0.08em] font-semibold text-[var(--ink)]"
               >
-                Your email
+                YOUR EMAIL <span className="text-red-500">*</span>
               </label>
               <input
                 id="contact-email"
@@ -217,11 +242,11 @@ export const Contact = memo(function Contact() {
                   setFormData((prev) => ({ ...prev, email: e.target.value }))
                   if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }))
                 }}
-                placeholder="you@example.com"
+                placeholder="Enter your email address"
                 aria-invalid={!!errors.email}
                 aria-describedby={errors.email ? 'contact-email-error' : undefined}
                 className={cn(
-                  'w-full bg-transparent border-0 border-b-2 py-2 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none transition-colors duration-200',
+                  'w-full bg-transparent border-0 border-b-2 py-2.5 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none transition-colors duration-200',
                   errors.email
                     ? 'border-red-500'
                     : 'border-[var(--line)] focus:border-[var(--ink)]'
@@ -234,13 +259,33 @@ export const Contact = memo(function Contact() {
               </div>
             </div>
 
-            {/* Field 3: Message */}
+            {/* Field 03: SUBJECT */}
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="contact-subject"
+                className="text-xs uppercase tracking-[0.08em] font-semibold text-[var(--ink)]"
+              >
+                SUBJECT <span className="text-xs text-[var(--muted)] font-normal">(Optional)</span>
+              </label>
+              <input
+                id="contact-subject"
+                type="text"
+                value={formData.subject}
+                onChange={(e) => {
+                  setFormData((prev) => ({ ...prev, subject: e.target.value }))
+                }}
+                placeholder="What is this regarding?"
+                className="w-full bg-transparent border-0 border-b-2 py-2.5 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none border-[var(--line)] focus:border-[var(--ink)] transition-colors duration-200"
+              />
+            </div>
+
+            {/* Field 04: TELL ME ABOUT YOUR PROJECT */}
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="contact-message"
                 className="text-xs uppercase tracking-[0.08em] font-semibold text-[var(--ink)]"
               >
-                A little about it
+                TELL ME ABOUT YOUR PROJECT <span className="text-red-500">*</span>
               </label>
               <textarea
                 id="contact-message"
@@ -250,11 +295,11 @@ export const Contact = memo(function Contact() {
                   setFormData((prev) => ({ ...prev, message: e.target.value }))
                   if (errors.message) setErrors((prev) => ({ ...prev, message: undefined }))
                 }}
-                placeholder="What would you like to build?"
+                placeholder="Tell me a little about your project, idea, or opportunity."
                 aria-invalid={!!errors.message}
                 aria-describedby={errors.message ? 'contact-message-error' : undefined}
                 className={cn(
-                  'w-full bg-transparent border-0 border-b-2 py-2 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none transition-colors duration-200 resize-none',
+                  'w-full bg-transparent border-0 border-b-2 py-2.5 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none transition-colors duration-200 resize-none min-h-[110px]',
                   errors.message
                     ? 'border-red-500'
                     : 'border-[var(--line)] focus:border-[var(--ink)]'
@@ -276,9 +321,20 @@ export const Contact = memo(function Contact() {
             )}
 
             {status === 'error' && (
-              <div className="p-4 bg-red-500/10 border border-red-500 rounded-[2px] flex items-center gap-3 text-sm text-red-600 dark:text-red-400">
-                <AlertCircle className="w-5 h-5 shrink-0" />
-                <span>{statusMessage}</span>
+              <div className="p-4 bg-red-500/10 border border-red-500/60 rounded-[2px] flex flex-col gap-3 text-sm text-red-700 dark:text-red-300">
+                <div className="flex items-start gap-2.5">
+                  <AlertCircle className="w-5 h-5 shrink-0 text-red-600 dark:text-red-400 mt-0.5" />
+                  <span className="leading-relaxed">{statusMessage}</span>
+                </div>
+                <div className="pt-1">
+                  <a
+                    href={fallbackMailto}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 bg-[var(--ink)] text-[var(--bg)] rounded-[2px] hover:bg-[#A8E600] hover:text-[#14110D] transition-colors"
+                  >
+                    <span>Send via Email Client</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
               </div>
             )}
 
@@ -286,7 +342,7 @@ export const Contact = memo(function Contact() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="group inline-flex items-center justify-center gap-3 h-12 px-6 bg-[var(--ink)] text-[var(--bg)] border border-[var(--ink)] rounded-[2px] font-semibold text-sm sm:text-base hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] disabled:opacity-60 transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)]"
+              className="group inline-flex items-center justify-center gap-3 h-12 px-6 bg-[var(--ink)] text-[var(--bg)] border border-[var(--ink)] rounded-[2px] font-semibold text-sm sm:text-base hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] disabled:opacity-60 transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)] mt-2 shadow-xs"
             >
               {isSubmitting ? (
                 <>
@@ -295,7 +351,7 @@ export const Contact = memo(function Contact() {
                 </>
               ) : (
                 <>
-                  <span>Send message</span>
+                  <span>Send Message →</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </>
               )}
