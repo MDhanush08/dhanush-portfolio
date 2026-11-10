@@ -21,14 +21,14 @@ export const Work = memo(function Work() {
         />
       </Reveal>
 
-      {/* Grid of 4 cards: 2 columns from 900px with a subtle, balanced stagger offset */}
-      <div className="grid grid-cols-1 min-[900px]:grid-cols-2 gap-x-[clamp(24px,3.5vw,48px)] gap-y-[clamp(36px,5vw,60px)] items-start">
+      {/* Grid of featured cards: 2 columns from md, 1 column below, aligned rows */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch">
         {featuredProjects.map((project, idx) => (
           <ProjectCard
             key={project.slug}
             project={project}
             idx={idx}
-            stagger
+            priority={idx < 2}
           />
         ))}
       </div>

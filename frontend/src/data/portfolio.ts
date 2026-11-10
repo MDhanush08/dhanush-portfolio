@@ -7,10 +7,7 @@ import type {
   SkillCategory,
 } from '../types'
 
-import dentalImg from '../assets/projects/dental-interface-360.png'
-import lalaImg from '../assets/projects/lala-invoice.png'
-import portfolioImg from '../assets/projects/portfolio.png'
-import emotionImg from '../assets/projects/face-emotion-detection.png'
+
 
 export const profile: Profile = {
   name: 'Dhanush M',
@@ -68,7 +65,8 @@ export const projects: Project[] = [
     type: 'company',
     featured: true,
     cardChips: ['Angular', 'NestJS', 'GraphQL', 'Hasura'],
-    screenshots: [dentalImg],
+    screenshots: ['/projects/dental-interface-360/1.webp'],
+    screenshotAlt: 'Dental Interface 360 landing page',
     featureGroups: [
       {
         category: 'Authentication & Security',
@@ -149,7 +147,8 @@ export const projects: Project[] = [
     type: 'company',
     featured: true,
     cardChips: ['React.js', 'Redux', 'Python', 'MongoDB'],
-    screenshots: [lalaImg],
+    screenshots: ['/projects/lala-invoice/1.webp'],
+    screenshotAlt: 'Lala Invoice landing page',
     featureGroups: [
       {
         category: 'Core Workflows & Invoicing',
@@ -207,7 +206,8 @@ export const projects: Project[] = [
     type: 'freelance',
     featured: true,
     cardChips: ['Angular', 'Tailwind CSS', 'Node.js', 'Express', 'Gemini API'],
-    screenshots: [],
+    screenshots: ['/projects/viral-forge/1.webp'],
+    screenshotAlt: 'Viral Forge studio screen',
     features: [
       'Publish to multiple social platforms from a single dashboard',
       'AI image creation from a text prompt',
@@ -241,7 +241,8 @@ export const projects: Project[] = [
     type: 'freelance',
     featured: false,
     cardChips: ['Ionic', 'React', 'Capacitor', 'Node.js', 'Android Studio'],
-    screenshots: [],
+    screenshots: ['/projects/vignesh-metals/1.webp'],
+    screenshotAlt: 'Vignesh Metals mobile app product list',
     features: [
       'Two user roles: Buyer and Seller',
       'Sellers list products for sale',
@@ -311,7 +312,7 @@ export const projects: Project[] = [
     type: 'personal',
     featured: false,
     cardChips: ['React.js', 'TypeScript', 'Tailwind CSS', 'GSAP'],
-    screenshots: [portfolioImg],
+    screenshots: [],
     featureGroups: [
       {
         category: 'Visual & UI Architecture',
@@ -377,7 +378,7 @@ export const projects: Project[] = [
     type: 'college',
     featured: true,
     cardChips: ['Python', 'Arduino'],
-    screenshots: [emotionImg],
+    screenshots: [],
     featureGroups: [
       {
         category: 'Computer Vision & Detection',

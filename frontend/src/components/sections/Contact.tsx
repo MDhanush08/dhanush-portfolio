@@ -193,31 +193,33 @@ export const Contact = memo(function Contact() {
             className="w-full p-8 md:p-10 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] flex flex-col gap-6 text-left shadow-sm"
           >
             {/* Field 01: YOUR NAME */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 group">
               <label
                 htmlFor="contact-name"
-                className="text-xs uppercase tracking-[0.08em] font-semibold text-[var(--ink)]"
+                className={cn(
+                  'text-xs uppercase tracking-[0.08em] font-semibold transition-colors duration-200',
+                  errors.name
+                    ? 'text-red-500'
+                    : 'text-[var(--muted)] group-focus-within:text-[var(--ink)]'
+                )}
               >
                 YOUR NAME <span className="text-red-500">*</span>
               </label>
-              <input
-                id="contact-name"
-                type="text"
-                value={formData.name}
-                onChange={(e) => {
-                  setFormData((prev) => ({ ...prev, name: e.target.value }))
-                  if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }))
-                }}
-                placeholder="Enter your full name"
-                aria-invalid={!!errors.name}
-                aria-describedby={errors.name ? 'contact-name-error' : undefined}
-                className={cn(
-                  'w-full bg-transparent border-0 border-b-2 py-2.5 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none transition-colors duration-200',
-                  errors.name
-                    ? 'border-red-500'
-                    : 'border-[var(--line)] focus:border-[var(--ink)]'
-                )}
-              />
+              <div className={cn('field-underline-wrapper', errors.name && 'has-error')}>
+                <input
+                  id="contact-name"
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => {
+                    setFormData((prev) => ({ ...prev, name: e.target.value }))
+                    if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }))
+                  }}
+                  placeholder="Enter your full name"
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? 'contact-name-error' : undefined}
+                  className="w-full bg-transparent border-0 py-2.5 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none"
+                />
+              </div>
               <div id="contact-name-error" aria-live="polite">
                 {errors.name && (
                   <span className="text-xs text-red-500 font-medium">{errors.name}</span>
@@ -226,31 +228,33 @@ export const Contact = memo(function Contact() {
             </div>
 
             {/* Field 02: YOUR EMAIL */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 group">
               <label
                 htmlFor="contact-email"
-                className="text-xs uppercase tracking-[0.08em] font-semibold text-[var(--ink)]"
+                className={cn(
+                  'text-xs uppercase tracking-[0.08em] font-semibold transition-colors duration-200',
+                  errors.email
+                    ? 'text-red-500'
+                    : 'text-[var(--muted)] group-focus-within:text-[var(--ink)]'
+                )}
               >
                 YOUR EMAIL <span className="text-red-500">*</span>
               </label>
-              <input
-                id="contact-email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => {
-                  setFormData((prev) => ({ ...prev, email: e.target.value }))
-                  if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }))
-                }}
-                placeholder="Enter your email address"
-                aria-invalid={!!errors.email}
-                aria-describedby={errors.email ? 'contact-email-error' : undefined}
-                className={cn(
-                  'w-full bg-transparent border-0 border-b-2 py-2.5 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none transition-colors duration-200',
-                  errors.email
-                    ? 'border-red-500'
-                    : 'border-[var(--line)] focus:border-[var(--ink)]'
-                )}
-              />
+              <div className={cn('field-underline-wrapper', errors.email && 'has-error')}>
+                <input
+                  id="contact-email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => {
+                    setFormData((prev) => ({ ...prev, email: e.target.value }))
+                    if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }))
+                  }}
+                  placeholder="Enter your email address"
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? 'contact-email-error' : undefined}
+                  className="w-full bg-transparent border-0 py-2.5 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none"
+                />
+              </div>
               <div id="contact-email-error" aria-live="polite">
                 {errors.email && (
                   <span className="text-xs text-red-500 font-medium">{errors.email}</span>
@@ -259,51 +263,55 @@ export const Contact = memo(function Contact() {
             </div>
 
             {/* Field 03: SUBJECT */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 group">
               <label
                 htmlFor="contact-subject"
-                className="text-xs uppercase tracking-[0.08em] font-semibold text-[var(--ink)]"
+                className="text-xs uppercase tracking-[0.08em] font-semibold text-[var(--muted)] group-focus-within:text-[var(--ink)] transition-colors duration-200"
               >
                 SUBJECT <span className="text-xs text-[var(--muted)] font-normal">(Optional)</span>
               </label>
-              <input
-                id="contact-subject"
-                type="text"
-                value={formData.subject}
-                onChange={(e) => {
-                  setFormData((prev) => ({ ...prev, subject: e.target.value }))
-                }}
-                placeholder="What is this regarding?"
-                className="w-full bg-transparent border-0 border-b-2 py-2.5 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none border-[var(--line)] focus:border-[var(--ink)] transition-colors duration-200"
-              />
+              <div className="field-underline-wrapper">
+                <input
+                  id="contact-subject"
+                  type="text"
+                  value={formData.subject}
+                  onChange={(e) => {
+                    setFormData((prev) => ({ ...prev, subject: e.target.value }))
+                  }}
+                  placeholder="What is this regarding?"
+                  className="w-full bg-transparent border-0 py-2.5 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none"
+                />
+              </div>
             </div>
 
             {/* Field 04: TELL ME ABOUT YOUR PROJECT */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 group">
               <label
                 htmlFor="contact-message"
-                className="text-xs uppercase tracking-[0.08em] font-semibold text-[var(--ink)]"
+                className={cn(
+                  'text-xs uppercase tracking-[0.08em] font-semibold transition-colors duration-200',
+                  errors.message
+                    ? 'text-red-500'
+                    : 'text-[var(--muted)] group-focus-within:text-[var(--ink)]'
+                )}
               >
                 TELL ME ABOUT YOUR PROJECT <span className="text-red-500">*</span>
               </label>
-              <textarea
-                id="contact-message"
-                rows={4}
-                value={formData.message}
-                onChange={(e) => {
-                  setFormData((prev) => ({ ...prev, message: e.target.value }))
-                  if (errors.message) setErrors((prev) => ({ ...prev, message: undefined }))
-                }}
-                placeholder="Tell me a little about your project, idea, or opportunity."
-                aria-invalid={!!errors.message}
-                aria-describedby={errors.message ? 'contact-message-error' : undefined}
-                className={cn(
-                  'w-full bg-transparent border-0 border-b-2 py-2.5 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none transition-colors duration-200 resize-none min-h-[110px]',
-                  errors.message
-                    ? 'border-red-500'
-                    : 'border-[var(--line)] focus:border-[var(--ink)]'
-                )}
-              />
+              <div className={cn('field-underline-wrapper', errors.message && 'has-error')}>
+                <textarea
+                  id="contact-message"
+                  rows={4}
+                  value={formData.message}
+                  onChange={(e) => {
+                    setFormData((prev) => ({ ...prev, message: e.target.value }))
+                    if (errors.message) setErrors((prev) => ({ ...prev, message: undefined }))
+                  }}
+                  placeholder="Tell me a little about your project, idea, or opportunity."
+                  aria-invalid={!!errors.message}
+                  aria-describedby={errors.message ? 'contact-message-error' : undefined}
+                  className="w-full bg-transparent border-0 py-2.5 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none resize-none min-h-[110px]"
+                />
+              </div>
               <div id="contact-message-error" aria-live="polite">
                 {errors.message && (
                   <span className="text-xs text-red-500 font-medium">{errors.message}</span>

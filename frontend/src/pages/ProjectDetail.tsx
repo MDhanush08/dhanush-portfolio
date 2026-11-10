@@ -114,7 +114,7 @@ export default function ProjectDetail() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-sm md:text-base font-semibold text-[var(--ink)] hover:underline"
               >
-                <FaGithub className="w-4 h-4 text-[#A8E600]" />
+                <FaGithub className="w-4 h-4 text-[var(--ink)]" />
                 <span>GitHub repo</span>
               </a>
             ) : project.links?.live ? (
@@ -124,7 +124,7 @@ export default function ProjectDetail() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-sm md:text-base font-semibold text-[var(--ink)] hover:underline"
               >
-                <ExternalLink className="w-4 h-4 text-[#A8E600]" />
+                <ExternalLink className="w-4 h-4 text-[var(--ink)]" />
                 <span>Live demo</span>
               </a>
             ) : (
@@ -145,15 +145,25 @@ export default function ProjectDetail() {
           </div>
         </div>
 
-        {/* Main Project Preview: 16:10 aspect ratio with clean frame */}
-        <div className="relative w-full aspect-[16/10] border border-[var(--line)] bg-[var(--surface)] overflow-hidden rounded-[2px] mb-12 shadow-sm">
+        {/* Main Project Preview: 16:9 aspect ratio with clean frame */}
+        <div className="relative w-full aspect-[16/9] border border-[var(--line)] bg-[var(--bg-alt)] overflow-hidden rounded-[2px] mb-3 shadow-sm p-0">
           <ProjectVisual
             type={project.visual}
             screenshot={project.screenshots?.[0]}
-            alt={`${project.title} main screenshot`}
+            alt={project.screenshotAlt || `${project.title} main screenshot`}
             title={project.title}
+            priority={true}
           />
         </div>
+
+        {/* Caption shown only when the illustration is used (no screenshots) */}
+        {(!project.screenshots || project.screenshots.length === 0) ? (
+          <p className="text-xs md:text-sm text-[var(--muted)] text-left mb-12">
+            Illustration of the app concept. Screenshots are private.
+          </p>
+        ) : (
+          <div className="mb-9" />
+        )}
 
         {/* Supporting Screenshots Gallery (Rendered only if additional screenshots are available) */}
         {project.screenshots && project.screenshots.length > 1 && (
@@ -165,14 +175,14 @@ export default function ProjectDetail() {
               {project.screenshots.slice(1).map((shot, sIdx) => (
                 <div
                   key={sIdx}
-                  className="aspect-[16/10] border border-[var(--line)] bg-[var(--surface)] rounded-[2px] overflow-hidden shadow-sm"
+                  className="aspect-[16/9] border border-[var(--line)] bg-[var(--bg-alt)] rounded-[2px] overflow-hidden shadow-sm p-0"
                 >
                   <img
                     src={shot}
                     alt={`${project.title} supporting screenshot ${sIdx + 1}`}
-                    width={800}
-                    height={500}
-                    className="w-full h-full object-cover object-top"
+                    width={1600}
+                    height={900}
+                    className="w-full h-full object-contain"
                     loading="lazy"
                   />
                 </div>

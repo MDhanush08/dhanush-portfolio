@@ -42,6 +42,7 @@ export interface Project {
   responsibilities: string[]
   links?: ProjectLinks
   screenshots: string[]
+  screenshotAlt?: string
   image?: string
   visual: VisualType
 }
