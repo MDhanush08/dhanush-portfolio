@@ -1,132 +1,203 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Portfolio Backend API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Production-ready NestJS backend service for the developer portfolio. It provides a secure contact form endpoint that stores inquiries in Supabase and emails notifications via Resend, an uptime health check that keeps the free Supabase database warm, and an extensible skeleton module for a future Gemini + RAG AI assistant.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Contact Form (`POST /api/contact`)**:
+  - Validates inputs strictly with `class-validator` and `class-transformer`.
+  - Silent honeypot field (`website`) to neutralise automated spam bots without leaking detection.
+  - Resilient submission: records the inquiry in Supabase, dispatches a notification email via Resend, and returns a user-friendly error only if both fail.
+  - Rate limited to 5 submissions per 10 minutes per IP.
+- **Health & Keep-Alive (`GET /api/health` & `GET /api/health/db`)**:
+  - `/api/health` returns process uptime and timestamp for deployment monitoring.
+  - `/api/health/db` performs a lightweight query on the `contact_messages` table to prevent free Supabase projects from pausing.
+- **AI Assistant Skeleton (`POST /api/assistant/chat`)**:
+  - Ready-made skeleton adhering to an `LlmProvider` interface for upcoming Gemini integration with pgvector RAG retrieval.
+  - Currently returns 501 Not Implemented with a clean response.
+- **Security & Reliability**:
+  - Helmet for security headers and disabled `x-powered-by`.
+  - Reverse proxy support (`trust proxy` enabled for Render).
+  - Strict CORS limited to approved frontend origins.
+  - Request body size capped at 20 KB.
+  - Centralised exception filter that strips internal details and prevents credential leakage.
+  - Interactive Swagger OpenAPI documentation at `/api/docs`.
 
-## Project setup
+---
 
+## Local Development
+
+### 1. Prerequisites
+- Node.js `>=22.22.3` (Node 24 or 26 recommended)
+- npm
+
+### 2. Install Dependencies
 ```bash
-$ npm install
+cd backend
+npm install
 ```
 
-## Compile and run the project
-
+### 3. Configure Environment Variables
+Copy `.env.example` to `.env` and fill in your credentials:
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+cp .env.example .env
 ```
+*(See the Environment Variables table below for details on each parameter)*
 
-## Run tests
-
+### 4. Run the Development Server
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run start:dev
 ```
+The server will boot on `http://localhost:3000/api` (or your configured `PORT`).
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## Environment Variables
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+| Variable | Required | Purpose | Example |
+| :--- | :--- | :--- | :--- |
+| `NODE_ENV` | No (default: `development`) | Runtime environment (`development`, `production`, `test`) | `development` |
+| `PORT` | No (default: `3000`) | Port on which the HTTP server listens | `3000` |
+| `FRONTEND_ORIGIN` | **Yes** | Comma-separated list of allowed browser origins for CORS | `http://localhost:5173,https://myportfolio.com` |
+| `SUPABASE_URL` | **Yes** | Supabase project URL | `https://abcdefghijkl.supabase.co` |
+| `SUPABASE_SECRET_KEY` | **Yes** | Supabase `service_role` secret key (bypasses RLS server-side; never exposed to clients) | `eyJhbGciOi...` |
+| `RESEND_API_KEY` | **Yes** | Outbound transactional mail API key from Resend | `re_123456789_abcdef` |
+| `NOTIFY_EMAIL` | **Yes** | Destination email address to receive contact notifications | `your-email@example.com` |
+| `MAIL_FROM` | No (default: `Portfolio Contact <onboarding@resend.dev>`) | Sender header used in outgoing notification emails | `Portfolio Contact <onboarding@resend.dev>` |
+| `ENABLE_SWAGGER` | No (default: `true` in dev, `false` in prod) | Whether to expose Swagger UI at `/api/docs` | `true` |
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+> **Important**: The application validates all required environment variables on startup. If any required variable is missing or empty, startup will fail immediately with a readable list of missing keys.
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Observability
+## Endpoints
 
-In production applications, observability is essential for understanding how your system behaves, detecting issues early, and maintaining reliable performance.
+### 1. Health Check
+- **Endpoint**: `GET /api/health`
+- **Description**: Returns server status and uptime without querying the database.
+- **Example cURL**:
+  ```bash
+  curl -X GET http://localhost:3000/api/health
+  ```
+- **Response (200 OK)**:
+  ```json
+  {
+    "status": "ok",
+    "uptime": 45.12,
+    "timestamp": "2026-11-10T14:30:00.000Z"
+  }
+  ```
 
-[NestJS Observe](https://observe.nestjs.com) automatically instruments your NestJS application, giving you deep visibility into your system with minimal setup:
+### 2. Database Keep-Alive / Health
+- **Endpoint**: `GET /api/health/db`
+- **Description**: Executes a fast read (`limit 1`) on Supabase to keep the free project active. Rate limited to 10 requests per minute.
+- **Example cURL**:
+  ```bash
+  curl -X GET http://localhost:3000/api/health/db
+  ```
+- **Response (200 OK)**:
+  ```json
+  {
+    "status": "ok"
+  }
+  ```
 
-- **Distributed tracing:** Follow requests across services and understand how they flow through your system.
-- **Waterfall analysis:** Visualize request execution and identify slow operations, bottlenecks, and unexpected delays.
-- **Performance analysis:** Analyze application performance in real time and quickly pinpoint areas that need optimization.
-- **Metrics:** Track key application and infrastructure metrics to understand system health and performance trends.
-- **Logging:** Centralize and correlate logs with traces and other telemetry to make debugging easier.
-- **Error tracking:** Detect errors quickly and investigate their root causes with the surrounding context.
-- **SLA monitoring:** Track service-level objectives and identify when your application is approaching or exceeding defined thresholds.
-- **Alarms and alerts:** Set up alerts for critical errors, performance degradation, SLA violations, and other anomalies so your team can react quickly.
+### 3. Contact Form Submission
+- **Endpoint**: `POST /api/contact`
+- **Description**: Validates the message, saves it to the database, and dispatches a notification email via Resend. Rate limited to 5 submissions per 10 minutes per IP.
+- **Example cURL**:
+  ```bash
+  curl -X POST http://localhost:3000/api/contact \
+    -H "Content-Type: application/json" \
+    -d '{
+      "name": "Alex Smith",
+      "email": "alex.smith@example.com",
+      "subject": "Freelance Opportunity",
+      "message": "Hi, I came across your portfolio and would like to discuss a project."
+    }'
+  ```
+- **Response (201 Created)**:
+  ```json
+  {
+    "success": true,
+    "message": "Thanks! Your message has been sent. I will get back to you soon."
+  }
+  ```
 
-To add it to this project, run this and approve the code it prints at [observe.nestjs.com/link](https://observe.nestjs.com/link) - signing up for free if you have no account:
+### 4. AI Assistant Chat (Skeleton)
+- **Endpoint**: `POST /api/assistant/chat`
+- **Description**: Validates user query and conversation history (up to 10 turns). Returns 501 Not Implemented until Gemini integration is added. Rate limited to 10 requests per minute.
+- **Example cURL**:
+  ```bash
+  curl -X POST http://localhost:3000/api/assistant/chat \
+    -H "Content-Type: application/json" \
+    -d '{
+      "message": "What technologies do you work with?"
+    }'
+  ```
+- **Response (501 Not Implemented)**:
+  ```json
+  {
+    "statusCode": 501,
+    "error": "Not Implemented",
+    "message": "The AI assistant is not available yet."
+  }
+  ```
 
-```bash
-$ npx @nestjs/observe link
-```
+### 5. Swagger API Documentation
+- **Endpoint**: `GET /api/docs`
+- **Description**: Interactive OpenAPI documentation and test interface (accessible when `ENABLE_SWAGGER=true`).
 
-It installs `@nestjs/observe`, wires it into `AppModule` and `main.ts`, and writes the app key and secret into `.env`, which every `nest start` script (`start`, `start:dev`, `start:debug`) then loads. In production, set `OBSERVE_APP_KEY` and `OBSERVE_APP_SECRET` in the environment instead.
+---
 
-Or do it by hand:
+## Testing with Postman
 
-```bash
-$ npm install @nestjs/observe
-```
+1. Open Postman and create a new request.
+2. Select **POST** and enter URL: `http://localhost:3000/api/contact` (or your deployed URL).
+3. Under the **Headers** tab, ensure `Content-Type` is set to `application/json`.
+4. Under the **Body** tab, choose **raw** and format as **JSON**:
+   ```json
+   {
+     "name": "Test Visitor",
+     "email": "visitor@example.com",
+     "subject": "Postman Test",
+     "message": "Testing the portfolio backend contact API."
+   }
+   ```
+5. Click **Send**. You should receive a `201 Created` status with `{ "success": true, ... }`.
 
-Then follow the [setup guide](https://docs.nestjs.com/observability/sdk) - it takes a single import and an app key.
+---
 
-The free plan needs no payment details and covers 300,000 events a month. You can also browse the [live demo](https://www.observe-demo.nestjs.com/dashboard) first - the whole dashboard over a busy service's data, with nothing to install.
+## Resend Free Plan Note
 
-## Resources
+> **Note on Resend Free Tier**:
+> The free Resend sandbox plan (`onboarding@resend.dev`) can **only** deliver emails to the email address used to register the Resend account.
+> Set `NOTIFY_EMAIL` in `.env` to that exact registered email. To deliver notifications to a different custom inbox or domain, you must verify your custom sending domain inside the Resend dashboard.
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Auto-instrument your application with [NestJS Observe](https://observe.nestjs.com). Distributed tracing, metrics, and logging made easy. Error tracking and performance monitoring for your NestJS applications.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## Render Deployment Guide
 
-## Support
+Deploying the backend as a Web Service on [Render](https://render.com):
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+1. **Create Web Service**: Connect your GitHub repository to Render.
+2. **Settings**:
+   - **Root Directory**: `backend`
+   - **Environment**: `Node`
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm run start:prod`
+3. **Environment Variables**:
+   In Render's **Environment** tab, configure:
+   - `NODE_VERSION`: `24`
+   - `NODE_ENV`: `production`
+   - `FRONTEND_ORIGIN`: Your production frontend URL (e.g. `https://your-portfolio.vercel.app`)
+   - `SUPABASE_URL`: Your Supabase project URL
+   - `SUPABASE_SECRET_KEY`: Your Supabase `service_role` secret key
+   - `RESEND_API_KEY`: Your Resend API key
+   - `NOTIFY_EMAIL`: Your notification destination email
+   - `MAIL_FROM`: `Portfolio Contact <onboarding@resend.dev>` (or your verified domain sender)
+   - `ENABLE_SWAGGER`: `false` (or `true` if you wish to expose `/api/docs` publicly)
+4. **Health Check Path**:
+   - Set to `/api/health` so Render can verify zero-downtime rollouts.
