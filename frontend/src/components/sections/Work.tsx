@@ -11,7 +11,7 @@ export const Work = memo(function Work() {
   const featuredProjects = projects.filter((p) => p.featured)
 
   return (
-    <Section id="work" bg="paper-alt" borderTop>
+    <Section id="work" bg="paper" borderTop>
       <Reveal>
         <SectionHeading
           label="SELECTED WORK"

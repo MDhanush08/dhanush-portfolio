@@ -63,11 +63,17 @@ export function ScrollManager() {
       if (location.hash) {
         // Handle hash anchor navigation on Home
         const targetId = location.hash.replace('#', '')
-        const el = document.getElementById(targetId)
-        if (el) {
+        if (targetId === 'home') {
           setTimeout(() => {
-            el.scrollIntoView({ behavior: 'smooth' })
+            window.scrollTo({ top: 0, behavior: 'smooth' })
           }, 60)
+        } else {
+          const el = document.getElementById(targetId)
+          if (el) {
+            setTimeout(() => {
+              el.scrollIntoView({ behavior: 'smooth' })
+            }, 60)
+          }
         }
       } else if (navType === 'POP') {
         // Restore scroll position on back button

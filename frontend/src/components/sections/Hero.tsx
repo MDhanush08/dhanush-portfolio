@@ -6,7 +6,6 @@ import { profile } from '../../data/portfolio'
 import { useGSAP, gsap } from '../../lib/gsap'
 
 // Portrait image path - easily replaceable with your custom photo in public/portrait.jpg
-// const HERO_PORTRAIT_SRC = '/portrait.jpg'
 const HERO_PORTRAIT_SRC = '/dhanush-img.png'
 
 export const Hero = memo(function Hero() {
@@ -58,13 +57,14 @@ export const Hero = memo(function Hero() {
 
   return (
     <section
+      id="home"
       ref={containerRef}
-      className="relative w-full min-h-[calc(100svh-72px)] flex flex-col justify-center bg-[var(--bg)] py-12 lg:py-16 overflow-hidden"
+      className="relative w-full min-h-[calc(100svh-var(--nav-h))] scroll-mt-[var(--nav-h)] flex flex-col justify-center bg-[var(--bg)] py-12 lg:py-16 overflow-hidden"
     >
       <Container className="w-full h-full flex flex-col justify-center">
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-[clamp(32px,5vw,96px)] items-center">
           {/* Left Column: Text & Meta */}
-          <div className="flex flex-col items-start text-left z-10">
+          <div className="flex flex-col items-start text-left z-10 w-full">
             {/* Small label row with lime dot, title, hairline, location */}
             <div className="hero-animate flex items-center gap-3 text-xs uppercase font-medium tracking-[0.08em] text-[var(--muted)] mb-4">
               <span className="w-2 h-2 rounded-full bg-[#A8E600] shrink-0" />
@@ -73,8 +73,8 @@ export const Hero = memo(function Hero() {
               <span>Trichy, India</span>
             </div>
 
-            {/* Huge Two-line H1 */}
-            <h1 className="hero-animate text-[clamp(3.5rem,11vw,9rem)] font-semibold tracking-[-0.03em] leading-[0.95] mb-4 select-none">
+            {/* Huge Two-line H1 with 320px+ responsive clamp */}
+            <h1 className="hero-animate text-[clamp(2.75rem,10.5vw,9rem)] font-semibold tracking-[-0.03em] leading-[0.95] mb-4 select-none">
               <span className="block text-[var(--ink)]">{profile.firstName}</span>
               <span className="block text-[var(--muted)]">{profile.lastName}</span>
             </h1>
@@ -89,13 +89,13 @@ export const Hero = memo(function Hero() {
               I'm a Full Stack Software Developer with 2 years of professional experience building web applications and backend services. I work with Angular, React, TypeScript, Node.js and NestJS, using SQL, PostgreSQL and MongoDB to build reliable and scalable solutions.
             </p>
 
-            {/* Action Buttons */}
+            {/* Action Buttons: 12px gap on mobile (gap-3), wraps cleanly */}
             <div className="hero-animate flex flex-wrap items-center gap-3 sm:gap-6 mt-[clamp(28px,3.5vw,44px)]">
               {/* Primary Solid Button */}
               <button
                 type="button"
                 onClick={scrollToWork}
-                className="group inline-flex items-center gap-2 h-12 px-6 bg-[var(--ink)] text-[var(--bg)] rounded-[2px] font-medium text-sm sm:text-base border border-[var(--ink)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)]"
+                className="group inline-flex items-center gap-2 h-12 px-6 bg-[var(--ink)] text-[var(--bg)] rounded-[2px] font-medium text-sm sm:text-base border border-[var(--ink)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
               >
                 <span>View Projects</span>
                 <ArrowDownRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
@@ -105,7 +105,7 @@ export const Hero = memo(function Hero() {
               <button
                 type="button"
                 onClick={scrollToAbout}
-                className="group inline-flex items-center gap-2 text-sm sm:text-base font-medium text-[var(--ink)] hover:underline hover:decoration-2 hover:underline-offset-6 transition-all cursor-pointer"
+                className="group inline-flex items-center gap-2 min-h-[44px] text-sm sm:text-base font-medium text-[var(--ink)] hover:underline hover:decoration-2 hover:underline-offset-6 transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2 rounded-[2px]"
               >
                 <span>About Me</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -136,10 +136,10 @@ export const Hero = memo(function Hero() {
           <div className="relative flex justify-center lg:justify-end w-full">
             <div className="hero-visual-frame relative w-full max-w-[420px] lg:max-w-[560px] aspect-[4/5] p-3 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] shadow-sm">
               {/* Lime circular sticker at top-left: "BUILD WITH CARE." rotated ~ -8deg */}
-              <div className="absolute -top-6 -left-6 z-20 w-[96px] h-[96px] sm:w-[104px] sm:h-[104px] rounded-full bg-[#A8E600] text-[#14110D] flex flex-col items-center justify-center text-center font-bold tracking-tight rotate-[-8deg] shadow-md select-none border border-[#14110D]/10">
-                <span className="text-[11px] sm:text-xs leading-none">BUILD</span>
-                <span className="text-[11px] sm:text-xs leading-none">WITH</span>
-                <span className="text-[11px] sm:text-xs leading-none">CARE.</span>
+              <div className="absolute -top-4 -left-2 sm:-top-6 sm:-left-6 z-20 w-[84px] h-[84px] sm:w-[104px] sm:h-[104px] rounded-full bg-[#A8E600] text-[#14110D] flex flex-col items-center justify-center text-center font-bold tracking-tight rotate-[-8deg] shadow-md select-none border border-[#14110D]/10">
+                <span className="text-[10px] sm:text-xs leading-none">BUILD</span>
+                <span className="text-[10px] sm:text-xs leading-none">WITH</span>
+                <span className="text-[10px] sm:text-xs leading-none">CARE.</span>
               </div>
 
               {/* Vertical label at right edge (screens >= 1100px) */}
@@ -174,7 +174,7 @@ export const Hero = memo(function Hero() {
               <button
                 type="button"
                 onClick={scrollToAbout}
-                className="group absolute -bottom-6 -right-3 sm:-bottom-8 sm:-right-6 z-20 p-3 sm:p-3.5 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] shadow-lg flex items-center gap-3 text-left transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer"
+                className="group absolute -bottom-4 -right-1 sm:-bottom-8 sm:-right-6 z-20 p-2.5 sm:p-3.5 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] shadow-lg flex items-center gap-3 text-left transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
               >
                 <div className="w-9 h-9 rounded-[2px] bg-[#A8E600]/20 text-[var(--ink)] flex items-center justify-center shrink-0">
                   <Code2 className="w-5 h-5 text-[#14110D]" />

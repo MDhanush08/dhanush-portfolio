@@ -36,7 +36,7 @@ export const BackToTop = memo(function BackToTop({ hidden = false }: BackToTopPr
       onClick={scrollToTop}
       aria-label="Back to top"
       className={cn(
-        'fixed right-6 bottom-24 z-40 w-11 h-11 rounded-full bg-[var(--ink)] text-[var(--bg)] border border-[var(--ink)] flex items-center justify-center cursor-pointer shadow-md transition-all duration-300 hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2',
+        'fixed right-[calc(1.5rem+env(safe-area-inset-right,0px))] bottom-[calc(5.75rem+env(safe-area-inset-bottom,0px))] z-40 w-11 h-11 rounded-full bg-[var(--ink)] text-[var(--bg)] border border-[var(--ink)] flex items-center justify-center cursor-pointer shadow-md transition-all duration-300 hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2',
         visible
           ? 'opacity-100 translate-y-0 pointer-events-auto'
           : 'opacity-0 translate-y-4 pointer-events-none'

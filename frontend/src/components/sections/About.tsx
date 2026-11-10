@@ -30,7 +30,7 @@ export const About = memo(function About() {
   }
 
   return (
-    <Section id="about" bg="paper" borderTop>
+    <Section id="about" bg="paper-alt" borderTop>
       <Reveal>
         <SectionHeading
           label="A BIT ABOUT ME"

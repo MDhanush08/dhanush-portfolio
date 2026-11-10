@@ -15,11 +15,12 @@ interface DrawerProps {
 }
 
 const NAV_ITEMS = [
-  { id: 'work', number: '01', label: 'Work' },
+  { id: 'home', number: '01', label: 'Home' },
   { id: 'about', number: '02', label: 'About' },
-  { id: 'experience', number: '03', label: 'Experience' },
-  { id: 'education', number: '04', label: 'Education' },
-  { id: 'contact', number: '05', label: 'Contact' },
+  { id: 'work', number: '03', label: 'Work' },
+  { id: 'experience', number: '04', label: 'Experience' },
+  { id: 'education', number: '05', label: 'Education' },
+  { id: 'contact', number: '06', label: 'Contact' },
 ]
 
 export const Drawer = memo(function Drawer({
@@ -41,7 +42,11 @@ export const Drawer = memo(function Drawer({
       if (scrollbarWidth > 0) {
         document.body.style.paddingRight = `${scrollbarWidth}px`
       }
-      closeButtonRef.current?.focus()
+      // Set initial focus to close button after slight tick for accessibility
+      const timer = setTimeout(() => {
+        closeButtonRef.current?.focus()
+      }, 50)
+      return () => clearTimeout(timer)
     } else {
       document.body.style.overflow = ''
       document.body.style.paddingRight = ''
@@ -102,6 +107,16 @@ export const Drawer = memo(function Drawer({
     }
   }
 
+  // Tapping a drawer link: unlock body scroll FIRST, close drawer, scroll on next frame
+  const handleItemClick = (id: string) => {
+    document.body.style.overflow = ''
+    document.body.style.paddingRight = ''
+    onClose()
+    requestAnimationFrame(() => {
+      onNavigate(id)
+    })
+  }
+
   if (typeof document === 'undefined') return null
 
   return createPortal(
@@ -125,19 +140,19 @@ export const Drawer = memo(function Drawer({
         )}
       />
 
-      {/* Drawer panel */}
+      {/* Drawer panel with internal scrolling and safe-area insets */}
       <div
         ref={drawerRef}
         role="dialog"
         aria-modal="true"
         aria-label="Navigation Menu"
         className={cn(
-          'absolute top-0 right-0 bottom-0 h-[100dvh] w-[min(86vw,340px)] bg-[var(--bg)] border-l border-[var(--line)] shadow-2xl flex flex-col transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)]',
+          'absolute top-0 right-0 bottom-0 h-[100dvh] w-[min(86vw,340px)] bg-[var(--bg)] border-l border-[var(--line)] shadow-2xl flex flex-col justify-between overflow-y-auto overscroll-contain transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)]',
           isOpen ? 'translate-x-0' : 'translate-x-full'
         )}
       >
         {/* Drawer Header */}
-        <div className="h-[72px] px-6 border-b border-[var(--line)] flex items-center justify-between shrink-0">
+        <div className="h-[var(--nav-h)] px-5 sm:px-6 border-b border-[var(--line)] flex items-center justify-between shrink-0 pt-[env(safe-area-inset-top,0px)]">
           <div className="flex items-center gap-3">
             <span className="w-8 h-8 rounded-full bg-[#A8E600] text-[#14110D] font-bold text-xs flex items-center justify-center select-none">
               {profile.initials}
@@ -159,27 +174,25 @@ export const Drawer = memo(function Drawer({
               onClose()
               triggerRef.current?.focus()
             }}
-            aria-label="Close menu"
-            className="w-10 h-10 rounded-full flex items-center justify-center text-[var(--ink)] hover:bg-[var(--bg-alt)] cursor-pointer"
+            aria-label="Close navigation menu"
+            className="w-11 h-11 rounded-full flex items-center justify-center text-[var(--ink)] hover:bg-[var(--bg-alt)] cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Navigation list */}
-        <div className="flex-1 py-4 flex flex-col overflow-y-auto">
+        <div className="flex-1 py-2 flex flex-col overflow-y-auto overscroll-contain">
           {NAV_ITEMS.map((item) => {
             const isActive = activeSection === item.id
             return (
               <button
                 key={item.id}
                 type="button"
-                onClick={() => {
-                  onClose()
-                  onNavigate(item.id)
-                }}
+                onClick={() => handleItemClick(item.id)}
+                aria-current={isActive ? 'page' : undefined}
                 className={cn(
-                  'relative min-h-[56px] px-6 py-3 flex items-center gap-4 text-lg font-medium text-left transition-colors cursor-pointer',
+                  'relative min-h-[56px] px-5 sm:px-6 py-2.5 flex items-center gap-4 text-base sm:text-lg font-medium text-left transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-[-2px] rounded-[2px]',
                   isActive
                     ? 'text-[var(--ink)] font-semibold bg-[var(--bg-alt)]'
                     : 'text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--bg-alt)]/50'
@@ -198,25 +211,25 @@ export const Drawer = memo(function Drawer({
           })}
         </div>
 
-        {/* Drawer Footer */}
-        <div className="p-6 border-t border-[var(--line)] flex flex-col gap-4 mt-auto shrink-0 bg-[var(--bg-alt)]/30">
+        {/* Drawer Footer with safe-area insets */}
+        <div className="p-4 sm:p-5 border-t border-[var(--line)] flex flex-col gap-3.5 mt-auto shrink-0 bg-[var(--bg-alt)]/30 pb-[max(1rem,env(safe-area-inset-bottom,0px))]">
           {/* Download Resume button */}
           <a
             href={profile.resumeUrl}
             download="Dhanush_M_Resume.pdf"
-            className="w-full h-11 px-4 bg-[var(--ink)] text-[var(--bg)] rounded-[2px] font-medium text-sm flex items-center justify-center gap-2 hover:bg-[#A8E600] hover:text-[#14110D] transition-colors"
+            className="w-full min-h-[44px] h-11 px-4 bg-[var(--ink)] text-[var(--bg)] rounded-[2px] font-medium text-sm flex items-center justify-center gap-2 hover:bg-[#A8E600] hover:text-[#14110D] transition-colors focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
           >
             <FileDown className="w-4 h-4" />
             <span>Download résumé</span>
           </a>
 
           {/* Light / Dark Mode toggle row */}
-          <div className="flex items-center justify-between py-2 text-sm text-[var(--ink)]">
-            <span className="font-medium">Theme</span>
+          <div className="flex items-center justify-between py-1 text-sm text-[var(--ink)]">
+            <span className="font-medium text-xs">Theme</span>
             <button
               type="button"
               onClick={toggleTheme}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-[2px] border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--bg-alt)] cursor-pointer text-xs"
+              className="min-h-[44px] flex items-center gap-2 px-3 py-1.5 rounded-[2px] border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--bg-alt)] cursor-pointer text-xs font-medium focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
             >
               {theme === 'dark' ? (
                 <>
@@ -233,13 +246,13 @@ export const Drawer = memo(function Drawer({
           </div>
 
           {/* Social icons */}
-          <div className="flex items-center gap-3 pt-1 border-t border-[var(--line)] text-[var(--muted)]">
+          <div className="flex items-center gap-3 pt-2 border-t border-[var(--line)] text-[var(--muted)]">
             <a
               href={profile.github}
               aria-label="Dhanush on GitHub"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-[var(--line)] flex items-center justify-center hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors"
+              className="w-11 h-11 rounded-full border border-[var(--line)] flex items-center justify-center hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
             >
               <FaGithub className="w-4 h-4" />
             </a>
@@ -248,14 +261,14 @@ export const Drawer = memo(function Drawer({
               aria-label="Dhanush on LinkedIn"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-[var(--line)] flex items-center justify-center hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors"
+              className="w-11 h-11 rounded-full border border-[var(--line)] flex items-center justify-center hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
             >
               <FaLinkedinIn className="w-4 h-4" />
             </a>
             <a
               href={`mailto:${profile.email}`}
               aria-label="Send email"
-              className="w-9 h-9 rounded-full border border-[var(--line)] flex items-center justify-center hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors"
+              className="w-11 h-11 rounded-full border border-[var(--line)] flex items-center justify-center hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
             >
               <Mail className="w-4 h-4" />
             </a>

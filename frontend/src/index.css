@@ -4,6 +4,7 @@
 @import "@fontsource-variable/jetbrains-mono";
 
 :root {
+  --nav-h: 64px;
   --bg: #FAF7F0;
   --bg-alt: #EFEBE0;
   --surface: #FFFDF8;
@@ -18,6 +19,16 @@
   --chip-border: rgba(20, 17, 13, 0.18);
   --radius-sm: 2px;
   --radius-md: 4px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --nav-h: 72px;
+  }
+}
+
+section {
+  scroll-margin-top: var(--nav-h);
 }
 
 html[data-theme="dark"] {

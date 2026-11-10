@@ -38,7 +38,7 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
         id={id}
         tabIndex={-1}
         className={cn(
-          'w-full scroll-mt-[72px] py-[clamp(72px,9vw,144px)] outline-none',
+          'w-full scroll-mt-[var(--nav-h)] py-[clamp(56px,12vw,96px)] outline-none',
           bgStyle,
           borderTop && 'border-t border-[var(--line)]',
           borderBottom && 'border-b border-[var(--line)]',

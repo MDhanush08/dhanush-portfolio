@@ -97,7 +97,7 @@ export const ChatbotWidget = memo(function ChatbotWidget({ hidden = false }: Cha
       {/* Floating Launcher Button */}
       <div
         className={cn(
-          'fixed right-6 bottom-6 z-40 flex items-center gap-3 transition-opacity duration-300',
+          'fixed right-[calc(1.5rem+env(safe-area-inset-right,0px))] bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] z-40 flex items-center gap-3 transition-opacity duration-300',
           isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
         )}
       >
@@ -105,7 +105,7 @@ export const ChatbotWidget = memo(function ChatbotWidget({ hidden = false }: Cha
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--surface)] text-[var(--ink)] text-xs font-medium border border-[var(--line)] rounded-full shadow-sm cursor-pointer hover:border-[#A8E600] transition-colors"
+          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--surface)] text-[var(--ink)] text-xs font-medium border border-[var(--line)] rounded-full shadow-sm cursor-pointer hover:border-[#A8E600] transition-colors focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
         >
           <Sparkles className="w-3.5 h-3.5 text-[#A8E600]" />
           <span>Ask about my work</span>
@@ -129,7 +129,7 @@ export const ChatbotWidget = memo(function ChatbotWidget({ hidden = false }: Cha
           role="dialog"
           aria-label="Portfolio Chat Assistant"
           aria-modal="true"
-          className="fixed z-50 bottom-0 right-0 sm:bottom-6 sm:right-6 w-full sm:w-[380px] h-[85vh] sm:h-[520px] max-h-[85vh] bg-[var(--surface)] text-[var(--ink)] border border-[var(--line)] rounded-t-md sm:rounded-[4px] shadow-2xl flex flex-col overflow-hidden"
+          className="fixed z-50 bottom-[env(safe-area-inset-bottom,0px)] right-0 sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] sm:right-[calc(1.5rem+env(safe-area-inset-right,0px))] w-full sm:w-[380px] h-[85vh] sm:h-[520px] max-h-[85vh] bg-[var(--surface)] text-[var(--ink)] border border-[var(--line)] rounded-t-md sm:rounded-[4px] shadow-2xl flex flex-col overflow-hidden"
         >
           {/* Header */}
           <div className="px-4 py-3.5 border-b border-[var(--line)] flex items-center justify-between bg-[var(--bg-alt)] shrink-0">
@@ -147,7 +147,7 @@ export const ChatbotWidget = memo(function ChatbotWidget({ hidden = false }: Cha
               type="button"
               onClick={() => setIsOpen(false)}
               aria-label="Close chat"
-              className="w-8 h-8 rounded-full flex items-center justify-center text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--line)]/50 transition-colors"
+              className="w-8 h-8 rounded-full flex items-center justify-center text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--line)]/50 transition-colors focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
             >
               <X className="w-4 h-4" />
             </button>
@@ -198,7 +198,7 @@ export const ChatbotWidget = memo(function ChatbotWidget({ hidden = false }: Cha
                 type="button"
                 onClick={() => handleSend(sug)}
                 disabled={loading}
-                className="shrink-0 text-[11px] px-2.5 py-1 bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--ink)] border border-[var(--line)] rounded-[2px] transition-colors whitespace-nowrap hover:border-[#A8E600]"
+                className="shrink-0 text-[11px] px-2.5 py-1 bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--ink)] border border-[var(--line)] rounded-[2px] transition-colors whitespace-nowrap hover:border-[#A8E600] focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-1"
               >
                 {sug}
               </button>
@@ -225,7 +225,7 @@ export const ChatbotWidget = memo(function ChatbotWidget({ hidden = false }: Cha
               type="submit"
               disabled={loading || !input.trim()}
               aria-label="Send message"
-              className="w-9 h-9 rounded-[2px] bg-[var(--ink)] text-[var(--bg)] flex items-center justify-center disabled:opacity-40 hover:bg-[#A8E600] hover:text-[#14110D] transition-colors shrink-0"
+              className="w-9 h-9 rounded-[2px] bg-[var(--ink)] text-[var(--bg)] flex items-center justify-center disabled:opacity-40 hover:bg-[#A8E600] hover:text-[#14110D] transition-colors shrink-0 focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
             >
               <Send className="w-4 h-4" />
             </button>

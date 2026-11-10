@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Hero } from '../components/sections/Hero'
-import { Work } from '../components/sections/Work'
 import { About } from '../components/sections/About'
+import { Work } from '../components/sections/Work'
 import { Experience } from '../components/sections/Experience'
 import { Education } from '../components/sections/Education'
 import { Contact } from '../components/sections/Contact'
@@ -22,8 +22,8 @@ export default function Home() {
   return (
     <main id="main-content" className="w-full flex flex-col">
       <Hero />
-      <Work />
       <About />
+      <Work />
       <Experience />
       <Education />
       <Contact />
