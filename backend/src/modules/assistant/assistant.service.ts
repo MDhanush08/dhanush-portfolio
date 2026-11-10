@@ -186,7 +186,7 @@ export class AssistantService {
     // Default friendly greeting
     return {
       reply:
-        "Hello! I am Dhanush M's portfolio AI assistant. Dhanush is a Full Stack Software Developer with 2 years of professional experience across Angular, React, Node.js, NestJS, and PostgreSQL. How can I help you today?",
+        "Hello! I am Dhanush M's portfolio AI assistant. Dhanush is a Full Stack Developer with 2 years of professional experience across Angular, React, Node.js, NestJS, and PostgreSQL. How can I help you today?",
       links: [{ label: 'Go to About', url: '#about' }],
     };
   }
