@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react'
+import { useParams, Link, useNavigate, useLocation } from 'react-router-dom'
+import { ArrowLeft, ArrowRight, ExternalLink, LayoutGrid } from 'lucide-react'
 import { FaGithub } from 'react-icons/fa6'
 import { Container } from '../components/layout/Container'
 import { ProjectVisual } from '../components/ui/ProjectVisual'
@@ -17,9 +17,27 @@ const TYPE_LABELS: Record<string, string> = {
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>()
   const navigate = useNavigate()
+  const location = useLocation()
 
   const currentIndex = projects.findIndex((p) => p.slug === slug)
   const project = projects[currentIndex]
+
+  // Detect whether visitor arrived from within the site vs direct URL / refresh
+  const hasInSiteHistory = Boolean(
+    location.state?.fromInSite ?? (
+      location.key !== 'default' &&
+      typeof window !== 'undefined' &&
+      sessionStorage.getItem('has_insite_history') === 'true'
+    )
+  )
+
+  const handleBack = () => {
+    if (hasInSiteHistory) {
+      navigate(-1)
+    } else {
+      navigate('/projects')
+    }
+  }
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -44,16 +62,38 @@ export default function ProjectDetail() {
   return (
     <main id="main-content" className="w-full min-h-screen bg-[var(--bg)] py-12 md:py-20 text-[var(--ink)]">
       <Container className="max-w-[1240px]">
-        {/* Top Back Link */}
-        <div className="mb-8">
+        {/* Top Controls Row: Back Button + All Projects Link */}
+        <nav aria-label="Project navigation" className="mb-8 flex flex-wrap items-center gap-3 sm:gap-6">
+          {/* Back button */}
+          <button
+            type="button"
+            onClick={handleBack}
+            aria-label="Go back to the previous page"
+            className="group inline-flex items-center gap-2 min-h-[44px] h-[44px] px-1 text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2 rounded-[2px]"
+          >
+            <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1 shrink-0 text-[var(--ink)]" />
+            <span className="relative py-0.5">
+              <span>Back</span>
+              <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[var(--ink)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-200" />
+            </span>
+          </button>
+
+          {/* Hairline Separator */}
+          <span className="w-px h-4 bg-[var(--line)] shrink-0 hidden sm:inline-block" aria-hidden="true" />
+
+          {/* All projects link */}
           <Link
             to="/projects"
-            className="group inline-flex items-center gap-2 text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] transition-colors"
+            aria-label="View all projects"
+            className="group inline-flex items-center gap-2 min-h-[44px] h-[44px] px-1 text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2 rounded-[2px]"
           >
-            <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
-            <span>All projects</span>
+            <LayoutGrid className="w-4 h-4 transition-transform duration-200 group-hover:scale-110 shrink-0 text-[var(--muted)] group-hover:text-[var(--ink)]" />
+            <span className="relative py-0.5">
+              <span>All projects</span>
+              <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[var(--ink)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-200" />
+            </span>
           </Link>
-        </div>
+        </nav>
 
         {/* Header Block */}
         <div className="flex flex-col gap-4 mb-12 text-left">
@@ -306,6 +346,8 @@ export default function ProjectDetail() {
           {/* Previous Project */}
           <Link
             to={`/projects/${prevProject.slug}`}
+            replace
+            state={{ fromInSite: hasInSiteHistory }}
             className="group flex flex-col justify-between gap-3 p-5 sm:p-6 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] transition-all duration-200 hover:border-[var(--ink)] hover:bg-[var(--bg-alt)]/40 min-h-[110px]"
           >
             <div className="flex items-center gap-2 text-xs font-mono text-[var(--muted)] uppercase">
@@ -320,6 +362,8 @@ export default function ProjectDetail() {
           {/* Next Project */}
           <Link
             to={`/projects/${nextProject.slug}`}
+            replace
+            state={{ fromInSite: hasInSiteHistory }}
             className="group flex flex-col justify-between gap-3 p-5 sm:p-6 bg-[var(--surface)] border border-[var(--line)] rounded-[2px] sm:text-right transition-all duration-200 hover:border-[var(--ink)] hover:bg-[var(--bg-alt)]/40 min-h-[110px]"
           >
             <div className="flex items-center sm:justify-end gap-2 text-xs font-mono text-[var(--muted)] uppercase">

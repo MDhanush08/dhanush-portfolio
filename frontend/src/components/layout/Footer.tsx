@@ -71,7 +71,7 @@ export const Footer = memo(function Footer() {
             <div className="flex items-center gap-2">
               <a
                 href={profile.github}
-                aria-label="GitHub profile"
+                aria-label="Dhanush on GitHub"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-full border border-[var(--line)] bg-[var(--surface)] flex items-center justify-center text-[var(--muted)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors"
@@ -80,7 +80,7 @@ export const Footer = memo(function Footer() {
               </a>
               <a
                 href={profile.linkedin}
-                aria-label="LinkedIn profile"
+                aria-label="Dhanush on LinkedIn"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-full border border-[var(--line)] bg-[var(--surface)] flex items-center justify-center text-[var(--muted)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors"

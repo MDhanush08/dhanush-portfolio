@@ -236,7 +236,7 @@ export const Drawer = memo(function Drawer({
           <div className="flex items-center gap-3 pt-1 border-t border-[var(--line)] text-[var(--muted)]">
             <a
               href={profile.github}
-              aria-label="GitHub profile"
+              aria-label="Dhanush on GitHub"
               target="_blank"
               rel="noopener noreferrer"
               className="w-9 h-9 rounded-full border border-[var(--line)] flex items-center justify-center hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors"
@@ -245,7 +245,7 @@ export const Drawer = memo(function Drawer({
             </a>
             <a
               href={profile.linkedin}
-              aria-label="LinkedIn profile"
+              aria-label="Dhanush on LinkedIn"
               target="_blank"
               rel="noopener noreferrer"
               className="w-9 h-9 rounded-full border border-[var(--line)] flex items-center justify-center hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors"

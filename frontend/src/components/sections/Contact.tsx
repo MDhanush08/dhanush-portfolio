@@ -152,7 +152,7 @@ export const Contact = memo(function Contact() {
             {hasGitHub && (
               <a
                 href={profile.github}
-                aria-label="GitHub profile"
+                aria-label="Dhanush on GitHub"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-11 h-11 rounded-full border border-[var(--line)] bg-[var(--surface)] flex items-center justify-center text-[var(--ink)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors shadow-xs"
@@ -164,7 +164,7 @@ export const Contact = memo(function Contact() {
             {hasLinkedIn && (
               <a
                 href={profile.linkedin}
-                aria-label="LinkedIn profile"
+                aria-label="Dhanush on LinkedIn"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-11 h-11 rounded-full border border-[var(--line)] bg-[var(--surface)] flex items-center justify-center text-[var(--ink)] hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors shadow-xs"

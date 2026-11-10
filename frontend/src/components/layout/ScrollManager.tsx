@@ -6,6 +6,41 @@ export function ScrollManager() {
   const navType = useNavigationType()
   const prevPathRef = useRef(location.pathname)
 
+  // Continuously record scroll position on Home and Projects pages
+  useEffect(() => {
+    const handleScroll = () => {
+      const y = window.scrollY
+      const path = location.pathname
+      if (path === '/') {
+        try {
+          sessionStorage.setItem('scroll_y_/', y.toString())
+          sessionStorage.setItem('home_scroll_y', y.toString())
+          sessionStorage.setItem('has_insite_history', 'true')
+        } catch {
+          // ignore storage errors
+        }
+      } else if (path === '/projects') {
+        try {
+          sessionStorage.setItem('scroll_y_/projects', y.toString())
+          sessionStorage.setItem('has_insite_history', 'true')
+        } catch {
+          // ignore storage errors
+        }
+      }
+    }
+
+    if (location.pathname === '/' || location.pathname === '/projects') {
+      try {
+        sessionStorage.setItem('has_insite_history', 'true')
+      } catch {
+        // ignore
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [location.pathname])
+
   useEffect(() => {
     const isHome = location.pathname === '/'
     const isProjects = location.pathname === '/projects'
@@ -39,10 +74,17 @@ export function ScrollManager() {
         try {
           const savedY = sessionStorage.getItem('scroll_y_/') || sessionStorage.getItem('home_scroll_y')
           if (savedY) {
+            const targetY = parseInt(savedY, 10)
             window.scrollTo({
-              top: parseInt(savedY, 10),
+              top: targetY,
               behavior: 'instant' as ScrollBehavior,
             })
+            requestAnimationFrame(() => {
+              window.scrollTo({ top: targetY, behavior: 'instant' as ScrollBehavior })
+            })
+            setTimeout(() => {
+              window.scrollTo({ top: targetY, behavior: 'instant' as ScrollBehavior })
+            }, 60)
           }
         } catch {
           // ignore
@@ -56,10 +98,17 @@ export function ScrollManager() {
         try {
           const savedY = sessionStorage.getItem('scroll_y_/projects')
           if (savedY) {
+            const targetY = parseInt(savedY, 10)
             window.scrollTo({
-              top: parseInt(savedY, 10),
+              top: targetY,
               behavior: 'instant' as ScrollBehavior,
             })
+            requestAnimationFrame(() => {
+              window.scrollTo({ top: targetY, behavior: 'instant' as ScrollBehavior })
+            })
+            setTimeout(() => {
+              window.scrollTo({ top: targetY, behavior: 'instant' as ScrollBehavior })
+            }, 60)
           }
         } catch {
           // ignore

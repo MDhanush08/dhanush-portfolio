@@ -100,7 +100,7 @@ export const ProjectCard = memo(function ProjectCard({
     if ((e.target as HTMLElement).closest('a, button')) {
       return
     }
-    navigate(`/projects/${project.slug}`)
+    navigate(`/projects/${project.slug}`, { state: { fromInSite: true } })
   }
 
   return (
@@ -123,6 +123,7 @@ export const ProjectCard = memo(function ProjectCard({
         {/* 2. VISUAL PANEL: aspect-ratio 16/9, padding 0, overflow hidden, 1px var(--line) border, background var(--bg-alt), radius equal to card's inner radius */}
         <Link
           to={`/projects/${project.slug}`}
+          state={{ fromInSite: true }}
           tabIndex={-1}
           aria-hidden="true"
           className="block w-full aspect-[16/9] rounded-xl overflow-hidden border border-[var(--line)] bg-[var(--bg-alt)] p-0 relative select-none shrink-0 focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
@@ -145,6 +146,7 @@ export const ProjectCard = memo(function ProjectCard({
         >
           <Link
             to={`/projects/${project.slug}`}
+            state={{ fromInSite: true }}
             title={project.title}
             className="block truncate hover:underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2 rounded-[2px]"
           >
@@ -211,6 +213,7 @@ export const ProjectCard = memo(function ProjectCard({
           ) : (
             <Link
               to={`/projects/${project.slug}`}
+              state={{ fromInSite: true }}
               className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[var(--muted)] hover:text-[var(--ink)] transition-colors focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2 rounded-[2px] whitespace-nowrap shrink-0"
             >
               {project.badge.toLowerCase().includes('private') ? (
@@ -230,6 +233,7 @@ export const ProjectCard = memo(function ProjectCard({
           {/* Right: Lime [ ↗ ] button redirecting to project details */}
           <Link
             to={`/projects/${project.slug}`}
+            state={{ fromInSite: true }}
             aria-label={`View details for ${project.title}`}
             className="w-8 h-8 rounded-lg bg-[#A8E600] text-[#14110D] flex items-center justify-center transition-all duration-200 hover:scale-105 hover:bg-[#b8f500] shadow-xs shrink-0 focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
           >
