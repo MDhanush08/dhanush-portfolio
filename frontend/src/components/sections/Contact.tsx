@@ -51,7 +51,7 @@ export const Contact = memo(function Contact() {
       errs.email = 'Please enter a valid email address.'
     }
     if (!formData.message.trim()) {
-      errs.message = 'Please tell me a little about your project or note.'
+      errs.message = 'Please Tell me a little about your enquiry'
     }
 
     setErrors(errs)
@@ -284,7 +284,7 @@ export const Contact = memo(function Contact() {
               </div>
             </div>
 
-            {/* Field 04: TELL ME ABOUT YOUR PROJECT */}
+            {/* Field 04: YOUR MESSAGE*/}
             <div className="flex flex-col gap-2 group">
               <label
                 htmlFor="contact-message"
@@ -295,7 +295,7 @@ export const Contact = memo(function Contact() {
                     : 'text-[var(--muted)] group-focus-within:text-[var(--ink)]'
                 )}
               >
-                TELL ME ABOUT YOUR PROJECT <span className="text-red-500">*</span>
+                YOUR MESSAGE <span className="text-red-500">*</span>
               </label>
               <div className={cn('field-underline-wrapper', errors.message && 'has-error')}>
                 <textarea
@@ -306,7 +306,7 @@ export const Contact = memo(function Contact() {
                     setFormData((prev) => ({ ...prev, message: e.target.value }))
                     if (errors.message) setErrors((prev) => ({ ...prev, message: undefined }))
                   }}
-                  placeholder="Tell me a little about your project, idea, or opportunity."
+                  placeholder="Tell me a little about your enquiry, idea, or opportunity."
                   aria-invalid={!!errors.message}
                   aria-describedby={errors.message ? 'contact-message-error' : undefined}
                   className="w-full bg-transparent border-0 py-2.5 text-base md:text-lg text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none resize-none min-h-[110px]"
