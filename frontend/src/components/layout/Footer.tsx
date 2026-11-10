@@ -11,7 +11,7 @@ const FOOTER_LINKS = [
   { id: 'work', label: 'Work' },
   { id: 'experience', label: 'Experience' },
   { id: 'education', label: 'Education' },
-  { id: 'contact', label: 'Contact' },
+  // { id: 'contact', label: 'Contact' },
 ]
 
 export const Footer = memo(function Footer() {

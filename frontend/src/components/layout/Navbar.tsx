@@ -23,6 +23,9 @@ const NAV_LINKS = [
   { id: 'contact', label: 'Contact' },
 ]
 
+// Constant module-level array to guarantee reference stability
+const SECTION_IDS = NAV_LINKS.map((l) => l.id)
+
 export const Navbar = memo(function Navbar({
   isDrawerOpen,
   setIsDrawerOpen,
@@ -36,14 +39,12 @@ export const Navbar = memo(function Navbar({
   const progressBarRef = useScrollProgress()
 
   // ScrollSpy active section on Home
-  const activeSection = useScrollSpy(
-    NAV_LINKS.map((l) => l.id),
-    isHome
-  )
+  const [activeSection, setActiveSection] = useScrollSpy(SECTION_IDS, isHome)
 
   const handleNavClick = (sectionId: string) => {
     if (sectionId === 'home') {
       if (isHome) {
+        setActiveSection('home')
         window.scrollTo({ top: 0, behavior: 'smooth' })
       } else {
         navigate('/')
@@ -52,6 +53,7 @@ export const Navbar = memo(function Navbar({
     }
 
     if (isHome) {
+      setActiveSection(sectionId)
       const el = document.getElementById(sectionId)
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' })
@@ -65,6 +67,7 @@ export const Navbar = memo(function Navbar({
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (isHome) {
       e.preventDefault()
+      setActiveSection('home')
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
@@ -111,7 +114,7 @@ export const Navbar = memo(function Navbar({
                     onClick={() => handleNavClick(link.id)}
                     aria-current={isActive ? 'page' : undefined}
                     className={cn(
-                      'relative py-1 text-sm font-medium transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-4 rounded-[2px]',
+                      'group relative py-1 text-sm font-medium transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-4 rounded-[2px]',
                       isActive
                         ? 'text-[var(--ink)] font-semibold'
                         : 'text-[var(--muted)] hover:text-[var(--ink)]'
@@ -121,10 +124,10 @@ export const Navbar = memo(function Navbar({
                     {/* Animated scaleX underline on hover and active state */}
                     <span
                       className={cn(
-                        'absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--ink)] origin-left transition-transform duration-200',
+                        'absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--ink)] origin-left transition-all duration-200 pointer-events-none',
                         isActive
-                          ? 'scale-x-100'
-                          : 'scale-x-0 hover:scale-x-100 group-hover:scale-x-100'
+                          ? 'scale-x-100 opacity-100'
+                          : 'scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100 group-focus-visible:scale-x-100 group-focus-visible:opacity-100'
                       )}
                     />
                   </button>

@@ -85,8 +85,11 @@ export const Hero = memo(function Hero() {
             </p>
 
             {/* Introduction */}
-            <p className="hero-animate text-base md:text-lg text-[var(--muted)] leading-[1.7] max-w-[62ch] mt-[clamp(14px,1.6vw,20px)]">
+            {/* <p className="hero-animate text-base md:text-lg text-[var(--muted)] leading-[1.7] max-w-[62ch] mt-[clamp(14px,1.6vw,20px)]">
               I'm a Full Stack Software Developer with 2 years of professional experience building web applications and backend services. I work with Angular, React, TypeScript, Node.js and NestJS, using SQL, PostgreSQL and MongoDB to build reliable and scalable solutions.
+            </p> */}
+            <p className="hero-animate text-base md:text-lg text-[var(--muted)] leading-[1.7] max-w-[62ch] mt-[clamp(14px,1.6vw,20px)]">
+              I have 2 years of professional experience building web applications and backend services. I work with Angular, React, TypeScript, Node.js and NestJS, using SQL, PostgreSQL and MongoDB to build reliable and scalable solutions.
             </p>
 
             {/* Action Buttons: 12px gap on mobile (gap-3), wraps cleanly */}
@@ -165,9 +168,9 @@ export const Hero = memo(function Hero() {
                 )}
 
                 {/* FIG. 01 caption at bottom-left */}
-                <div className="absolute left-3 bottom-3 text-[10px] uppercase tracking-[0.12em] font-mono text-[var(--muted)] bg-[var(--surface)]/80 px-2 py-0.5 rounded-[2px] select-none">
+                {/* <div className="absolute left-3 bottom-3 text-[10px] uppercase tracking-[0.12em] font-mono text-[var(--muted)] bg-[var(--surface)]/80 px-2 py-0.5 rounded-[2px] select-none">
                   FIG. 01
-                </div>
+                </div> */}
               </div>
 
               {/* Floating card overlapping bottom-right */}
