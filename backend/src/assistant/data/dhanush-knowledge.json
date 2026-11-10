@@ -1,178 +1,154 @@
 [
   {
     "section": "about",
-    "content": "Dhanush M is a Full Stack Software Developer with 2 years of professional experience building web applications, backend services, and database integrations."
+    "content": "Dhanush M is a Full Stack Software Developer based in Tiruchirappalli (Trichy), Tamil Nadu, India. He has 2 years of professional experience building web applications, backend services, and database integrations."
   },
   {
     "section": "about",
-    "content": "Dhanush M is based in Tiruchirappalli (Trichy), Tamil Nadu, India. He builds considered web products from initial concept to deployment."
+    "content": "Dhanush M builds web products considered from the first click to the last line of code. His core philosophy focuses on full-stack development, security with JWT and role-based access control, and automated delivery with Docker and CI/CD."
   },
   {
     "section": "about",
-    "content": "Dhanush's software engineering approach focuses on full-stack development, security-minded implementations like JWT and RBAC, and reliable CI/CD delivery."
+    "content": "Question: Who is Dhanush? Tell me about him. Who is he? What does he do? Where is he based? Yaaru ivaru? Introduction to Dhanush?\nAnswer: Dhanush M is a Full Stack Software Developer based in Tiruchirappalli (Trichy), Tamil Nadu, India. He has 2 years of professional experience specializing in Angular, React, TypeScript, Node.js, NestJS, PostgreSQL, and MongoDB. He builds maintainable, secure web applications and backend microservices."
   },
   {
     "section": "about",
-    "content": "Dhanush has professional experience across modern web technologies including Angular, React, TypeScript, Node.js, NestJS, PostgreSQL, MongoDB, and Redis."
+    "content": "Question: Who are you? What can you do? What is this assistant? Enna panna mudiyum?\nAnswer: I am the AI portfolio assistant on Dhanush M's website. I can answer questions about Dhanush's software projects, technical skills, professional work experience, education, and how to contact or collaborate with him."
   },
   {
-    "section": "about",
-    "content": "Dhanush's résumé can be downloaded directly from the portfolio via the Download Résumé button linking to his Google Drive document."
+    "section": "experience",
+    "content": "Total Professional Experience: Dhanush M has 2 years of professional experience in software engineering. He worked full-time as a Software Developer at Nandalala Infotech in Tiruchirappalli, Tamil Nadu from September 2024 to November 2026 (start date: September 1, 2024; end date: November 2026), and also works as a part-time Freelance Full Stack Developer."
+  },
+  {
+    "section": "experience",
+    "content": "Role at Nandalala Infotech: From September 2024 to November 2026, Dhanush M served as a full-time Software Developer at Nandalala Infotech in Tiruchirappalli. He built Angular components, NestJS microservices, Hasura GraphQL APIs, and PostgreSQL database schemas for Dental Interface 360, and developed Python REST APIs and React/Redux workflows for Lala Invoice."
+  },
+  {
+    "section": "experience",
+    "content": "Freelance Full Stack Experience: Dhanush M works as a Freelance Full Stack Developer on a part-time basis. He develops complete web and mobile applications using React.js, Angular, Node.js, MongoDB, and Ionic/Capacitor, managing full development cycles from client requirements to cloud deployment."
+  },
+  {
+    "section": "experience",
+    "content": "Question: How many years of experience does Dhanush have? How many years dhanush experinece? Dhanush experiance? Evlo years experience irukku? Total years of exp? How much experience?\nAnswer: Dhanush M has 2 years of professional experience as a Full Stack Software Developer. His career includes a full-time role at Nandalala Infotech (September 2024 – November 2026) and part-time freelance full-stack development."
+  },
+  {
+    "section": "experience",
+    "content": "Question: Is Dhanush a fresher? Is he an experienced developer? Fresher or experienced?\nAnswer: Dhanush M is not a fresher. He has 2 years of professional software engineering experience working on production SaaS platforms, enterprise billing systems, and client freelance applications."
+  },
+  {
+    "section": "experience",
+    "content": "Question: Where has Dhanush worked? Which company? Worked at? Company name? Job history? Career history?\nAnswer: Dhanush worked full-time as a Software Developer at Nandalala Infotech in Tiruchirappalli, Tamil Nadu (September 2024 – November 2026). He also works as a freelance full-stack developer building client web applications."
+  },
+  {
+    "section": "projects",
+    "content": "Summary of All Projects by Dhanush M:\n1. Dental Interface 360: Multi-role dental SaaS platform for Admin, Supplier, Practice, and Professional users built with Angular, NestJS, GraphQL, Hasura, PostgreSQL, Redis, Stripe, and Docker.\n2. Lala Invoice: Full-stack invoicing and billing management application with role-based access built with React.js, Redux, Python REST APIs, and MongoDB.\n3. Viral Forge: AI social media tool generating titles, descriptions, captions, and hashtags with the Gemini API and publishing to Facebook and Instagram, built with Angular, Tailwind CSS, Node.js, and Express.\n4. Vignesh Metals: E-commerce mobile application for Buyer and Seller roles built with Ionic, React, Capacitor, and Node.js APIs, packaged as an Android APK.\n5. CMS Website Builder: Drag-and-drop website builder with customizable UI components built with React, dnd kit, Tailwind CSS, Node.js, Express, Multer, and Swagger.\n6. Personal Portfolio: Responsive developer portfolio website with light and dark themes and dedicated project routes built with React 19, TypeScript, Tailwind CSS, and GSAP.\n7. Face Emotion Detection: Real-time facial emotion recognition with Arduino serial hardware integration built with Python, OpenCV, Tkinter, and Arduino."
+  },
+  {
+    "section": "projects",
+    "content": "Project Detail - Dental Interface 360: A specialized multi-role dental SaaS platform for Administrators, Dental Practices, Dental Professionals, and Suppliers. Built by Dhanush at Nandalala Infotech. Tech stack: Angular, NestJS, Node.js, GraphQL, Hasura, PostgreSQL, Redis, Stripe, Firebase, Docker, GitLab CI/CD, and Contabo. Features: JWT authentication, role-based access control (RBAC), Stripe payment processing, Firebase notifications, and Redis background queues."
+  },
+  {
+    "section": "projects",
+    "content": "Project Detail - Lala Invoice: A full-stack invoicing and billing management application for small to medium businesses. Built by Dhanush at Nandalala Infotech. Tech stack: React.js, Redux, JavaScript (ES6+), CSS3, Python REST APIs, and MongoDB. Features: Complete invoice CRUD operations, automated invoice status tracking (Paid, Pending, Overdue), and role-based access for Admin and User accounts."
+  },
+  {
+    "section": "projects",
+    "content": "Project Detail - Viral Forge: An AI social media content generation and publishing web platform. Built by Dhanush as a freelance project. Tech stack: Angular, Tailwind CSS, Node.js, Express, Gemini API, and Facebook developer APIs. Features: AI image creation from text prompts, automated title, description, caption, and hashtag generation via Google Gemini API, and direct publishing to Facebook and Instagram."
+  },
+  {
+    "section": "projects",
+    "content": "Project Detail - Vignesh Metals: An e-commerce mobile application connecting buyers and sellers for metal products. Built by Dhanush as a freelance project. Tech stack: Ionic, React, Capacitor, Node.js APIs, and Android Studio. Features: Distinct Buyer and Seller roles, product listing and purchasing workflows, and packaged as an Android APK."
+  },
+  {
+    "section": "projects",
+    "content": "Project Detail - CMS Website Builder: A no-code customizable website builder with visual drag-and-drop page design. Built by Dhanush as a freelance project. Tech stack: React, dnd kit, Tailwind CSS, Framer Motion, Node.js, Express, Multer, and Swagger. Features: Drag-and-drop designer, customizable UI components, Multer file uploads, and Swagger API documentation."
+  },
+  {
+    "section": "projects",
+    "content": "Project Detail - Personal Portfolio: Dhanush's personal responsive portfolio website. Tech stack: React 19, TypeScript, Tailwind CSS, GSAP, React Router, Vite, and Netlify CI/CD. Features: Editorial typography layout (Space Grotesk and JetBrains Mono), persistent light and dark themes, deep-linked project detail pages (/projects), and NestJS backend integration."
+  },
+  {
+    "section": "projects",
+    "content": "Project Detail - Face Emotion Detection: An academic computer vision and microcontroller integration project. Built by Dhanush. Tech stack: Python, OpenCV, Tkinter, NumPy, and Arduino microcontroller. Features: Real-time facial expression classification (happy, neutral, sad) and physical hardware feedback triggered via Arduino serial communication."
+  },
+  {
+    "section": "projects",
+    "content": "Question: What projects has Dhanush worked on? Dhanush worked projects? List all projects? What projects has he built? Enna projects pannirukaru? Projcts? Prject?\nAnswer: Dhanush has built 7 key projects:\n1. Dental Interface 360 (Multi-role dental SaaS; Angular, NestJS, GraphQL, Stripe)\n2. Lala Invoice (Invoicing and billing app; React, Redux, Python, MongoDB)\n3. Viral Forge (AI social media generator; Angular, Node.js, Gemini API)\n4. Vignesh Metals (E-commerce mobile app; Ionic, React, Android APK)\n5. CMS Website Builder (Drag-and-drop builder; React, dnd kit, Node.js)\n6. Personal Portfolio (Responsive website; React 19, Tailwind, GSAP)\n7. Face Emotion Detection (Computer vision & Arduino microcontroller)\nYou can view all details on the /projects page."
+  },
+  {
+    "section": "projects",
+    "content": "Question: What is Dhanush's best project or key featured projects?\nAnswer: Dhanush's primary featured projects are Dental Interface 360 (a production dental SaaS platform with NestJS, Hasura GraphQL, and Stripe) and Lala Invoice (an invoice management system in React and Python). Both demonstrate full-stack architecture and complex business logic."
+  },
+  {
+    "section": "skills",
+    "content": "Complete Technical Skills Summary of Dhanush M:\n- Frontend: Angular, React.js, Redux, TypeScript, JavaScript (ES6+), HTML5, CSS3, SCSS, Tailwind CSS, Bootstrap, Ionic, GSAP animations.\n- Backend & APIs: Node.js, NestJS, Express.js, Python, PHP, REST APIs, GraphQL, Hasura, JWT authentication, Role-Based Access Control (RBAC).\n- Databases: PostgreSQL, MongoDB, SQL relational modeling, Redis caching & queues.\n- DevOps & Deployment: Docker, GitLab CI/CD, Git, GitHub, GitLab, TortoiseGit, Contabo cloud servers, Render, Netlify.\n- Tools & Testing: Postman, Zoho BugTracker, VS Code, Android Studio.\n- Integrations & AI: Stripe, Firebase, Gemini API, LLM Integration, RAG architectures, Claude Code, OpenAI Codex, Antigravity."
+  },
+  {
+    "section": "skills",
+    "content": "Frontend Engineering Skills: Dhanush is proficient in Angular, React.js, Redux for state management, TypeScript, JavaScript (ES6+), HTML5, CSS3, SCSS, Tailwind CSS, Bootstrap, Ionic for cross-platform apps, and GSAP for fluid animations."
+  },
+  {
+    "section": "skills",
+    "content": "Backend & API Engineering Skills: Dhanush specializes in Node.js, NestJS microservices, Express.js, Python, PHP, RESTful APIs, GraphQL with Hasura, Redis background queues, and secure authentication with JWT and RBAC."
+  },
+  {
+    "section": "skills",
+    "content": "Database Expertise: Dhanush works with PostgreSQL for relational schemas and pgvector semantic embeddings, MongoDB for NoSQL document storage, SQL query optimization, and Redis for in-memory caching and message queues."
+  },
+  {
+    "section": "skills",
+    "content": "DevOps & Cloud Tools: Dhanush utilizes Docker containerization, GitLab CI/CD automation pipelines, Git, GitHub, GitLab, Contabo Linux VPS servers, Render cloud hosting, and Netlify for continuous web deployments."
+  },
+  {
+    "section": "skills",
+    "content": "Question: What skills does Dhanush have? What is his tech stack? Skils? Skilz? What technologies does he know?\nAnswer: Dhanush works across the full stack. His core languages and frameworks include TypeScript, JavaScript, Angular, React.js, Node.js, NestJS, Python, PostgreSQL, and MongoDB. He is also skilled in Docker, GraphQL/Hasura, Redis, and Gemini AI integration."
+  },
+  {
+    "section": "skills",
+    "content": "Question: Does Dhanush know React, NestJS, TypeScript, or Supabase?\nAnswer: Yes. Dhanush has deep production experience with React.js, NestJS, and TypeScript. He also works with PostgreSQL and Supabase for backend database operations and vector similarity search."
+  },
+  {
+    "section": "education",
+    "content": "Formal Education of Dhanush M:\n- Bachelor of Technology (B.Tech) in Information Technology from Kongunadu College of Engineering and Technology (2020 — 2024).\n- Higher Secondary Certificate (HSC) in Computer Science from Zamindar Higher Secondary School, Thuraiyur (2019 — 2020).\n- Secondary School Leaving Certificate (SSLC) from Zamindar Higher Secondary School, Thuraiyur (2017 — 2018)."
+  },
+  {
+    "section": "education",
+    "content": "Certifications of Dhanush M:\n- CCNA (Cisco Certified Network Associate) from Cisco: Covers networking fundamentals, IP connectivity, and routing protocols.\n- HTML, CSS & JavaScript Certification from Udemy: Covers core web development fundamentals and responsive UI design."
+  },
+  {
+    "section": "education",
+    "content": "Languages Spoken: Dhanush speaks English with professional working proficiency and Tamil as his native language."
+  },
+  {
+    "section": "education",
+    "content": "Question: What is Dhanush's education? College? Degree? Qualification? Where did he study? Padippu enna?\nAnswer: Dhanush graduated with a B.Tech in Information Technology from Kongunadu College of Engineering and Technology (2020–2024). He completed his Computer Science schooling at Zamindar Higher Secondary School, Thuraiyur."
+  },
+  {
+    "section": "education",
+    "content": "Question: Does Dhanush have any certifications?\nAnswer: Yes, Dhanush holds a Cisco Certified Network Associate (CCNA) certification from Cisco and a Web Development certificate in HTML, CSS & JavaScript from Udemy."
   },
   {
     "section": "contact",
-    "content": "You can contact Dhanush M via email at dhanushm.stack@gmail.com or through the interactive contact form on his portfolio."
+    "content": "Contact Details for Dhanush M:\n- Email: dhanushm.stack@gmail.com\n- Portfolio Contact Form: Available directly on the portfolio website at #contact\n- LinkedIn: https://www.linkedin.com/in/dhanush360\n- GitHub: https://github.com/MDhanush08\n- Location: Tiruchirappalli (Trichy), Tamil Nadu, India\n- Resume: Downloadable via the portfolio Download Résumé button"
   },
   {
     "section": "contact",
-    "content": "Dhanush's LinkedIn profile is located at https://www.linkedin.com/in/dhanush360 and his GitHub profile is https://github.com/MDhanush08."
+    "content": "Work and Freelance Availability: Dhanush M works as a Freelance Full Stack Developer and welcomes full-time software engineering opportunities, client projects, and technical collaborations. He can be reached directly via email or the website contact form."
   },
   {
     "section": "contact",
-    "content": "Dhanush is open to full-time software developer opportunities, freelance full-stack projects, and technical collaborations."
+    "content": "Resume Download: Dhanush's résumé is available for direct download on his portfolio website using the 'Download résumé' link, which points to his Google Drive resume PDF."
   },
   {
-    "section": "experience",
-    "content": "Dhanush worked as a full-time Software Developer at Nandalala Infotech in Tiruchirappalli, Tamil Nadu from September 2024 to November 2026."
+    "section": "contact",
+    "content": "Question: How can I contact Dhanush? Epdi contact panradhu? What is his email? How to reach him? Social links?\nAnswer: You can reach Dhanush by emailing dhanushm.stack@gmail.com, sending a message through the contact form on his portfolio, or connecting on LinkedIn (linkedin.com/in/dhanush360) and GitHub (github.com/MDhanush08)."
   },
   {
-    "section": "experience",
-    "content": "At Nandalala Infotech, Dhanush engineered Angular frontend interfaces, NestJS microservices, GraphQL APIs via Hasura, and PostgreSQL relational schemas."
+    "section": "contact",
+    "content": "Question: Is Dhanush available for hire or freelance work? Can I hire him? Why hire him?\nAnswer: Yes, Dhanush is available for software developer roles and freelance full-stack projects. He brings 2 years of proven professional experience building production applications with Angular, React, NestJS, and PostgreSQL."
   },
   {
-    "section": "experience",
-    "content": "At Nandalala Infotech, Dhanush implemented JWT authentication, role-based access control (RBAC), Stripe payments, and Firebase email notifications."
-  },
-  {
-    "section": "experience",
-    "content": "At Nandalala Infotech, Dhanush configured Redis background queues, Docker containerization, and GitLab CI/CD automated deployments on Contabo cloud servers."
-  },
-  {
-    "section": "experience",
-    "content": "Dhanush works as a Freelance Full Stack Developer, delivering custom web and mobile applications using React, Angular, Node.js, Express, and MongoDB."
-  },
-  {
-    "section": "experience",
-    "content": "As a freelancer, Dhanush handles complete development lifecycles: client requirements, UI implementation, backend REST API integration, and cloud deployment."
-  },
-  {
-    "section": "skills",
-    "content": "Dhanush's frontend skills include Angular, React.js, Redux, TypeScript, JavaScript (ES6+), HTML5, CSS3, SCSS, Tailwind CSS, Bootstrap, Ionic, and GSAP animations."
-  },
-  {
-    "section": "skills",
-    "content": "Dhanush's backend skills include Node.js, NestJS, Express.js, Python, PHP, REST APIs, GraphQL, and Hasura."
-  },
-  {
-    "section": "skills",
-    "content": "Dhanush's database expertise includes PostgreSQL, MongoDB, SQL relational modeling, and Redis caching and queues."
-  },
-  {
-    "section": "skills",
-    "content": "Dhanush's security skills include JWT (JSON Web Tokens), role-based access control (RBAC), secure headers with Helmet, and input sanitization."
-  },
-  {
-    "section": "skills",
-    "content": "Dhanush's DevOps and cloud skills include Docker, GitLab CI/CD pipelines, Git, GitHub, GitLab, TortoiseGit, Contabo servers, Render, and Netlify."
-  },
-  {
-    "section": "skills",
-    "content": "Dhanush's tools and testing proficiencies include Postman, Zoho BugTracker, VS Code, and Android Studio."
-  },
-  {
-    "section": "skills",
-    "content": "Dhanush's third-party integration skills include Stripe payments, Firebase notifications, Gemini API, RAG architectures, and AI coding tools."
-  },
-  {
-    "section": "education",
-    "content": "Dhanush holds a Bachelor of Technology (B.Tech) degree in Information Technology from Kongunadu College of Engineering and Technology (2020 — 2024)."
-  },
-  {
-    "section": "education",
-    "content": "Dhanush completed Higher Secondary Certificate (HSC) in Computer Science at Zamindar Higher Secondary School, Thuraiyur (2019 — 2020)."
-  },
-  {
-    "section": "education",
-    "content": "Dhanush completed his SSLC (Secondary School Leaving Certificate) at Zamindar Higher Secondary School, Thuraiyur (2017 — 2018)."
-  },
-  {
-    "section": "education",
-    "content": "Dhanush holds a CCNA (Cisco Certified Network Associate) certification covering computer networking fundamentals, IP addressing, and routing."
-  },
-  {
-    "section": "education",
-    "content": "Dhanush completed comprehensive online certification in HTML, CSS & JavaScript on Udemy, reinforcing core frontend engineering principles."
-  },
-  {
-    "section": "education",
-    "content": "Dhanush speaks English with professional proficiency and Tamil as his native language."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Dental Interface 360 is a multi-role dental SaaS platform for Admin, Supplier, Practice, and Professional users built by Dhanush at Nandalala Infotech."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Dental Interface 360 tech stack includes Angular, NestJS, GraphQL, Hasura, PostgreSQL, Redis, Stripe, Firebase, Docker, and GitLab CI/CD on Contabo."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Dental Interface 360 features JWT authentication, multi-role RBAC, Stripe billing, automated Firebase emails, and Redis background queues."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Lala Invoice is a full-stack invoicing and billing management application built by Dhanush at Nandalala Infotech."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Lala Invoice was built with React.js, Redux, Python REST APIs, and MongoDB for small and medium business billing management."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Lala Invoice features invoice CRUD workflows, invoice status tracking (Paid, Pending, Overdue), and role-based access for Admin and User accounts."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Viral Forge is an AI-powered social media management web application built by Dhanush as a freelance project."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Viral Forge tech stack features Angular, Tailwind CSS, Node.js, Express, the Google Gemini API, and Facebook developer APIs."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Viral Forge enables AI image creation from prompts, automated caption, title, description and hashtag generation with Gemini, and direct publishing to Facebook and Instagram."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Vignesh Metals is an e-commerce mobile application built by Dhanush as a freelance project using Ionic, React, Capacitor, and Node.js APIs."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Vignesh Metals features dual roles for Buyers and Sellers to list and buy metal products, packaged as an Android APK via Capacitor and Android Studio."
-  },
-  {
-    "section": "projects",
-    "content": "Project: CMS Website Builder is a visual drag-and-drop website creation platform built by Dhanush using React, dnd kit, Tailwind CSS, Node.js, and Express."
-  },
-  {
-    "section": "projects",
-    "content": "Project: CMS Website Builder features customizable UI components, Framer Motion animations, Multer file uploads, and Swagger API documentation."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Personal Portfolio is Dhanush's personal portfolio website built with React 19, TypeScript, Tailwind CSS, GSAP, and React Router, deployed on Netlify."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Personal Portfolio features editorial typography, light and dark themes, dedicated project detail pages (/projects), and NestJS backend integration."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Face Emotion Detection is an academic computer vision project built by Dhanush using Python, OpenCV, Tkinter, and an Arduino microcontroller."
-  },
-  {
-    "section": "projects",
-    "content": "Project: Face Emotion Detection classifies real-time facial expressions (happy, neutral, sad) and triggers physical hardware feedback via Arduino serial communication."
+    "section": "contact",
+    "content": "Question: Where can I download Dhanush's resume or CV?\nAnswer: You can download Dhanush's résumé directly using the 'Download résumé' button on the portfolio website, which links to his latest resume PDF on Google Drive."
   }
 ]

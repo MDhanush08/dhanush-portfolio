@@ -214,7 +214,7 @@ export const ChatbotWidget = memo(function ChatbotWidget({ hidden = false }: Cha
       {/* Floating Launcher Button */}
       <div
         className={cn(
-          'fixed right-[calc(1.5rem+env(safe-area-inset-right,0px))] bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] z-40 flex items-center gap-2.5 transition-opacity duration-300',
+          'fixed right-[calc(1rem+env(safe-area-inset-right,0px))] bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] sm:right-[calc(1.5rem+env(safe-area-inset-right,0px))] sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] z-40 flex items-center gap-2.5 transition-opacity duration-300',
           isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
         )}
       >
@@ -228,25 +228,25 @@ export const ChatbotWidget = memo(function ChatbotWidget({ hidden = false }: Cha
           <span>Ask AI about Dhanush</span>
         </button>
 
-        {/* 56px Lime Circular Button */}
+        {/* Lime Circular Button */}
         <button
           type="button"
           onClick={() => setIsOpen(true)}
           aria-label="Open portfolio AI assistant"
-          className="w-14 h-14 rounded-full bg-[#A8E600] text-[#14110D] shadow-xl flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-[1.06] active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
+          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#A8E600] text-[#14110D] shadow-xl flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-[1.06] active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
         >
-          <MessageSquare className="w-6 h-6" />
+          <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
       </div>
 
-      {/* Chat Panel / Mobile Bottom Sheet */}
+      {/* Chat Panel / Responsive Floating Card */}
       {isOpen && (
         <div
           ref={panelRef}
           role="dialog"
           aria-label="Portfolio AI Assistant"
           aria-modal="true"
-          className="fixed z-50 bottom-[env(safe-area-inset-bottom,0px)] right-0 sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] sm:right-[calc(1.5rem+env(safe-area-inset-right,0px))] w-full sm:w-[380px] h-[100dvh] sm:h-[520px] max-h-[100dvh] sm:max-h-[85vh] bg-[var(--surface)] text-[var(--ink)] border border-[var(--line)] rounded-t-xl sm:rounded-[6px] shadow-2xl flex flex-col overflow-hidden"
+          className="fixed z-50 bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] right-[calc(1rem+env(safe-area-inset-right,0px))] sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] sm:right-[calc(1.5rem+env(safe-area-inset-right,0px))] w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] h-[70vh] sm:h-[520px] max-h-[540px] bg-[var(--surface)] text-[var(--ink)] border border-[var(--line)] rounded-2xl sm:rounded-[6px] shadow-2xl flex flex-col overflow-hidden"
         >
           {/* Header */}
           <div className="px-4 py-3.5 border-b border-[var(--line)] flex items-center justify-between bg-[var(--bg-alt)] shrink-0">
