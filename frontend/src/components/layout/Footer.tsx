@@ -121,6 +121,8 @@ export const Footer = memo(function Footer() {
             <a
               href={profile.resumeUrl}
               download="Dhanush_M_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-xs text-[var(--muted)] hover:text-[var(--ink)] transition-colors focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2 rounded-[2px]"
             >
               <FileDown className="w-3.5 h-3.5 text-[#A8E600]" />

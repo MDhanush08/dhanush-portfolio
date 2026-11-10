@@ -70,6 +70,8 @@ export const About = memo(function About() {
             <a
               href={profile.resumeUrl}
               download="Dhanush_M_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 text-base font-medium text-[var(--ink)] hover:underline hover:decoration-2 hover:underline-offset-4 cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--ink)]"
             >
               <span>Download résumé</span>

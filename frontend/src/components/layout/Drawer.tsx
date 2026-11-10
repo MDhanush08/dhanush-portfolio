@@ -217,6 +217,8 @@ export const Drawer = memo(function Drawer({
           <a
             href={profile.resumeUrl}
             download="Dhanush_M_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-full min-h-[44px] h-11 px-4 bg-[var(--ink)] text-[var(--bg)] rounded-[2px] font-medium text-sm flex items-center justify-center gap-2 hover:bg-[#A8E600] hover:text-[#14110D] transition-colors focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
           >
             <FileDown className="w-4 h-4" />

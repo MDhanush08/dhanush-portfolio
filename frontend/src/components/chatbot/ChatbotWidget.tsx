@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, memo } from 'react'
-import { MessageSquare, X, Send, Sparkles } from 'lucide-react'
+import { X, Send } from 'lucide-react'
 import { sendChatMessage } from '../../services/api'
 import type { ChatMessage } from '../../types'
 import { cn } from '../../lib/cn'
@@ -102,24 +102,24 @@ export const ChatbotWidget = memo(function ChatbotWidget({ hidden = false }: Cha
         )}
       >
         {/* Pill Label (Hidden below 480px) */}
-        <button
+        {/* <button
           type="button"
           onClick={() => setIsOpen(true)}
           className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--surface)] text-[var(--ink)] text-xs font-medium border border-[var(--line)] rounded-full shadow-sm cursor-pointer hover:border-[#A8E600] transition-colors focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
         >
           <Sparkles className="w-3.5 h-3.5 text-[#A8E600]" />
           <span>Ask about my work</span>
-        </button>
+        </button> */}
 
         {/* 56px Lime Circular Button */}
-        <button
+        {/* <button
           type="button"
           onClick={() => setIsOpen(true)}
           aria-label="Open chat assistant"
           className="w-14 h-14 rounded-full bg-[#A8E600] text-[#14110D] shadow-lg flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-[1.06] focus-visible:outline-2 focus-visible:outline-[var(--ink)] focus-visible:outline-offset-2"
         >
           <MessageSquare className="w-6 h-6" />
-        </button>
+        </button> */}
       </div>
 
       {/* Chat Panel / Mobile Bottom Sheet */}
