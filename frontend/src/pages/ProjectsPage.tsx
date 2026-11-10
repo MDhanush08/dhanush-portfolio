@@ -128,7 +128,7 @@ export default function ProjectsPage() {
         {/* Projects Grid: 3 columns from lg, 2 columns on md, 1 below */}
         <div
           className={cn(
-            'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch mb-16 md:mb-24 transition-opacity duration-150 ease-in-out',
+            'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch auto-rows-fr [grid-auto-rows:1fr] mb-16 md:mb-24 transition-opacity duration-150 ease-in-out',
             isFading ? 'opacity-0' : 'opacity-100'
           )}
         >

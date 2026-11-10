@@ -22,7 +22,7 @@ export const Work = memo(function Work() {
       </Reveal>
 
       {/* Grid of featured cards: 2 columns from md, 1 column below, aligned rows */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch auto-rows-fr [grid-auto-rows:1fr]">
         {featuredProjects.map((project, idx) => (
           <ProjectCard
             key={project.slug}
