@@ -1,4 +1,14 @@
-export type VisualType = 'dental' | 'invoice' | 'portfolio' | 'emotion'
+export type VisualType =
+  | 'dental'
+  | 'invoice'
+  | 'viralforge'
+  | 'metals'
+  | 'cms'
+  | 'portfolio'
+  | 'emotion'
+  | 'generic'
+
+export type ProjectType = 'company' | 'freelance' | 'personal' | 'college'
 
 export interface ProjectLinks {
   github?: string
@@ -16,21 +26,22 @@ export interface FeatureGroup {
 
 export interface Project {
   slug: string
-  index: string
+  index?: string
   title: string
   category: string
   badge: string
   shortDescription: string
   overview: string
   role: string
-  type: string
+  type: ProjectType
+  featured: boolean
   techGroups: ProjectTechGroups
   cardChips: string[]
   features: string[]
   featureGroups?: FeatureGroup[]
   responsibilities: string[]
   links?: ProjectLinks
-  screenshots?: string[]
+  screenshots: string[]
   image?: string
   visual: VisualType
 }

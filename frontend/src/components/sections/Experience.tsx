@@ -61,7 +61,7 @@ export const Experience = memo(function Experience() {
                   )}
                 </div>
 
-                {!item.isFreelance && (
+                {!item.isFreelance ? (
                   <button
                     type="button"
                     onClick={scrollToWork}
@@ -70,6 +70,14 @@ export const Experience = memo(function Experience() {
                   >
                     <ArrowUpRight className="w-4 h-4" />
                   </button>
+                ) : (
+                  <Link
+                    to="/projects?type=freelance"
+                    aria-label="See freelance projects"
+                    className="w-10 h-10 rounded-full border border-[var(--line)] bg-[var(--surface)] text-[var(--ink)] flex items-center justify-center hover:bg-[#A8E600] hover:text-[#14110D] hover:border-[#A8E600] transition-colors cursor-pointer shrink-0"
+                  >
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
                 )}
               </div>
 
@@ -155,6 +163,21 @@ export const Experience = memo(function Experience() {
                 <p className="text-base text-[var(--muted)] leading-relaxed max-w-[66ch]">
                   {item.description}
                 </p>
+              )}
+
+              {item.isFreelance && (
+                <div>
+                  <Link
+                    to="/projects?type=freelance"
+                    className="group inline-flex items-center gap-2 text-sm md:text-base font-semibold text-[var(--ink)] tracking-tight"
+                  >
+                    <span className="relative">
+                      See freelance projects
+                      <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[var(--ink)] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-200" />
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-[var(--muted)] group-hover:text-[var(--ink)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </Link>
+                </div>
               )}
 
               {item.chips && (

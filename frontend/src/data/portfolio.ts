@@ -65,7 +65,8 @@ export const projects: Project[] = [
     overview:
       'Dental Interface 360 is a specialized dental SaaS platform built to unify clinical scheduling, lab cases, and administrative billing into a single connected system. Designed for multi-role workflows across Administrators, Dental Practices, Dental Professionals, and Suppliers, it streamlines treatment tracking, secure role-based access, automated notifications, and background operations in clinical environments.',
     role: 'Software Developer, Nandalala Infotech',
-    type: 'Company project',
+    type: 'company',
+    featured: true,
     cardChips: ['Angular', 'NestJS', 'GraphQL', 'Hasura'],
     screenshots: [dentalImg],
     featureGroups: [
@@ -145,7 +146,8 @@ export const projects: Project[] = [
     overview:
       'Lala Invoice is a full-stack invoicing and billing management solution engineered to simplify invoice tracking, client management, and revenue monitoring for small to medium businesses. Featuring distinct Admin and User access levels, it allows organizations to create, track, and update billing records with structured data validation and predictable state management.',
     role: 'Software Developer, Nandalala Infotech',
-    type: 'Company project',
+    type: 'company',
+    featured: true,
     cardChips: ['React.js', 'Redux', 'Python', 'MongoDB'],
     screenshots: [lalaImg],
     featureGroups: [
@@ -193,6 +195,109 @@ export const projects: Project[] = [
     visual: 'invoice',
   },
   {
+    slug: 'viral-forge',
+    title: 'Viral Forge',
+    category: 'AI social media tool',
+    badge: 'Freelance project',
+    shortDescription:
+      'A web platform to create AI-assisted social media content and publish it to multiple platforms from one place.',
+    overview:
+      'Viral Forge lets users manage social media posting from a single platform. Users can generate images with AI, automatically get a title, description, captions and hashtags for each image, and publish directly to their social media accounts.',
+    role: 'Full stack developer',
+    type: 'freelance',
+    featured: true,
+    cardChips: ['Angular', 'Tailwind CSS', 'Node.js', 'Express', 'Gemini API'],
+    screenshots: [],
+    features: [
+      'Publish to multiple social platforms from a single dashboard',
+      'AI image creation from a text prompt',
+      'Title, description, captions and hashtags generated automatically with the Gemini API',
+      'Direct posting to Facebook and Instagram through the Facebook developer APIs',
+    ],
+    responsibilities: [
+      'Built the Angular and Tailwind CSS frontend',
+      'Built the Node.js and Express backend',
+      'Integrated the Gemini API for AI content generation',
+      'Integrated the Facebook developer APIs for publishing posts',
+    ],
+    techGroups: {
+      Frontend: ['Angular', 'Tailwind CSS'],
+      Backend: ['Node.js', 'Express'],
+      'AI and integrations': ['Gemini API', 'Facebook developer APIs'],
+    },
+    links: {},
+    visual: 'viralforge',
+  },
+  {
+    slug: 'vignesh-metals',
+    title: 'Vignesh Metals',
+    category: 'E-commerce mobile app',
+    badge: 'Freelance project',
+    shortDescription:
+      'An e-commerce mobile app where sellers list products and buyers purchase them, packaged as an Android app.',
+    overview:
+      'Vignesh Metals is an e-commerce mobile application with two user roles. Sellers list their products and buyers browse and purchase them. The app was built with Ionic and React, connected to existing Node.js APIs, and packaged as an Android APK.',
+    role: 'Mobile and frontend developer',
+    type: 'freelance',
+    featured: false,
+    cardChips: ['Ionic', 'React', 'Capacitor', 'Node.js', 'Android Studio'],
+    screenshots: [],
+    features: [
+      'Two user roles: Buyer and Seller',
+      'Sellers list products for sale',
+      'Buyers browse and buy products',
+      'Integrated with existing Node.js APIs',
+      'Android APK built with Capacitor and Android Studio',
+    ],
+    responsibilities: [
+      'Built the mobile app interface with Ionic and React',
+      'Integrated the existing Node.js APIs',
+      'Implemented role-based flows for buyers and sellers',
+      'Packaged the app as an Android APK using Capacitor and Android Studio',
+    ],
+    techGroups: {
+      Frontend: ['Ionic', 'React'],
+      Backend: ['Node.js APIs (integrated)'],
+      Mobile: ['Capacitor', 'Android Studio'],
+    },
+    links: {},
+    visual: 'metals',
+  },
+  {
+    slug: 'cms-website-builder',
+    title: 'CMS Website Builder',
+    category: 'No-code website builder',
+    badge: 'Freelance project',
+    shortDescription:
+      'A customizable website builder, similar to WordPress or Framer, with drag-and-drop page design.',
+    overview:
+      'A CMS-style website builder where pages are designed visually using drag and drop, in the spirit of WordPress and Framer, with fully customizable UI.',
+    role: 'Full stack developer',
+    type: 'freelance',
+    featured: false,
+    cardChips: ['React', 'dnd kit', 'Tailwind CSS', 'Node.js', 'Swagger'],
+    screenshots: [],
+    features: [
+      'Drag-and-drop page designer',
+      'Customizable UI components',
+      'Smooth interface animations with Framer Motion',
+      'File uploads handled with Multer',
+      'API documentation with Swagger',
+    ],
+    responsibilities: [
+      'Built the React frontend with dnd kit, Tailwind CSS and Framer Motion',
+      'Built the Node.js and Express backend',
+      'Implemented file uploads with Multer',
+      'Documented the APIs with Swagger',
+    ],
+    techGroups: {
+      Frontend: ['React', 'dnd kit', 'Tailwind CSS', 'Framer Motion'],
+      Backend: ['Node.js', 'Express', 'Multer', 'Swagger'],
+    },
+    links: {},
+    visual: 'cms',
+  },
+  {
     slug: 'personal-portfolio',
     index: '03 / 04',
     title: 'Personal Portfolio',
@@ -203,7 +308,8 @@ export const projects: Project[] = [
     overview:
       'A personal developer portfolio designed and engineered to showcase software projects, technical background, and engineering capabilities with editorial clarity. Built with a focus on web performance, accessibility, light/dark theme adaptation, and responsive design, the platform provides recruiters and visitors with comprehensive insight into production work and technical stack proficiencies.',
     role: 'Design and development',
-    type: 'Personal project',
+    type: 'personal',
+    featured: false,
     cardChips: ['React.js', 'TypeScript', 'Tailwind CSS', 'GSAP'],
     screenshots: [portfolioImg],
     featureGroups: [
@@ -268,7 +374,8 @@ export const projects: Project[] = [
     overview:
       'An academic computer vision and hardware integration project focused on recognizing human facial expressions in real time. Built to bridge software machine learning logic with physical microcontroller behavior, the application analyzes facial expressions via camera input and triggers corresponding hardware responses through Arduino serial communication.',
     role: 'Developer',
-    type: 'College project',
+    type: 'college',
+    featured: true,
     cardChips: ['Python', 'Arduino'],
     screenshots: [emotionImg],
     featureGroups: [

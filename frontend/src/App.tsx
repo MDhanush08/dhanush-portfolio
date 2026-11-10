@@ -7,7 +7,8 @@ import { ChatbotWidget } from './components/chatbot/ChatbotWidget'
 import { BackToTop } from './components/ui/BackToTop'
 import Home from './pages/Home'
 
-// Lazy loaded ProjectDetail route with Suspense skeleton
+// Lazy loaded routes with Suspense skeleton
+const ProjectsPage = lazy(() => import('./pages/ProjectsPage'))
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
@@ -50,6 +51,14 @@ export default function App() {
         <div className="flex-1 w-full">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route
+              path="/projects"
+              element={
+                <Suspense fallback={<ProjectDetailSkeleton />}>
+                  <ProjectsPage />
+                </Suspense>
+              }
+            />
             <Route
               path="/projects/:slug"
               element={

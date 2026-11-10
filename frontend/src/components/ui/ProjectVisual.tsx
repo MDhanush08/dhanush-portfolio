@@ -7,6 +7,7 @@ interface ProjectVisualProps {
   className?: string
   screenshot?: string
   alt?: string
+  title?: string
 }
 
 export const ProjectVisual = memo(function ProjectVisual({
@@ -14,6 +15,7 @@ export const ProjectVisual = memo(function ProjectVisual({
   className,
   screenshot,
   alt = 'Project visual',
+  title = '',
 }: ProjectVisualProps) {
   const [imgError, setImgError] = useState(false)
 
@@ -23,6 +25,8 @@ export const ProjectVisual = memo(function ProjectVisual({
         <img
           src={screenshot}
           alt={alt}
+          width={800}
+          height={500}
           onError={() => setImgError(true)}
           className="w-full h-full object-cover object-top select-none"
           loading="lazy"
@@ -93,6 +97,94 @@ export const ProjectVisual = memo(function ProjectVisual({
         </div>
       )}
 
+      {type === 'viralforge' && (
+        <div className="w-full h-full bg-[#14120E] text-[#FAF7F0] relative flex items-center justify-start p-6 md:p-8">
+          {/* Huge typography */}
+          <span className="text-[clamp(3.5rem,8vw,7rem)] font-bold tracking-[-0.05em] text-[#FAF7F0]/90 leading-none">
+            VF
+          </span>
+
+          {/* Small mock post card at bottom-right */}
+          <div className="absolute right-4 bottom-4 md:right-6 md:bottom-6 w-44 md:w-52 p-3 bg-[#221F1A] border border-[#3A352C] rounded-[3px] shadow-sm flex flex-col gap-2">
+            {/* Header: three platform dots + one lime dot */}
+            <div className="flex items-center justify-between pb-1 border-b border-[#3A352C]">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#524B3E]" />
+                <span className="w-2 h-2 rounded-full bg-[#524B3E]" />
+                <span className="w-2 h-2 rounded-full bg-[#524B3E]" />
+              </div>
+              <span className="w-2 h-2 rounded-full bg-[#A8E600]" />
+            </div>
+            {/* Gray image block */}
+            <div className="w-full h-12 bg-[#2E2A23] rounded-[2px]" />
+            {/* Two hairlines */}
+            <div className="w-4/5 h-[1px] bg-[#3A352C]" />
+            <div className="w-3/5 h-[1px] bg-[#3A352C]" />
+            {/* Three tiny hashtag chips */}
+            <div className="flex items-center gap-1 pt-0.5">
+              <span className="text-[9px] font-mono px-1 py-0.5 bg-[#2E2A23] text-[#FAF7F0]/70 rounded-[1px]">
+                #ai
+              </span>
+              <span className="text-[9px] font-mono px-1 py-0.5 bg-[#2E2A23] text-[#FAF7F0]/70 rounded-[1px]">
+                #viral
+              </span>
+              <span className="text-[9px] font-mono px-1 py-0.5 bg-[#2E2A23] text-[#FAF7F0]/70 rounded-[1px]">
+                #post
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {type === 'metals' && (
+        <div className="w-full h-full bg-[var(--bg-alt)] border border-[var(--line)] relative flex items-center justify-start p-6 md:p-8">
+          {/* Huge typography */}
+          <span className="text-[clamp(3.5rem,8vw,7rem)] font-bold tracking-[-0.05em] text-[var(--ink)] leading-none">
+            VM
+          </span>
+
+          {/* Small phone-frame mock at bottom-right */}
+          <div className="absolute right-4 bottom-4 md:right-6 md:bottom-6 w-32 md:w-36 p-2.5 bg-[var(--surface)] border border-[var(--line)] rounded-[8px] shadow-sm flex flex-col gap-2">
+            {/* Phone speaker notch indicator */}
+            <div className="w-8 h-1 bg-[var(--line)] rounded-full mx-auto" />
+            {/* Product block */}
+            <div className="w-full h-12 bg-[var(--bg-alt)] border border-[var(--line)]/60 rounded-[2px]" />
+            {/* Two hairlines */}
+            <div className="w-full h-[1px] bg-[var(--line)]" />
+            <div className="w-2/3 h-[1px] bg-[var(--line)]" />
+            {/* Lime button bar */}
+            <div className="w-full h-4 bg-[#A8E600] rounded-[2px]" />
+          </div>
+        </div>
+      )}
+
+      {type === 'cms' && (
+        <div className="w-full h-full bg-[var(--bg-alt)] border border-[var(--line)] relative flex items-center justify-start p-6 md:p-8">
+          {/* Huge typography */}
+          <span className="text-[clamp(3rem,7vw,6.5rem)] font-bold tracking-[-0.05em] text-[var(--ink)] leading-none">
+            CMS
+          </span>
+
+          {/* Small canvas mock at bottom-right */}
+          <div className="absolute right-4 bottom-4 md:right-6 md:bottom-6 w-44 md:w-52 p-3 bg-[var(--surface)] border border-[var(--line)] rounded-[3px] shadow-sm flex flex-col gap-2">
+            {/* Canvas toolbar */}
+            <div className="flex items-center justify-between pb-1 border-b border-[var(--line)]">
+              <span className="text-[9px] font-mono uppercase tracking-wider text-[var(--muted)]">Canvas</span>
+              <div className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--line)]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--line)]" />
+              </div>
+            </div>
+            {/* Draggable blocks layout */}
+            <div className="relative h-14 w-full flex items-center justify-between gap-1.5">
+              <div className="w-1/3 h-12 bg-[var(--bg-alt)] border border-[var(--line)] rounded-[2px]" />
+              <div className="w-1/3 h-12 bg-[var(--bg-alt)] border-2 border-[#A8E600] rounded-[2px] rotate-[4deg] shadow-sm" />
+              <div className="w-1/3 h-12 bg-[var(--bg-alt)] border border-[var(--line)] rounded-[2px]" />
+            </div>
+          </div>
+        </div>
+      )}
+
       {type === 'portfolio' && (
         <div className="w-full h-full bg-[var(--bg-alt)] border border-[var(--line)] relative flex items-center justify-start p-6 md:p-8">
           {/* Huge typography */}
@@ -135,6 +227,14 @@ export const ProjectVisual = memo(function ProjectVisual({
               DETECT / RESPOND
             </div>
           </div>
+        </div>
+      )}
+
+      {type === 'generic' && (
+        <div className="w-full h-full bg-[var(--bg-alt)] border border-[var(--line)] relative flex items-center justify-center p-6 md:p-8">
+          <span className="text-[clamp(3.5rem,8vw,7rem)] font-bold tracking-[-0.05em] text-[var(--ink)]/80 leading-none uppercase select-none">
+            {title ? title.split(' ').map((w) => w[0]).join('').slice(0, 3) : 'PRJ'}
+          </span>
         </div>
       )}
     </div>

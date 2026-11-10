@@ -7,6 +7,13 @@ import { ProjectVisual } from '../components/ui/ProjectVisual'
 import { projects, profile } from '../data/portfolio'
 import NotFound from './NotFound'
 
+const TYPE_LABELS: Record<string, string> = {
+  company: 'Company project',
+  freelance: 'Freelance project',
+  personal: 'Personal project',
+  college: 'College project',
+}
+
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>()
   const navigate = useNavigate()
@@ -40,11 +47,11 @@ export default function ProjectDetail() {
         {/* Top Back Link */}
         <div className="mb-8">
           <Link
-            to="/#work"
+            to="/projects"
             className="group inline-flex items-center gap-2 text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] transition-colors"
           >
             <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
-            <span>All work</span>
+            <span>All projects</span>
           </Link>
         </div>
 
@@ -91,7 +98,7 @@ export default function ProjectDetail() {
               Project Type
             </span>
             <span className="text-sm md:text-base font-semibold text-[var(--ink)]">
-              {project.type}
+              {TYPE_LABELS[project.type] || project.type}
             </span>
           </div>
 
@@ -110,9 +117,19 @@ export default function ProjectDetail() {
                 <FaGithub className="w-4 h-4 text-[#A8E600]" />
                 <span>GitHub repo</span>
               </a>
+            ) : project.links?.live ? (
+              <a
+                href={project.links.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm md:text-base font-semibold text-[var(--ink)] hover:underline"
+              >
+                <ExternalLink className="w-4 h-4 text-[#A8E600]" />
+                <span>Live demo</span>
+              </a>
             ) : (
               <span className="text-xs md:text-sm text-[var(--muted)]">
-                Private — source not public
+                Private, source not public
               </span>
             )}
           </div>
@@ -134,6 +151,7 @@ export default function ProjectDetail() {
             type={project.visual}
             screenshot={project.screenshots?.[0]}
             alt={`${project.title} main screenshot`}
+            title={project.title}
           />
         </div>
 
@@ -143,7 +161,7 @@ export default function ProjectDetail() {
             <div className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--muted)] mb-4 text-left">
               Supporting Views
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 min-[900px]:grid-cols-2 gap-6">
               {project.screenshots.slice(1).map((shot, sIdx) => (
                 <div
                   key={sIdx}
@@ -152,6 +170,8 @@ export default function ProjectDetail() {
                   <img
                     src={shot}
                     alt={`${project.title} supporting screenshot ${sIdx + 1}`}
+                    width={800}
+                    height={500}
                     className="w-full h-full object-cover object-top"
                     loading="lazy"
                   />
