@@ -126,9 +126,33 @@ export interface ContactFormData {
   message: string
 }
 
+export interface ChatLink {
+  label: string
+  url: string
+}
+
 export interface ChatMessage {
   id: string
   sender: 'user' | 'bot'
   text: string
+  links?: ChatLink[]
   timestamp: Date
+  isError?: boolean
+  canRetry?: boolean
+  failedMessage?: string
+}
+
+export interface ChatHistoryItem {
+  role: 'user' | 'assistant'
+  content: string
+}
+
+export interface ChatRequestPayload {
+  message: string
+  history?: ChatHistoryItem[]
+}
+
+export interface ChatApiResponse {
+  reply: string
+  links?: ChatLink[]
 }

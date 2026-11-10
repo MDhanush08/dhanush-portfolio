@@ -76,6 +76,24 @@ export class EnvironmentVariables {
     },
   )
   ENABLE_SWAGGER: boolean;
+
+  @IsString()
+  @IsNotEmpty()
+  GEMINI_API_KEY: string;
+
+  @IsString()
+  @IsNotEmpty()
+  GEMINI_CHAT_MODEL: string;
+
+  @IsString()
+  @IsOptional()
+  @Transform(({ value }) => {
+    if (!value || (typeof value === 'string' && value.trim() === '')) {
+      return 'gemini-embedding-001';
+    }
+    return value;
+  })
+  GEMINI_EMBED_MODEL: string = 'gemini-embedding-001';
 }
 
 export function validateEnv(
@@ -87,6 +105,8 @@ export function validateEnv(
     'RESEND_API_KEY',
     'NOTIFY_EMAIL',
     'FRONTEND_ORIGIN',
+    'GEMINI_API_KEY',
+    'GEMINI_CHAT_MODEL',
   ];
 
   const missing = REQUIRED_VARS.filter((key) => {

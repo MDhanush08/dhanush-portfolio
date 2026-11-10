@@ -1,0 +1,178 @@
+[
+  {
+    "section": "about",
+    "content": "Dhanush M is a Full Stack Software Developer with 2 years of professional experience building web applications, backend services, and database integrations."
+  },
+  {
+    "section": "about",
+    "content": "Dhanush M is based in Tiruchirappalli (Trichy), Tamil Nadu, India. He builds considered web products from initial concept to deployment."
+  },
+  {
+    "section": "about",
+    "content": "Dhanush's software engineering approach focuses on full-stack development, security-minded implementations like JWT and RBAC, and reliable CI/CD delivery."
+  },
+  {
+    "section": "about",
+    "content": "Dhanush has professional experience across modern web technologies including Angular, React, TypeScript, Node.js, NestJS, PostgreSQL, MongoDB, and Redis."
+  },
+  {
+    "section": "about",
+    "content": "Dhanush's résumé can be downloaded directly from the portfolio via the Download Résumé button linking to his Google Drive document."
+  },
+  {
+    "section": "contact",
+    "content": "You can contact Dhanush M via email at dhanushm.stack@gmail.com or through the interactive contact form on his portfolio."
+  },
+  {
+    "section": "contact",
+    "content": "Dhanush's LinkedIn profile is located at https://www.linkedin.com/in/dhanush360 and his GitHub profile is https://github.com/MDhanush08."
+  },
+  {
+    "section": "contact",
+    "content": "Dhanush is open to full-time software developer opportunities, freelance full-stack projects, and technical collaborations."
+  },
+  {
+    "section": "experience",
+    "content": "Dhanush worked as a full-time Software Developer at Nandalala Infotech in Tiruchirappalli, Tamil Nadu from September 2024 to November 2026."
+  },
+  {
+    "section": "experience",
+    "content": "At Nandalala Infotech, Dhanush engineered Angular frontend interfaces, NestJS microservices, GraphQL APIs via Hasura, and PostgreSQL relational schemas."
+  },
+  {
+    "section": "experience",
+    "content": "At Nandalala Infotech, Dhanush implemented JWT authentication, role-based access control (RBAC), Stripe payments, and Firebase email notifications."
+  },
+  {
+    "section": "experience",
+    "content": "At Nandalala Infotech, Dhanush configured Redis background queues, Docker containerization, and GitLab CI/CD automated deployments on Contabo cloud servers."
+  },
+  {
+    "section": "experience",
+    "content": "Dhanush works as a Freelance Full Stack Developer, delivering custom web and mobile applications using React, Angular, Node.js, Express, and MongoDB."
+  },
+  {
+    "section": "experience",
+    "content": "As a freelancer, Dhanush handles complete development lifecycles: client requirements, UI implementation, backend REST API integration, and cloud deployment."
+  },
+  {
+    "section": "skills",
+    "content": "Dhanush's frontend skills include Angular, React.js, Redux, TypeScript, JavaScript (ES6+), HTML5, CSS3, SCSS, Tailwind CSS, Bootstrap, Ionic, and GSAP animations."
+  },
+  {
+    "section": "skills",
+    "content": "Dhanush's backend skills include Node.js, NestJS, Express.js, Python, PHP, REST APIs, GraphQL, and Hasura."
+  },
+  {
+    "section": "skills",
+    "content": "Dhanush's database expertise includes PostgreSQL, MongoDB, SQL relational modeling, and Redis caching and queues."
+  },
+  {
+    "section": "skills",
+    "content": "Dhanush's security skills include JWT (JSON Web Tokens), role-based access control (RBAC), secure headers with Helmet, and input sanitization."
+  },
+  {
+    "section": "skills",
+    "content": "Dhanush's DevOps and cloud skills include Docker, GitLab CI/CD pipelines, Git, GitHub, GitLab, TortoiseGit, Contabo servers, Render, and Netlify."
+  },
+  {
+    "section": "skills",
+    "content": "Dhanush's tools and testing proficiencies include Postman, Zoho BugTracker, VS Code, and Android Studio."
+  },
+  {
+    "section": "skills",
+    "content": "Dhanush's third-party integration skills include Stripe payments, Firebase notifications, Gemini API, RAG architectures, and AI coding tools."
+  },
+  {
+    "section": "education",
+    "content": "Dhanush holds a Bachelor of Technology (B.Tech) degree in Information Technology from Kongunadu College of Engineering and Technology (2020 — 2024)."
+  },
+  {
+    "section": "education",
+    "content": "Dhanush completed Higher Secondary Certificate (HSC) in Computer Science at Zamindar Higher Secondary School, Thuraiyur (2019 — 2020)."
+  },
+  {
+    "section": "education",
+    "content": "Dhanush completed his SSLC (Secondary School Leaving Certificate) at Zamindar Higher Secondary School, Thuraiyur (2017 — 2018)."
+  },
+  {
+    "section": "education",
+    "content": "Dhanush holds a CCNA (Cisco Certified Network Associate) certification covering computer networking fundamentals, IP addressing, and routing."
+  },
+  {
+    "section": "education",
+    "content": "Dhanush completed comprehensive online certification in HTML, CSS & JavaScript on Udemy, reinforcing core frontend engineering principles."
+  },
+  {
+    "section": "education",
+    "content": "Dhanush speaks English with professional proficiency and Tamil as his native language."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Dental Interface 360 is a multi-role dental SaaS platform for Admin, Supplier, Practice, and Professional users built by Dhanush at Nandalala Infotech."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Dental Interface 360 tech stack includes Angular, NestJS, GraphQL, Hasura, PostgreSQL, Redis, Stripe, Firebase, Docker, and GitLab CI/CD on Contabo."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Dental Interface 360 features JWT authentication, multi-role RBAC, Stripe billing, automated Firebase emails, and Redis background queues."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Lala Invoice is a full-stack invoicing and billing management application built by Dhanush at Nandalala Infotech."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Lala Invoice was built with React.js, Redux, Python REST APIs, and MongoDB for small and medium business billing management."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Lala Invoice features invoice CRUD workflows, invoice status tracking (Paid, Pending, Overdue), and role-based access for Admin and User accounts."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Viral Forge is an AI-powered social media management web application built by Dhanush as a freelance project."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Viral Forge tech stack features Angular, Tailwind CSS, Node.js, Express, the Google Gemini API, and Facebook developer APIs."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Viral Forge enables AI image creation from prompts, automated caption, title, description and hashtag generation with Gemini, and direct publishing to Facebook and Instagram."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Vignesh Metals is an e-commerce mobile application built by Dhanush as a freelance project using Ionic, React, Capacitor, and Node.js APIs."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Vignesh Metals features dual roles for Buyers and Sellers to list and buy metal products, packaged as an Android APK via Capacitor and Android Studio."
+  },
+  {
+    "section": "projects",
+    "content": "Project: CMS Website Builder is a visual drag-and-drop website creation platform built by Dhanush using React, dnd kit, Tailwind CSS, Node.js, and Express."
+  },
+  {
+    "section": "projects",
+    "content": "Project: CMS Website Builder features customizable UI components, Framer Motion animations, Multer file uploads, and Swagger API documentation."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Personal Portfolio is Dhanush's personal portfolio website built with React 19, TypeScript, Tailwind CSS, GSAP, and React Router, deployed on Netlify."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Personal Portfolio features editorial typography, light and dark themes, dedicated project detail pages (/projects), and NestJS backend integration."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Face Emotion Detection is an academic computer vision project built by Dhanush using Python, OpenCV, Tkinter, and an Arduino microcontroller."
+  },
+  {
+    "section": "projects",
+    "content": "Project: Face Emotion Detection classifies real-time facial expressions (happy, neutral, sad) and triggers physical hardware feedback via Arduino serial communication."
+  }
+]
