@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 
 export type Theme = 'light' | 'dark'
 
@@ -7,7 +7,13 @@ export function useTheme() {
     if (typeof window === 'undefined') return 'light'
     const current = document.documentElement.getAttribute('data-theme')
     if (current === 'light' || current === 'dark') return current
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    try {
+      const stored = localStorage.getItem('theme')
+      if (stored === 'light' || stored === 'dark') return stored
+    } catch {
+      // localStorage may fail in private mode
+    }
+    return 'light'
   })
 
   const applyTheme = useCallback((newTheme: Theme) => {
@@ -27,18 +33,6 @@ export function useTheme() {
   const toggleTheme = useCallback(() => {
     applyTheme(theme === 'dark' ? 'light' : 'dark')
   }, [theme, applyTheme])
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    const handleChange = (e: MediaQueryListEvent) => {
-      const stored = localStorage.getItem('theme')
-      if (!stored) {
-        applyTheme(e.matches ? 'dark' : 'light')
-      }
-    }
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [applyTheme])
 
   return { theme, toggleTheme, setTheme: applyTheme }
 }

@@ -1,5 +1,9 @@
-import type { ContactFormData } from '../types'
-import { profile, projects, skillCategories } from '../data/portfolio'
+import type {
+  ChatApiResponse,
+  ChatHistoryItem,
+  ContactFormData,
+} from '../types'
+import { profile } from '../data/portfolio'
 
 /**
  * Submit contact form payload.
@@ -46,53 +50,53 @@ export async function submitContact(data: ContactFormData): Promise<{ success: b
 }
 
 /**
- * Send a chat message to the assistant.
- * Answers from local portfolio data using keyword matching.
+ * Send a chat message to the portfolio RAG AI assistant backend.
+ * Calls `${import.meta.env.VITE_API_URL}/assistant/chat` with `{ message, history }`.
+ * Uses a 70s timeout to gracefully accommodate Render cold starts.
  */
-export async function sendChatMessage(query: string): Promise<string> {
+export async function sendChatMessage(
+  message: string,
+  history: ChatHistoryItem[] = [],
+  signal?: AbortSignal
+): Promise<ChatApiResponse> {
   const apiUrl = import.meta.env.VITE_API_URL
-  if (apiUrl) {
-    try {
-      const response = await fetch(`${apiUrl}/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: query }),
-      })
-      if (response.ok) {
-        const json = await response.json()
-        if (json.reply) return json.reply
-      }
-    } catch {
-      // fall back to local answer
+
+  if (!apiUrl) {
+    throw new Error('Assistant API endpoint is not configured (VITE_API_URL is missing).')
+  }
+
+  const endpoint = `${apiUrl}/assistant/chat`
+
+  let response: Response
+  try {
+    response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message, history }),
+      signal,
+    })
+  } catch (err: unknown) {
+    if (err instanceof Error && err.name === 'AbortError') {
+      throw new Error('The request timed out. The server might be waking up; please try again.')
     }
+    throw new Error('Unable to connect to the assistant server. Please check your connection and try again.')
   }
 
-  // Simulate thinking delay
-  await new Promise((resolve) => setTimeout(resolve, 500))
-
-  const q = query.toLowerCase()
-
-  if (q.includes('experience') || q.includes('background') || q.includes('work experience') || q.includes('job')) {
-    return `Dhanush has ${profile.yearsExperience} years of experience as a Full Stack Software Developer, previously working at Nandalala Infotech in Trichy (Sep 2024 – Nov 2026) across Angular, React, NestJS, GraphQL/Hasura, and PostgreSQL, along with part-time freelance development.`
+  if (response.status === 429) {
+    throw new Error('Too many requests, please wait a moment.')
   }
 
-  if (q.includes('project') || q.includes('built') || q.includes('portfolio') || q.includes('work')) {
-    const names = projects.map((p) => p.title).join(', ')
-    return `Key projects include: ${names}. Highlights: "Dental Interface 360" (multi-role dental SaaS with NestJS, GraphQL, Stripe), "Lala Invoice" (billing system in React/Python/MongoDB), and "Personal Portfolio".`
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    const msg = errorData.message || `Server returned error (${response.status})`
+    throw new Error(Array.isArray(msg) ? msg.join(', ') : msg)
   }
 
-  if (q.includes('tech') || q.includes('stack') || q.includes('tool') || q.includes('skills')) {
-    const cats = skillCategories.map((c) => `${c.title} (${c.skills.slice(0, 4).join(', ')})`).join('; ')
-    return `Dhanush works across the full stack: ${cats}. Core languages & frameworks include TypeScript, Angular, React, NestJS, Node.js, and PostgreSQL.`
+  const data = (await response.json()) as ChatApiResponse
+  return {
+    reply: data.reply,
+    links: data.links || [],
   }
-
-  if (q.includes('education') || q.includes('college') || q.includes('degree')) {
-    return 'Dhanush holds a B.Tech in Information Technology from Kongunadu College of Engineering and Technology (2020–2024), along with Higher Secondary (Computer Science) & SSLC from Zamindar Higher Secondary School, Cisco CCNA, and web development certifications.'
-  }
-
-  if (q.includes('contact') || q.includes('hire') || q.includes('email') || q.includes('reach')) {
-    return `You can reach Dhanush via the contact form on this site, or directly at ${profile.email}. He is based in Tiruchirappalli, Tamil Nadu, India.`
-  }
-
-  return `Dhanush is a full stack software developer with 2 years of experience specializing in Angular, React, NestJS, and PostgreSQL. Feel free to ask about his experience, projects, or technical skills!`
 }

@@ -45,7 +45,7 @@ export const About = memo(function About() {
         {/* Left column: Main highlighted introduction & supporting text */}
         <Reveal className="flex flex-col gap-6 text-left">
           <p className="text-[clamp(1.375rem,1rem+1.4vw,2rem)] font-medium text-[var(--ink)] leading-[1.35] tracking-tight">
-            I'm a Full Stack Software Developer with{' '}
+            I'm a Full Stack Developer with{' '}
             <span className="bg-[#A8E600] text-[#14110D] px-2 py-0.5 rounded-[2px] [box-decoration-break:clone] font-semibold">
               2 years of experience
             </span>{' '}

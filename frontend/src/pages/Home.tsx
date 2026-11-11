@@ -9,12 +9,14 @@ import { profile } from '../data/portfolio'
 
 export default function Home() {
   useEffect(() => {
-    document.title = `${profile.name} | ${profile.role} ${profile.roleSpecialization}`
+    document.title = profile.roleSpecialization
+      ? `${profile.name} | ${profile.role} ${profile.roleSpecialization}`
+      : `${profile.name} | ${profile.role}`
     const metaDesc = document.querySelector('meta[name="description"]')
     if (metaDesc) {
       metaDesc.setAttribute(
         'content',
-        `Portfolio of ${profile.name}, a software developer building secure, scalable web applications with Angular, React, Node.js, NestJS, and PostgreSQL.`
+        `Portfolio of ${profile.name}, a full stack developer building secure, scalable web applications with Angular, React, Node.js, NestJS, and PostgreSQL.`
       )
     }
   }, [])

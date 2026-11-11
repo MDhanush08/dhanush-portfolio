@@ -203,7 +203,7 @@ export const Drawer = memo(function Drawer({
                   <span className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#A8E600]" />
                 )}
                 <span className="text-xs font-mono text-[var(--muted)] select-none">
-                  {item.number}
+                  {/* {item.number} */}
                 </span>
                 <span>{item.label}</span>
               </button>

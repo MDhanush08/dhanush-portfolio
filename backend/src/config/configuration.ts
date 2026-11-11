@@ -14,6 +14,11 @@ export interface AppConfig {
   swagger: {
     enabled: boolean;
   };
+  gemini: {
+    apiKey: string;
+    embedModel: string;
+    chatModel: string;
+  };
 }
 
 export default (): AppConfig => {
@@ -45,6 +50,11 @@ export default (): AppConfig => {
     },
     swagger: {
       enabled: enableSwagger,
+    },
+    gemini: {
+      apiKey: process.env.GEMINI_API_KEY || '',
+      embedModel: process.env.GEMINI_EMBED_MODEL || 'gemini-embedding-001',
+      chatModel: process.env.GEMINI_CHAT_MODEL || '',
     },
   };
 };

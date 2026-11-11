@@ -16,11 +16,13 @@ import { SectionHeading } from '../layout/SectionHeading'
 import { Reveal } from '../ui/Reveal'
 import { profile } from '../../data/portfolio'
 import { submitContact } from '../../services/api'
+import { CONTACT_LIMITS } from '../../config/limits'
 import { cn } from '../../lib/cn'
 
 interface FormErrors {
   name?: string
   email?: string
+  subject?: string
   message?: string
 }
 
@@ -41,17 +43,34 @@ export const Contact = memo(function Contact() {
   const hasGitHub = Boolean(profile.github && !profile.github.includes('[') && profile.github.trim() !== '')
 
   const validate = (): boolean => {
+    const trimmedName = formData.name.trim()
+    const trimmedEmail = formData.email.trim()
+    const trimmedSubject = formData.subject.trim()
+    const trimmedMessage = formData.message.trim()
     const errs: FormErrors = {}
-    if (!formData.name.trim()) {
+
+    if (!trimmedName) {
       errs.name = 'Please provide your name.'
+    } else if (trimmedName.length > CONTACT_LIMITS.name) {
+      errs.name = `Name must be ${CONTACT_LIMITS.name} characters or fewer.`
     }
-    if (!formData.email.trim()) {
+
+    if (!trimmedEmail) {
       errs.email = 'Please provide your email address.'
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
       errs.email = 'Please enter a valid email address.'
+    } else if (trimmedEmail.length > CONTACT_LIMITS.email) {
+      errs.email = `Email must be ${CONTACT_LIMITS.email} characters or fewer.`
     }
-    if (!formData.message.trim()) {
+
+    if (trimmedSubject && trimmedSubject.length > CONTACT_LIMITS.subject) {
+      errs.subject = `Subject must be ${CONTACT_LIMITS.subject} characters or fewer.`
+    }
+
+    if (!trimmedMessage) {
       errs.message = 'Please Tell me a little about your enquiry'
+    } else if (trimmedMessage.length > CONTACT_LIMITS.message) {
+      errs.message = `Message must be ${CONTACT_LIMITS.message} characters or fewer.`
     }
 
     setErrors(errs)
@@ -62,11 +81,21 @@ export const Contact = memo(function Contact() {
     e.preventDefault()
     if (!validate()) return
 
+    const trimmedName = formData.name.trim()
+    const trimmedEmail = formData.email.trim()
+    const trimmedSubject = formData.subject.trim()
+    const trimmedMessage = formData.message.trim()
+
     setIsSubmitting(true)
     setStatus('idle')
 
     try {
-      const res = await submitContact(formData)
+      const res = await submitContact({
+        name: trimmedName,
+        email: trimmedEmail,
+        subject: trimmedSubject || undefined,
+        message: trimmedMessage,
+      })
       setStatus('success')
       setStatusMessage(res.message)
       setFormData({ name: '', email: '', subject: '', message: '' })
@@ -83,9 +112,9 @@ export const Contact = memo(function Contact() {
 
   // Pre-filled mailto fallback link for seamless communication
   const fallbackMailto = `mailto:${profile.email}?subject=${encodeURIComponent(
-    formData.subject || `Inquiry from ${formData.name || 'Portfolio Visitor'}`
+    formData.subject.trim() || `Inquiry from ${formData.name.trim() || 'Portfolio Visitor'}`
   )}&body=${encodeURIComponent(
-    `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    `Name: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\nMessage:\n${formData.message.trim()}`
   )}`
 
   return (

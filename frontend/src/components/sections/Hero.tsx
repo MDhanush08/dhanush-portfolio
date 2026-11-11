@@ -68,7 +68,7 @@ export const Hero = memo(function Hero() {
             {/* Small label row with lime dot, title, hairline, location */}
             <div className="hero-animate flex items-center gap-3 text-xs uppercase font-medium tracking-[0.08em] text-[var(--muted)] mb-4">
               <span className="w-2 h-2 rounded-full bg-[#A8E600] shrink-0" />
-              <span>Full Stack Software Developer</span>
+              <span>Full Stack Developer</span>
               <span className="w-6 h-[1px] bg-[var(--line)]" />
               <span>Trichy, India</span>
             </div>
@@ -81,12 +81,12 @@ export const Hero = memo(function Hero() {
 
             {/* Professional Title */}
             <p className="hero-animate text-[clamp(1.25rem,2vw,1.75rem)] font-medium text-[var(--ink)] tracking-tight">
-              Full Stack Software Developer
+              Full Stack Developer
             </p>
 
             {/* Introduction */}
             {/* <p className="hero-animate text-base md:text-lg text-[var(--muted)] leading-[1.7] max-w-[62ch] mt-[clamp(14px,1.6vw,20px)]">
-              I'm a Full Stack Software Developer with 2 years of professional experience building web applications and backend services. I work with Angular, React, TypeScript, Node.js and NestJS, using SQL, PostgreSQL and MongoDB to build reliable and scalable solutions.
+              I'm a Full Stack Developer with 2 years of professional experience building web applications and backend services. I work with Angular, React, TypeScript, Node.js and NestJS, using SQL, PostgreSQL and MongoDB to build reliable and scalable solutions.
             </p> */}
             <p className="hero-animate text-base md:text-lg text-[var(--muted)] leading-[1.7] max-w-[62ch] mt-[clamp(14px,1.6vw,20px)]">
               I have 2 years of professional experience building web applications and backend services. I work with Angular, React, TypeScript, Node.js and NestJS, using SQL, PostgreSQL and MongoDB to build reliable and scalable solutions.
@@ -157,7 +157,7 @@ export const Hero = memo(function Hero() {
                     src={HERO_PORTRAIT_SRC}
                     width={896}
                     height={1200}
-                    alt="Professional developer portrait of Dhanush M., Full Stack Software Developer"
+                    alt="Professional developer portrait of Dhanush M., Full Stack Developer"
                     fetchPriority="high"
                     decoding="async"
                     onError={() => setImgError(true)}
