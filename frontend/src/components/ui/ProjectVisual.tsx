@@ -1387,7 +1387,399 @@ function EmotionVisual() {
 }
 
 /* -------------------------------------------------------------------------
-   h) Generic Fallback Visual (16:9 - 640 x 360)
+   h) College Bus Tracking System Visual (16:9 - 640 x 360)
+------------------------------------------------------------------------- */
+function BustrackerVisual() {
+  return (
+    <svg
+      viewBox="0 0 640 360"
+      width="100%"
+      height="100%"
+      className="w-full h-full block select-none"
+      aria-hidden="true"
+      style={{ fontFamily: 'var(--font-sans)' }}
+    >
+      <rect width="640" height="360" fill="var(--bg-alt)" />
+
+      {/* Phone Frame */}
+      <rect
+        x="64"
+        y="24"
+        width="232"
+        height="312"
+        rx="22"
+        fill="var(--surface)"
+        stroke="var(--line)"
+        strokeWidth="1.5"
+      />
+
+      {/* Phone Screen Area */}
+      <rect
+        x="76"
+        y="36"
+        width="208"
+        height="288"
+        rx="14"
+        fill="var(--bg)"
+        stroke="var(--line)"
+        strokeWidth="1"
+      />
+
+      {/* Dynamic island / phone notch */}
+      <rect x="156" y="44" width="48" height="8" rx="4" fill="var(--line)" />
+
+      {/* Map Grid Background Blocks */}
+      <g opacity="0.6">
+        <rect x="90" y="66" width="42" height="36" rx="3" fill="var(--bg-alt)" stroke="var(--line)" strokeWidth="0.8" />
+        <rect x="142" y="66" width="60" height="36" rx="3" fill="var(--bg-alt)" stroke="var(--line)" strokeWidth="0.8" />
+        <rect x="212" y="66" width="58" height="52" rx="3" fill="var(--bg-alt)" stroke="var(--line)" strokeWidth="0.8" />
+
+        <rect x="90" y="112" width="68" height="48" rx="3" fill="var(--bg-alt)" stroke="var(--line)" strokeWidth="0.8" />
+        <rect x="168" y="112" width="34" height="48" rx="3" fill="var(--bg-alt)" stroke="var(--line)" strokeWidth="0.8" />
+
+        <rect x="90" y="170" width="52" height="44" rx="3" fill="var(--bg-alt)" stroke="var(--line)" strokeWidth="0.8" />
+        <rect x="152" y="170" width="64" height="44" rx="3" fill="var(--bg-alt)" stroke="var(--line)" strokeWidth="0.8" />
+        <rect x="226" y="128" width="44" height="86" rx="3" fill="var(--bg-alt)" stroke="var(--line)" strokeWidth="0.8" />
+
+        <rect x="90" y="224" width="100" height="38" rx="3" fill="var(--bg-alt)" stroke="var(--line)" strokeWidth="0.8" />
+        <rect x="200" y="224" width="70" height="38" rx="3" fill="var(--bg-alt)" stroke="var(--line)" strokeWidth="0.8" />
+      </g>
+
+      {/* Road Network Lines */}
+      <line x1="86" y1="107" x2="274" y2="107" stroke="var(--line)" strokeWidth="2.5" />
+      <line x1="86" y1="165" x2="274" y2="165" stroke="var(--line)" strokeWidth="2.5" />
+      <line x1="86" y1="219" x2="274" y2="219" stroke="var(--line)" strokeWidth="2.5" />
+      <line x1="163" y1="60" x2="163" y2="266" stroke="var(--line)" strokeWidth="2.5" />
+      <line x1="221" y1="60" x2="221" y2="266" stroke="var(--line)" strokeWidth="2.5" />
+
+      {/* Route Line with dots */}
+      <path
+        d="M 110 90 L 163 107 L 163 165 L 221 165 L 221 240"
+        fill="none"
+        stroke="var(--ink)"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="110" cy="90" r="4.5" fill="var(--ink)" />
+      <circle cx="163" cy="130" r="3" fill="var(--ink)" />
+      <circle cx="192" cy="165" r="3" fill="var(--ink)" />
+      <circle cx="221" cy="240" r="4.5" fill="var(--accent)" stroke="var(--surface)" strokeWidth="1.5" />
+
+      {/* Lime bus marker (rounded rectangle) on the route */}
+      <g transform="translate(147, 134)">
+        <rect
+          x="0"
+          y="0"
+          width="32"
+          height="20"
+          rx="4"
+          fill="var(--accent)"
+          stroke="var(--ink)"
+          strokeWidth="1.2"
+        />
+        {/* Bus windows */}
+        <rect x="4" y="4" width="7" height="6" rx="1" fill="var(--on-accent)" fillOpacity="0.85" />
+        <rect x="13" y="4" width="7" height="6" rx="1" fill="var(--on-accent)" fillOpacity="0.85" />
+        <rect x="22" y="4" width="6" height="6" rx="1" fill="var(--on-accent)" fillOpacity="0.85" />
+        {/* Wheels */}
+        <circle cx="8" cy="19" r="2.5" fill="var(--ink)" />
+        <circle cx="24" cy="19" r="2.5" fill="var(--ink)" />
+      </g>
+
+      {/* Small chip reading "Track bus" */}
+      <g transform="translate(132, 276)">
+        <rect
+          x="0"
+          y="0"
+          width="96"
+          height="28"
+          rx="14"
+          fill="var(--accent)"
+        />
+        <text
+          x="48"
+          y="18"
+          fontSize="11"
+          fontWeight="700"
+          letterSpacing="0.02em"
+          fill="var(--on-accent)"
+          textAnchor="middle"
+        >
+          Track bus
+        </text>
+      </g>
+
+      {/* Dotted Connection line to Arduino */}
+      <path
+        d="M 296 180 L 370 180"
+        fill="none"
+        stroke="var(--accent)"
+        strokeWidth="2"
+        strokeDasharray="4 3"
+      />
+
+      {/* Arduino Board */}
+      <g transform="translate(370, 68)">
+        <rect
+          x="0"
+          y="0"
+          width="200"
+          height="224"
+          rx="6"
+          fill="var(--surface)"
+          stroke="var(--line)"
+          strokeWidth="1.5"
+        />
+
+        <text
+          x="18"
+          y="30"
+          fontSize="11"
+          fontWeight="700"
+          letterSpacing="0.08em"
+          fill="var(--ink)"
+        >
+          ARDUINO
+        </text>
+
+        {/* Lime LED */}
+        <circle cx="168" cy="26" r="5" fill="var(--accent)" />
+        <circle cx="168" cy="26" r="9" fill="none" stroke="var(--accent)" strokeWidth="1" strokeOpacity="0.5" />
+        <text
+          x="168"
+          y="46"
+          fontSize="8"
+          fontWeight="700"
+          letterSpacing="0.06em"
+          fill="var(--muted)"
+          textAnchor="middle"
+        >
+          LED
+        </text>
+
+        {/* Top pin header */}
+        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+          <rect
+            key={i}
+            x={18 + i * 14}
+            y="52"
+            width="8"
+            height="8"
+            rx="1"
+            fill="var(--bg-alt)"
+            stroke="var(--line)"
+            strokeWidth="0.8"
+          />
+        ))}
+
+        {/* Microcontroller MCU */}
+        <rect x="42" y="80" width="116" height="58" rx="3" fill="var(--ink)" />
+        <text
+          x="100"
+          y="114"
+          fontSize="11"
+          fontWeight="700"
+          letterSpacing="0.08em"
+          fill="var(--bg)"
+          textAnchor="middle"
+        >
+          MCU
+        </text>
+
+        {/* Bottom pin header */}
+        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+          <rect
+            key={i}
+            x={18 + i * 14}
+            y="156"
+            width="8"
+            height="8"
+            rx="1"
+            fill="var(--bg-alt)"
+            stroke="var(--line)"
+            strokeWidth="0.8"
+          />
+        ))}
+
+        <rect x="18" y="184" width="164" height="4" rx="2" fill="var(--accent)" />
+        <text
+          x="18"
+          y="204"
+          fontSize="8"
+          fontWeight="600"
+          letterSpacing="0.06em"
+          fill="var(--muted)"
+        >
+          GPS TRACKING MODULE
+        </text>
+      </g>
+    </svg>
+  )
+}
+
+/* -------------------------------------------------------------------------
+   i) Movie Search App Visual (16:9 - 640 x 360)
+------------------------------------------------------------------------- */
+function MoviesVisual() {
+  return (
+    <svg
+      viewBox="0 0 640 360"
+      width="100%"
+      height="100%"
+      className="w-full h-full block select-none"
+      aria-hidden="true"
+      style={{ fontFamily: 'var(--font-sans)' }}
+    >
+      <rect width="640" height="360" fill="var(--bg-alt)" />
+
+      {/* App window frame */}
+      <rect
+        x="24"
+        y="18"
+        width="592"
+        height="324"
+        rx="6"
+        fill="var(--surface)"
+        stroke="var(--line)"
+        strokeWidth="1"
+      />
+
+      {/* Search bar */}
+      <g transform="translate(48, 38)">
+        <rect
+          x="0"
+          y="0"
+          width="544"
+          height="42"
+          rx="6"
+          fill="var(--bg-alt)"
+          stroke="var(--line)"
+          strokeWidth="1"
+        />
+
+        {/* Magnifier icon */}
+        <circle cx="24" cy="21" r="7" fill="none" stroke="var(--muted)" strokeWidth="1.8" />
+        <line x1="29" y1="26" x2="36" y2="33" stroke="var(--muted)" strokeWidth="1.8" strokeLinecap="round" />
+
+        {/* Placeholder text */}
+        <text
+          x="48"
+          y="26"
+          fontSize="13"
+          fontWeight="500"
+          fill="var(--muted)"
+        >
+          Search movies
+        </text>
+
+        {/* Search button chip */}
+        <rect x="466" y="8" width="68" height="26" rx="4" fill="var(--accent)" />
+        <text
+          x="500"
+          y="24"
+          fontSize="11"
+          fontWeight="700"
+          fill="var(--on-accent)"
+          textAnchor="middle"
+        >
+          Search
+        </text>
+      </g>
+
+      {/* Row of four poster cards */}
+      {[0, 1, 2, 3].map((i) => {
+        const xPos = 48 + i * 140
+        const isHighlighted = i === 1 // One card with lime outline
+
+        return (
+          <g key={i} transform={`translate(${xPos}, 104)`}>
+            {/* Card boundary */}
+            <rect
+              x="0"
+              y="0"
+              width="124"
+              height="214"
+              rx="6"
+              fill="var(--bg-alt)"
+              stroke={isHighlighted ? 'var(--accent)' : 'var(--line)'}
+              strokeWidth={isHighlighted ? 2 : 1}
+            />
+
+            {/* Poster skeleton block */}
+            <rect
+              x="10"
+              y="10"
+              width="104"
+              height="136"
+              rx="4"
+              fill="var(--surface)"
+              stroke="var(--line)"
+              strokeWidth="0.8"
+            />
+            {/* Skeleton visual shape inside poster */}
+            <rect
+              x="22"
+              y="22"
+              width="80"
+              height="90"
+              rx="3"
+              fill="var(--line)"
+              fillOpacity="0.35"
+            />
+            {isHighlighted && (
+              <circle cx="62" cy="67" r="14" fill="var(--accent)" fillOpacity="0.25" />
+            )}
+
+            {/* Star icon with rating line */}
+            <g transform="translate(12, 156)">
+              {/* Star icon */}
+              <polygon
+                points="6,0 7.8,4.2 12,4.6 8.8,7.5 9.8,12 6,9.6 2.2,12 3.2,7.5 0,4.6 4.2,4.2"
+                fill="var(--accent)"
+              />
+              {/* Rating skeleton */}
+              <rect
+                x="18"
+                y="3"
+                width="34"
+                height="6"
+                rx="2"
+                fill="var(--muted)"
+                fillOpacity="0.6"
+              />
+            </g>
+
+            {/* Title Line 1 */}
+            <rect
+              x="12"
+              y="176"
+              width={isHighlighted ? '88' : '78'}
+              height="7"
+              rx="2"
+              fill="var(--ink)"
+              fillOpacity="0.85"
+            />
+
+            {/* Title Line 2 */}
+            <rect
+              x="12"
+              y="190"
+              width={isHighlighted ? '54' : '46'}
+              height="6"
+              rx="2"
+              fill="var(--muted)"
+              fillOpacity="0.5"
+            />
+          </g>
+        )
+      })}
+    </svg>
+  )
+}
+
+/* -------------------------------------------------------------------------
+   j) Generic Fallback Visual (16:9 - 640 x 360)
 ------------------------------------------------------------------------- */
 function GenericVisual({ title }: { title?: string }) {
   const letters = title
@@ -1483,6 +1875,8 @@ export const ProjectVisual = memo(function ProjectVisual({
       {type === 'cms' && <CmsVisual />}
       {type === 'portfolio' && <PortfolioVisual />}
       {type === 'emotion' && <EmotionVisual />}
+      {type === 'bustracker' && <BustrackerVisual />}
+      {type === 'movies' && <MoviesVisual />}
       {type === 'generic' && <GenericVisual title={title} />}
     </div>
   )

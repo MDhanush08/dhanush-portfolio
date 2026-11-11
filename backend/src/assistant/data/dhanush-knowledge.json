@@ -41,39 +41,47 @@
   },
   {
     "section": "projects",
-    "content": "Summary of All Projects by Dhanush M:\n1. Dental Interface 360: Multi-role dental SaaS platform for Admin, Supplier, Practice, and Professional users built with Angular, NestJS, GraphQL, Hasura, PostgreSQL, Redis, Stripe, and Docker.\n2. Lala Invoice: Full-stack invoicing and billing management application with role-based access built with React.js, Redux, Python REST APIs, and MongoDB.\n3. Viral Forge: AI social media tool generating titles, descriptions, captions, and hashtags with the Gemini API and publishing to Facebook and Instagram, built with Angular, Tailwind CSS, Node.js, and Express.\n4. Vignesh Metals: E-commerce mobile application for Buyer and Seller roles built with Ionic, React, Capacitor, and Node.js APIs, packaged as an Android APK.\n5. CMS Website Builder: Drag-and-drop website builder with customizable UI components built with React, dnd kit, Tailwind CSS, Node.js, Express, Multer, and Swagger.\n6. Personal Portfolio: Responsive developer portfolio website with light and dark themes and dedicated project routes built with React 19, TypeScript, Tailwind CSS, and GSAP.\n7. Face Emotion Detection: Real-time facial emotion recognition with Arduino serial hardware integration built with Python, OpenCV, Tkinter, and Arduino."
+    "content": "Summary of All Projects by Dhanush M:\n1. Dental Interface 360: Multi-role dental SaaS platform for Admin, Supplier, Practice, and Professional users with appointments, news feeds, courses, supplies marketplace, and credit-based system, built with Angular, Bootstrap, NestJS, GraphQL, Hasura, PostgreSQL, Redis, Docker, and Firebase.\n2. Lala Invoice: Billing software where users add products, update data, check billings and get invoices, with role-based access for Admin and User, built with React.js, Redux, Tailwind CSS, Python, MongoDB, and Tortoise Git.\n3. Viral Forge: AI social media tool to create content generated with an LLM (Gemini API) and publish to Facebook and Instagram, built with Angular, Tailwind CSS, Node.js, Express, and MongoDB.\n4. Vignesh Metals: E-commerce mobile application for Buyer and Seller roles built with Ionic, React, Tailwind CSS, MongoDB, Capacitor, Node.js APIs, and Android Studio.\n5. CMS Website Builder: Drag-and-drop website builder with customizable UI components built with React, dnd kit, Tailwind CSS, Framer Motion, Node.js, Express, Multer, Swagger, and MongoDB.\n6. Personal Portfolio: Full-stack web app with React frontend deployed on Netlify and NestJS backend on Render with Supabase database and email notifications, plus AI assistant chatbot.\n7. Face Emotion Detection: Academic computer vision and microcontroller integration project with Python, Arduino, and Firebase.\n8. College Bus Tracking System: College project to track college buses, built as a mobile application with Flutter and Arduino hardware.\n9. Movie Search App: A beginner React web app to search movies using the IMDb API."
   },
   {
     "section": "projects",
-    "content": "Project Detail - Dental Interface 360: A specialized multi-role dental SaaS platform for Administrators, Dental Practices, Dental Professionals, and Suppliers. Built by Dhanush at Nandalala Infotech. Tech stack: Angular, NestJS, Node.js, GraphQL, Hasura, PostgreSQL, Redis, Stripe, Firebase, Docker, GitLab CI/CD, and Contabo. Features: JWT authentication, role-based access control (RBAC), Stripe payment processing, Firebase notifications, and Redis background queues."
+    "content": "Project Detail - Dental Interface 360: Dental Interface 360 is a multi-role dental SaaS platform built at Nandalala Infotech for Admin, Supplier, Practice and Professional users. Users can manage appointments, post news feed updates, create courses, and list supplies in an e-commerce style marketplace. The platform also uses a credit-based system. Tech stack: Frontend: Angular, Bootstrap. Backend: NestJS, GraphQL, Hasura, JWT. Database: PostgreSQL, Redis. DevOps and integrations: Docker, GitLab CI/CD, Contabo, Stripe, Firebase, Zoho BugTracker. Features: Appointments, News feed posts, Course creation, Supplies marketplace, e-commerce style, Credit-based system, JWT authentication and role-based access, Stripe payments, Firebase email notifications, Redis background jobs and queues, GraphQL APIs through Hasura on PostgreSQL, and CI/CD with Docker and GitLab on Contabo."
   },
   {
     "section": "projects",
-    "content": "Project Detail - Lala Invoice: A full-stack invoicing and billing management application for small to medium businesses. Built by Dhanush at Nandalala Infotech. Tech stack: React.js, Redux, JavaScript (ES6+), CSS3, Python REST APIs, and MongoDB. Features: Complete invoice CRUD operations, automated invoice status tracking (Paid, Pending, Overdue), and role-based access for Admin and User accounts."
+    "content": "Project Detail - Lala Invoice: Lala Invoice is a billing software. Users can add products, update product data, check billings and get invoices. It has separate Admin and User access. Tech stack: Frontend: React.js, Redux, Tailwind CSS. Backend: Python. Database: MongoDB. Tools: Tortoise Git. Features: Add products, Update product data, Check billings, Generate invoices, Invoice CRUD operations, Role-based access for Admin and User, and Predictable UI state with Redux."
   },
   {
     "section": "projects",
-    "content": "Project Detail - Viral Forge: An AI social media content generation and publishing web platform. Built by Dhanush as a freelance project. Tech stack: Angular, Tailwind CSS, Node.js, Express, Gemini API, and Facebook developer APIs. Features: AI image creation from text prompts, automated title, description, caption, and hashtag generation via Google Gemini API, and direct publishing to Facebook and Instagram."
+    "content": "Project Detail - Viral Forge: Viral Forge lets users manage social media posting from a single platform. Users can generate images with AI, automatically get a title, description, captions and hashtags for each image, and publish directly to their social media accounts. Tech stack: Frontend: Angular, Tailwind CSS. Backend: Node.js, Express. Database: MongoDB. AI and integrations: Gemini API (LLM), Facebook developer APIs. Features: Publish to multiple social platforms from a single dashboard, AI image creation from a text prompt, Content generated with an LLM (Gemini API), and direct posting to Facebook and Instagram through the Facebook developer APIs. Stored application data in MongoDB."
   },
   {
     "section": "projects",
-    "content": "Project Detail - Vignesh Metals: An e-commerce mobile application connecting buyers and sellers for metal products. Built by Dhanush as a freelance project. Tech stack: Ionic, React, Capacitor, Node.js APIs, and Android Studio. Features: Distinct Buyer and Seller roles, product listing and purchasing workflows, and packaged as an Android APK."
+    "content": "Project Detail - Vignesh Metals: Vignesh Metals is an e-commerce mobile application with two user roles. Sellers list their products and buyers browse and purchase them. The app was built with Ionic, React, and Tailwind CSS, connected to existing Node.js APIs, and packaged as an Android APK. Tech stack: Frontend: Ionic, React, Tailwind CSS. Backend: Node.js APIs (integrated). Database: MongoDB. Mobile: Capacitor, Android Studio. Features: Two user roles: Buyer and Seller, Sellers list products for sale, Buyers browse and buy products, Integrated with existing Node.js APIs, and Android APK built with Capacitor and Android Studio."
   },
   {
     "section": "projects",
-    "content": "Project Detail - CMS Website Builder: A no-code customizable website builder with visual drag-and-drop page design. Built by Dhanush as a freelance project. Tech stack: React, dnd kit, Tailwind CSS, Framer Motion, Node.js, Express, Multer, and Swagger. Features: Drag-and-drop designer, customizable UI components, Multer file uploads, and Swagger API documentation."
+    "content": "Project Detail - CMS Website Builder: A CMS-style website builder where pages are designed visually using drag and drop, in the spirit of WordPress and Framer, with fully customizable UI. Tech stack: Frontend: React, dnd kit, Tailwind CSS, Framer Motion. Backend: Node.js, Express, Multer, Swagger. Database: MongoDB. Features: Drag-and-drop page designer, customizable UI components, smooth interface animations with Framer Motion, Multer file uploads, and Swagger API documentation."
   },
   {
     "section": "projects",
-    "content": "Project Detail - Personal Portfolio: Dhanush's personal responsive portfolio website. Tech stack: React 19, TypeScript, Tailwind CSS, GSAP, React Router, Vite, and Netlify CI/CD. Features: Editorial typography layout (Space Grotesk and JetBrains Mono), persistent light and dark themes, deep-linked project detail pages (/projects), and NestJS backend integration."
+    "content": "Project Detail - Personal Portfolio: This portfolio is a full-stack site. The React frontend is deployed on Netlify. A NestJS backend on Render handles the contact form, saving messages to a Supabase database and sending email notifications, and also serves an AI assistant chatbot. Tech stack: Frontend: React, TypeScript, Tailwind CSS, React Router, GSAP. Backend: NestJS, Node.js. Database: Supabase (PostgreSQL). Integrations: Resend (email). Deployment: Netlify, Render. Features: Light and dark themes, Dedicated project detail pages, Responsive layout from phones to large desktops, Contact form that saves messages to Supabase and sends an email notification, and AI assistant chatbot."
   },
   {
     "section": "projects",
-    "content": "Project Detail - Face Emotion Detection: An academic computer vision and microcontroller integration project. Built by Dhanush. Tech stack: Python, OpenCV, Tkinter, NumPy, and Arduino microcontroller. Features: Real-time facial expression classification (happy, neutral, sad) and physical hardware feedback triggered via Arduino serial communication."
+    "content": "Project Detail - Face Emotion Detection: An academic project exploring facial emotion detection using Python with Arduino hardware integration. Tech stack: Software: Python. Hardware: Arduino. Cloud: Firebase. Features: Real-time facial emotion recognition using Python, Serial communication interface with Arduino, and Hardware response activation based on detected emotions."
   },
   {
     "section": "projects",
-    "content": "Question: What projects has Dhanush worked on? Dhanush worked projects? List all projects? What projects has he built? Enna projects pannirukaru? Projcts? Prject?\nAnswer: Dhanush has built 7 key projects:\n1. Dental Interface 360 (Multi-role dental SaaS; Angular, NestJS, GraphQL, Stripe)\n2. Lala Invoice (Invoicing and billing app; React, Redux, Python, MongoDB)\n3. Viral Forge (AI social media generator; Angular, Node.js, Gemini API)\n4. Vignesh Metals (E-commerce mobile app; Ionic, React, Android APK)\n5. CMS Website Builder (Drag-and-drop builder; React, dnd kit, Node.js)\n6. Personal Portfolio (Responsive website; React 19, Tailwind, GSAP)\n7. Face Emotion Detection (Computer vision & Arduino microcontroller)\nYou can view all details on the /projects page."
+    "content": "Project Detail - College Bus Tracking System: A college project to track college buses, built as a mobile application with Flutter and Arduino hardware. Tech stack: Mobile: Flutter. Hardware: Arduino. Features: Mobile application built with Flutter, Arduino hardware integration, and Bus tracking system for a college."
+  },
+  {
+    "section": "projects",
+    "content": "Project Detail - Movie Search App: A web application built with React as a learning project. It searches for movies using the IMDb API. Tech stack: Frontend: React. API: IMDb API. Features: Search for movies, and Movie data fetched from the IMDb API."
+  },
+  {
+    "section": "projects",
+    "content": "Question: What projects has Dhanush worked on? Dhanush worked projects? List all projects? What projects has he built? Enna projects pannirukaru? Projcts? Prject?\nAnswer: Dhanush has built 9 projects:\n1. Dental Interface 360 (Multi-role dental SaaS platform; Angular, Bootstrap, NestJS, GraphQL, Stripe)\n2. Lala Invoice (Billing software; React.js, Redux, Tailwind CSS, Python, MongoDB)\n3. Viral Forge (AI social media generator; Angular, Tailwind CSS, Node.js, Gemini API)\n4. Vignesh Metals (E-commerce mobile app; Ionic, React, Tailwind CSS, Android APK)\n5. CMS Website Builder (Drag-and-drop builder; React, dnd kit, Tailwind CSS, Node.js, MongoDB)\n6. Personal Portfolio (Full-stack web app; React, NestJS, Supabase, Netlify, Render)\n7. Face Emotion Detection (Computer vision & Arduino microcontroller; Python, Arduino, Firebase)\n8. College Bus Tracking System (Mobile bus tracking app; Flutter, Arduino)\n9. Movie Search App (Movie search web app; React, IMDb API)\nYou can view all details on the /projects page."
   },
   {
     "section": "projects",
@@ -81,11 +89,11 @@
   },
   {
     "section": "skills",
-    "content": "Complete Technical Skills Summary of Dhanush M:\n- Frontend: Angular, React.js, Redux, TypeScript, JavaScript (ES6+), HTML5, CSS3, SCSS, Tailwind CSS, Bootstrap, Ionic, GSAP animations.\n- Backend & APIs: Node.js, NestJS, Express.js, Python, PHP, REST APIs, GraphQL, Hasura, JWT authentication, Role-Based Access Control (RBAC).\n- Databases: PostgreSQL, MongoDB, SQL relational modeling, Redis caching & queues.\n- DevOps & Deployment: Docker, GitLab CI/CD, Git, GitHub, GitLab, TortoiseGit, Contabo cloud servers, Render, Netlify.\n- Tools & Testing: Postman, Zoho BugTracker, VS Code, Android Studio.\n- Integrations & AI: Stripe, Firebase, Gemini API, LLM Integration, RAG architectures, Claude Code, OpenAI Codex, Antigravity."
+    "content": "Complete Technical Skills Summary of Dhanush M:\n- Frontend: Angular, React.js, Redux, TypeScript, JavaScript (ES6+), HTML5, CSS3, SCSS, Tailwind CSS, Bootstrap, Ionic, Flutter, GSAP animations.\n- Backend & APIs: Node.js, NestJS, Express.js, Python, PHP, REST APIs, GraphQL, Hasura, JWT authentication, Role-Based Access Control (RBAC).\n- Databases: PostgreSQL, MongoDB, Supabase, SQL relational modeling, Redis caching & queues.\n- DevOps & Deployment: Docker, GitLab CI/CD, Git, GitHub, GitLab, TortoiseGit, Contabo cloud servers, Render, Netlify.\n- Tools & Testing: Postman, Zoho BugTracker, VS Code, Android Studio.\n- Integrations & AI: Stripe, Firebase, Gemini API, LLM Integration, RAG architectures, Claude Code, OpenAI Codex, Antigravity."
   },
   {
     "section": "skills",
-    "content": "Frontend Engineering Skills: Dhanush is proficient in Angular, React.js, Redux for state management, TypeScript, JavaScript (ES6+), HTML5, CSS3, SCSS, Tailwind CSS, Bootstrap, Ionic for cross-platform apps, and GSAP for fluid animations."
+    "content": "Frontend Engineering Skills: Dhanush is proficient in Angular, React.js, Redux for state management, TypeScript, JavaScript (ES6+), HTML5, CSS3, SCSS, Tailwind CSS, Bootstrap, Ionic, Flutter for mobile apps, and GSAP for fluid animations."
   },
   {
     "section": "skills",
@@ -93,7 +101,7 @@
   },
   {
     "section": "skills",
-    "content": "Database Expertise: Dhanush works with PostgreSQL for relational schemas and pgvector semantic embeddings, MongoDB for NoSQL document storage, SQL query optimization, and Redis for in-memory caching and message queues."
+    "content": "Database Expertise: Dhanush works with PostgreSQL for relational schemas and pgvector semantic embeddings, MongoDB for NoSQL document storage, Supabase, SQL query optimization, and Redis for in-memory caching and message queues."
   },
   {
     "section": "skills",
@@ -101,7 +109,7 @@
   },
   {
     "section": "skills",
-    "content": "Question: What skills does Dhanush have? What is his tech stack? Skils? Skilz? What technologies does he know?\nAnswer: Dhanush works across the full stack. His core languages and frameworks include TypeScript, JavaScript, Angular, React.js, Node.js, NestJS, Python, PostgreSQL, and MongoDB. He is also skilled in Docker, GraphQL/Hasura, Redis, and Gemini AI integration."
+    "content": "Question: What skills does Dhanush have? What is his tech stack? Skils? Skilz? What technologies does he know?\nAnswer: Dhanush works across the full stack. His core languages and frameworks include TypeScript, JavaScript, Angular, React.js, Flutter, Node.js, NestJS, Python, PostgreSQL, MongoDB, and Supabase. He is also skilled in Docker, GraphQL/Hasura, Redis, and Gemini AI integration."
   },
   {
     "section": "skills",

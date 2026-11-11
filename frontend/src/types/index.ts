@@ -6,6 +6,8 @@ export type VisualType =
   | 'cms'
   | 'portfolio'
   | 'emotion'
+  | 'bustracker'
+  | 'movies'
   | 'generic'
 
 export type ProjectType = 'company' | 'freelance' | 'personal' | 'college'
