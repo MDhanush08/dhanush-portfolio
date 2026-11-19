@@ -6,6 +6,7 @@ import { ScrollManager } from './components/layout/ScrollManager'
 import { ChatbotWidget } from './components/chatbot/ChatbotWidget'
 import { BackToTop } from './components/ui/BackToTop'
 import Home from './pages/Home'
+import { useBackendWakeup } from './hooks/useBackendWakeup'
 
 // Lazy loaded routes with Suspense skeleton
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage'))
@@ -25,6 +26,7 @@ function ProjectDetailSkeleton() {
 }
 
 export default function App() {
+  useBackendWakeup()
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   return (
